@@ -95,7 +95,7 @@ def SotreDetail(request, pk):
         'store': store,
         #'reviews':reviews
     }
-    template_name= 'user/store_detail.html'
+    template_name = 'user/store_detail.html'
     return render(request, template_name, context)
 
 

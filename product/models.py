@@ -1,6 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
-from category.models import Category, TagProduct
+from category.models import Category, TagProduct, RecommendProduct
 
 
 class Product(models.Model):
@@ -8,7 +8,9 @@ class Product(models.Model):
     title = models.CharField(max_length=100, blank=True, default='')
     category = models.ManyToManyField(Category, 
                                       related_name='product_category')
-    photo = models.ImageField(upload_to='media/uploads/products/')
+    recommend_product = models.ManyToManyField(RecommendProduct, 
+                                      related_name='product_recommend')
+    photo = models.ImageField(upload_to='media/uploads/products/', help_text='image size nice to be 300*338')
     product_short_desc = models.TextField()
     price = models.FloatField()
     description = RichTextField(blank=True, default='')

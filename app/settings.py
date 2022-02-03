@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-jyp^fvjt0sr)_wm9diqw35*k6mw!3*=wl@8r2$hwhsfcu%-n-5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -82,16 +82,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-DATABASES = {
+if DEBUG :
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
+else :
+    DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd4bk5tdd74h4lo',
+        'USER': 'msostwllmtjclz',
+        'PASSWORD': '03842015e1d79b635ec3ee6d7b6eb9c07c660252ea5e2e7cc805e683aa5b8c7b',
+        'HOST': 'ec2-54-74-35-87.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
     }
 }
+
 
 
 # Password validation
@@ -142,7 +151,6 @@ CKEDITOR_BASEPATH = "static/ckeditor/ckeditor/"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
@@ -152,7 +160,7 @@ REST_FRAMEWORK = {
 }
 
 LOGIN_URL = 'login/'
-LOGIN_REDIRECT_URL = 'profile'
+LOGIN_REDIRECT_URL = 'home_page'
 LOGOUT_REDIRECT_URL = '/'
 CORS_ALLOW_ALL_ORIGINS = True 
 
