@@ -6,13 +6,14 @@ from django.db import IntegrityError
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template.loader import get_template
 from django.urls import reverse
+from django.views import View
 from django.views.generic import FormView
-
+from django.contrib import messages
 from product.models import Product
 from .models import ProfileUser
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from rest_framework import generics
-from .froms import RegisterForm
+from .froms import ProfileForm, RegisterForm
 from user import serializers 
 from app import settings
 from .serializers import ProfileSerializer
@@ -36,42 +37,16 @@ class ProfileView(generics.ListAPIView):
 
 
 def RegisterUser(request):
-    return render(request,'registration/register.html')
-
-
-def register_new_user(form, request):
-    existing_user = User.objects.filter(email=form.cleaned_data['email'])
-
-    if existing_user.exists():
-        password_reset_url = request.scheme + '://' + request.get_host() + reverse('password_reset')
-        existing_user.first().email_user(get_template('emails/already_registered_subject.txt').render(context={'site_name': settings.SITE_NAME}),
-                                         get_template('emails/already_registered.html').render(context={'password_reset_url': password_reset_url}))
-        raise IntegrityError("Email already exists: %s" % form.cleaned_data['email'])
-    else:
-        # Create and log in user
-        newly_created_user = User.objects.create_user(
-            username=form.cleaned_data['username'],
-            email=form.cleaned_data['email'],
-            password=form.cleaned_data['password'],
-            first_name=form.cleaned_data['first_name'],
-            last_name=form.cleaned_data['last_name'])
-        login(request, newly_created_user)
-
-
-class RegisterView(FormView):
-    template_name = 'registration/register.html'
-    form_class = RegisterForm
-    success_url = '/'
-
-    def form_valid(self, form):
-
-        try:
-            register_new_user(form, self.request)
-            messages.success(self.request, 'Thank you for registering. You have been automatically logged in.')
-            return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
-        except IntegrityError as e:
-            print("Error when registering a new user: %s" % e)
-            return HttpResponse(get_template('registration/registration_complete.html').render())
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+                user = form.save()
+                login(request, user)
+                messages.success(request, "Registration successful." )
+                return redirect("/")
+        messages.error(request, "Unsuccessful registration. Invalid information.")
+    form = RegisterForm()
+    return render(request,'registration/register.html', context={"register_form":form})
 
 
 def StoreView(request):
@@ -102,4 +77,33 @@ def SotreDetail(request, pk):
 def BecomeVendor(request):
     context = {}
     template_name= 'user/BecomeVendor.html'
+    return render(request, template_name, context)
+
+
+def  AccountSetting(request):
+    if request.method == 'POST':
+        #u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileForm(request.POST, request.FILES, instance=request.user.vendor_profile) 
+        if p_form.is_valid():
+            #u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('account_setting') # Redirect back to profile page
+    else:
+        #u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileForm(instance=request.user.vendor_profile)
+
+    context = {
+        'ProfileForm': p_form
+    }
+
+    return render(request, 'user/myaccount.html', context)
+
+
+def StoreProducts(request):
+    products = Product.objects.filter(vendor = request.user)
+    template_name = 'user/account_layout/products.html'
+    context = {
+        'products': products
+    }
     return render(request, template_name, context)

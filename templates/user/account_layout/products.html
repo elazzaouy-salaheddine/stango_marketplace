@@ -1,0 +1,67 @@
+{% extends "base/layout.html" %}
+{% load static %}
+{% block content %}
+
+<main class="main">
+    <!-- Start of Page Header -->
+
+    {% include './nav_bar_account.html' %}
+    <!-- Start of PageContent -->
+    <div class="page-content pt-2">
+        <div class="container">
+    
+
+            <section>
+                <h2 class="title title-center mb-5 ls-15">My Products</h2>
+                <div class="row show-code-action">
+
+                    {% for product in products %}
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="product text-center">
+                            <figure class="product-media">
+                                <a href="product-default.html">
+                                    <img src={{product.photo.url}} alt="Product" width="295"
+                                        height="335" />
+                                </a>
+                                <div class="product-label-group">
+                                    <label class="product-label label-discount">200 sales</label>
+                                </div>
+                                <div class="product-action-horizontal">
+                                    <a href="#" class="btn-product-icon btn-cart "
+                                        title="Add to cart"><i class='fa fa-pen'></i> </a>
+                                    <a href="#" class="btn-product-icon btn-wishlist "
+                                        title="Wishlist"><i class="fa fa-trash"></i></a>
+
+                                </div>
+                            </figure>
+                            <div class="product-details">
+                                <h3 class="product-name">
+                                    <a href="product-default.html">{{product.title}}</a>
+                                </h3>
+                                <div class="ratings-container">
+                                    <div class="ratings-full">
+                                        <span class="ratings" style="width: 100%;"></span>
+                                        <span class="tooltiptext tooltip-top"></span>
+                                    </div>
+                                    <a href="product-default.html" class="rating-reviews">(3 reviews)</a>
+                                </div>
+                                <div class="product-pa-wrapper">
+                                    <div class="product-price">
+                                        <ins class="new-price">${{product.price}}</ins>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  {% endfor %}
+                </div>
+            </section>
+
+
+        </div>
+    </div>
+    <!-- End of PageContent -->
+</main>
+
+
+{%endblock content%}

@@ -1,0 +1,53 @@
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title mb-0">My Account</h1>
+    </div>
+</div>
+<!-- End of Page Header -->
+
+<!-- Start of Breadcrumb -->
+<nav class="breadcrumb-nav">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="demo1.html">Home</a></li>
+            <li>My account</li>
+        </ul>
+    </div>
+</nav>
+<!-- End of Breadcrumb -->
+
+<div class="header-bottom sticky-contentsticky-header has-dropdown" style="background: #fe9100;">
+    <div class="container">
+        <div class="inner-wrap">
+            <div class="header-left">
+
+                <nav class="main-nav">
+                    <ul class="menu ">
+                        <li class="active">
+                            <a href=" #">Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#">Orders</a>
+
+                        </li>
+                        <li>
+                            <a href="{% url 'store_products' %} ">Products</a>
+                        </li>
+
+                        <li>
+                            <a href="# ">Account details</a>
+
+                        </li>
+                        <li>
+                            <a href=" {% url 'account_setting' %}">Store details</a>
+                        </li>
+                        <li>
+                            <a href=" {% url 'store_detail' request.user.vendor_profile.id %}">My Store</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+          
+        </div>
+    </div>
+</div>

@@ -6,20 +6,24 @@ from ckeditor.fields import RichTextField
 
 
 class ProfileUser(models.Model):
-    store_name = models.CharField(max_length=100, blank=False, default='', unique=True)
-    sotre_banner = models.ImageField(upload_to='media/uploads/vendors')
-    sotre_logo = models.ImageField(upload_to='media/uploads/vendors')
+    store_name = models.CharField(max_length=100, blank=True,null=False, default='store name', unique=True, error_messages ={
+                    "unique":"The store must be unique "
+                    })
+    sotre_banner = models.ImageField(upload_to='media/uploads/vendors', default= 'default/image.jpg')
+    sotre_logo = models.ImageField(upload_to='media/uploads/vendors', default= 'default/image.jpg')
     email = models.EmailField(null=True, blank=True, unique=True)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
     city = models.CharField(max_length=255, null=True, blank=True)
     description = RichTextField(blank=True, default='')
-    vendor = models.ForeignKey('auth.User', related_name='vendor_profile',
+    vendor = models.OneToOneField('auth.User', related_name='vendor_profile',
                             on_delete=models.CASCADE)
     product = models.ManyToManyField(Product,
                             related_name='vendor_products')
-    Shipping_Policy= RichTextField(blank=True, default='')
-    Refund_Policy= RichTextField(blank=True, default='')
-    Return_Policy= RichTextField(blank=True, default='')
+    Shipping_Policy = RichTextField(blank=True, default='')
+    Refund_Policy = RichTextField(blank=True, default='')
+    Return_Policy = RichTextField(blank=True, default='')
+    
+    
     class Meta:
         verbose_name_plural = 'vendor_profile'
 

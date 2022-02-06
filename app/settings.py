@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-jyp^fvjt0sr)_wm9diqw35*k6mw!3*=wl@8r2$hwhsfcu%-n-5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'order',
     'customer',
     'comment',
-    'category',
+    'category'
 ]
 
 MIDDLEWARE = [
@@ -90,6 +90,12 @@ if DEBUG :
             "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
         }
     }
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+    STATIC_URL = 'static/'
+    CKEDITOR_BASEPATH = "static/ckeditor/ckeditor/"
+    MEDIA_URL = 'media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 else :
     DATABASES = {
     'default': {
@@ -98,9 +104,24 @@ else :
         'USER': 'msostwllmtjclz',
         'PASSWORD': '03842015e1d79b635ec3ee6d7b6eb9c07c660252ea5e2e7cc805e683aa5b8c7b',
         'HOST': 'ec2-54-74-35-87.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
+        'PORT': '5432',}
     }
-}
+    AWS_ACCESS_KEY_ID = 'AKIASFYOKGCQZDFZD4ST'
+    AWS_SECRET_ACCESS_KEY = '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'
+    AWS_STORAGE_BUCKET_NAME = 'stango-static-django'
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+        }
+    AWS_LOCATION = 'static'
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+    STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    CKEDITOR_BASEPATH = "static/ckeditor/ckeditor/"
+    DEFAULT_FILE_STORAGE = 'app.storage_backends.MediaStorage'
+    MEDIA_URL = 'media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 
@@ -135,18 +156,8 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
-
-MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
-CKEDITOR_BASEPATH = "static/ckeditor/ckeditor/"
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 

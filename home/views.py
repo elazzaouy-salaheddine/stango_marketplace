@@ -1,3 +1,4 @@
+from re import template
 from django.shortcuts import render
 from product.models import Product
 from user.models import ProfileUser
@@ -28,4 +29,12 @@ def Home(request):
         'product_electric_recommend': product_electric_recommend,
         'product_garden_recommend': product_garden_recommend
         }
+    return render(request, template_name, context)
+
+
+def AboutUs(request):
+    template_name= 'home/about_us.html'
+    context = {
+        
+    }
     return render(request, template_name, context)
