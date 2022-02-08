@@ -61,14 +61,9 @@ def StoreView(request):
 def SotreDetail(request, pk):
     store = get_object_or_404(ProfileUser, pk=pk)
     store_products = Product.objects.filter(vendor=store.vendor)
-    
-    #reviews = Comment.objects.filter(product=store_products)
-    #print('++++++++++++++++++++++++++++')
-    #print(reviews)
     context = {
         'store_products': store_products,
-        'store': store,
-        #'reviews':reviews
+        'store': store
     }
     template_name = 'user/store_detail.html'
     return render(request, template_name, context)

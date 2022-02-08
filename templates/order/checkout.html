@@ -1,0 +1,187 @@
+{% extends "base/layout.html" %}
+{% load static %}
+{% block content%}
+
+<main class="main checkout">
+    <!-- Start of Breadcrumb -->
+    <nav class="breadcrumb-nav">
+        <div class="container">
+            <ul class="breadcrumb shop-breadcrumb bb-no">
+                <li class="passed"><a href="cart.html">Shopping Cart</a></li>
+                <li class="active"><a href="checkout.html">Checkout</a></li>
+                <li><a href="order.html">Order Complete</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- End of Breadcrumb -->
+
+
+    <!-- Start of PageContent -->
+    <div class="page-content">
+        <div class="container">
+
+            <form class="form checkout-form" action="#" method="post">
+                
+                <div class="row mb-9">
+                    <div class="col-lg-7 pr-lg-4 mb-4">
+                        <h3 class="title billing-title text-uppercase ls-10 pt-1 pb-3 mb-0">
+                            Billing Details
+                        </h3>
+                        <div class="row gutter-sm" id='user-info'>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label>First name *</label>
+                                    <input type="text" class="form-control form-control-md" name="email"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label>Email *</label>
+                                    <input type="email" class="form-control form-control-md" name="lastname"
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+                        <div id='shipping-info'>
+
+                        <div class="form-group">
+                            <label>Street address *</label>
+                            <input type="text" placeholder="House number and street name"
+                                class="form-control form-control-md mb-2" name="street-address-1" required>
+                            <input type="text" placeholder="Apartment, suite, unit, etc. (optional)"
+                                class="form-control form-control-md" name="street-address-2" required>
+                        </div>
+                        <div class="row gutter-sm">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Town / City *</label>
+                                    <input type="text" class="form-control form-control-md" name="town" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>ZIP *</label>
+                                    <input type="text" class="form-control form-control-md" name="zip" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone Number *</label>
+                                    <input type="text" class="form-control form-control-md" name="phone" required>
+                                </div>
+                            </div>
+
+                        </div>
+
+                       </div>
+
+                        <div class="form-group mt-3">
+                            <label for="order-notes">Order notes (optional)</label>
+                            <textarea class="form-control mb-0" id="order-notes" name="order-notes" cols="30"
+                                rows="4"
+                                placeholder="Notes about your order, e.g special notes for delivery"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 mb-4 sticky-sidebar-wrapper">
+                        <div class="order-summary-wrapper sticky-sidebar">
+                            <h3 class="title text-uppercase ls-10">Your Order</h3>
+                            <div class="order-summary">
+                                <table class="order-table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">
+                                                <b>Product</b>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        {% for item in items  %}
+                                        <tr class="bb-no">
+                                            <td class="product-name">{{item.product.title}}<i
+                                                    class="fas fa-times"></i> <span
+                                                    class="product-quantity">{{item.quantity}}</span></td>
+                                            <td class="product-total">$ {{item.get_total|floatformat:2}}</td>
+                                        </tr>
+                                       {% endfor %}
+                                        {% comment %} <tr class="cart-subtotal bb-no">
+                                            <td>
+                                                <b>Subtotal</b>
+                                            </td>
+                                            <td>
+                                                <b>$100.00</b>
+                                            </td>
+                                        </tr> {% endcomment %}
+                                    </tbody>
+                                    <tfoot>
+                                       {% comment %}  <tr class="shipping-methods">
+                                            <td colspan="2" class="text-left">
+                                                <h4 class="title title-simple bb-no mb-1 pb-0 pt-3">Shipping
+                                                </h4>
+                                                <ul id="shipping-method" class="mb-4">
+                                                    <li>
+                                                        <div class="custom-radio">
+                                                            <input type="radio" id="free-shipping"
+                                                                class="custom-control-input" name="shipping">
+                                                            <label for="free-shipping"
+                                                                class="custom-control-label color-dark">Free
+                                                                Shipping</label>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="custom-radio">
+                                                            <input type="radio" id="local-pickup"
+                                                                class="custom-control-input" name="shipping">
+                                                            <label for="local-pickup"
+                                                                class="custom-control-label color-dark">Local
+                                                                Pickup</label>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="custom-radio">
+                                                            <input type="radio" id="flat-rate"
+                                                                class="custom-control-input" name="shipping">
+                                                            <label for="flat-rate"
+                                                                class="custom-control-label color-dark">Flat
+                                                                rate: $5.00</label>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr> {% endcomment %}
+                                        <tr class="order-total">
+                                            <th>
+                                                <b>Total</b>
+                                            </th>
+                                            <td>
+                                                <b>$ {{order.get_cart_total|floatformat:2}}</b>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+
+                                
+
+                                <div class="form-group place-order pt-6">
+                                    <button type="submit" class="btn btn-dark btn-block btn-rounded">Place Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- End of PageContent -->
+</main>
+
+
+<script type='text/javascript' >
+
+    var shipping ='{{order.shipping}}'
+
+    if(shipping =='False'){
+        document.getElementById('shipping-info').innerHTML=''
+    }
+    if(user !='AnonymousUser'){
+        document.getElementById('user-info').innerHTML=''
+    }
+</script>
+{% endblock %}

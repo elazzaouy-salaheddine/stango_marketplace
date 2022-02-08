@@ -135,7 +135,7 @@
                                 </div>
 
                                 <hr class="product-divider mb-5">
-{% comment %}                                 <div class="fix-bottom product-sticky-content sticky-content">
+                                
                                     <div class="product-form container">
                                         <div class="product-qty-form">
                                             <div class="input-group">
@@ -144,13 +144,16 @@
                                                 <button class="quantity-plus w-icon-plus"></button>
                                                 <button class="quantity-minus w-icon-minus"></button>
                                             </div>
+                                            
                                         </div>
-                                        <button class="btn btn-primary btn-cart">
-                                            <i class="w-icon-cart"></i>
-                                            <span>Add to Cart</span>
-                                        </button>
+                                        <div class='product-qty-form'>
+                                            <button data-product="{{product.id}}" data-action="add" class="btn btn-primary update-cart">
+                                                <i class="w-icon-cart"></i>
+                                                <span>Add to Cart</span>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div> {% endcomment %}
+                                
 
                                 <div class="social-links-wrapper">
                                     <div class="social-links">
@@ -194,10 +197,7 @@
                             </div>
 
                             <div class="tab-pane" id="product-tab-vendor">
-                               
-                                {% for vendor in product.vendor_products.all %}
-                                
-                                
+                                sdgdsdssdghsd
                                 {% comment %} ggggggggggggggggggggggggggggg {% endcomment %}
                                 <div class="row mb-3">
                                     <div class="col-md-6 mb-4">
@@ -216,7 +216,7 @@
                                                 </a>
                                             </figure>
                                             <div>
-                                                <div class="vendor-name"><a href="#">Jone Doe</a></div>
+                                                <div class="vendor-name"><a href="#">{{vendor.store_name}}</a></div>
                                                 <div class="ratings-container">
                                                     <div class="ratings-full">
                                                         <span class="ratings" style="width: 90%;"></span>
@@ -240,17 +240,17 @@
                                                 <a href="#tel:">{{vendor.phone_number}}</a>
                                             </li>
                                         </ul>
-                                        <a href="{% url 'store_detail' vendor.id %}"
+                                        <a href="#"
                                             class="btn btn-dark btn-link btn-underline btn-icon-right">Visit
                                             Store<i class="w-icon-long-arrow-right"></i></a>
                                     </div>
                                 </div>
                                 <p class="mb-5">{{vendor.description}}
                                 </p>
-                                
+                               
                             </div>
                             {% comment %} ggggggggggggggggggggggggggggg {% endcomment %}
-                            {% endfor %}
+                           
 
                             <div class="tab-pane" id="product-tab-reviews">
                                 <div class="row mb-4">
@@ -435,7 +435,7 @@
                     <section class="vendor-product-section">
                         <div class="title-link-wrapper mb-4">
                             <h4 class="title text-left">More Products From This Vendor</h4>
-                            <a href="#" class="btn btn-dark btn-link btn-slide-right btn-icon-right">More
+                            <a href="# " class="btn btn-dark btn-link btn-slide-right btn-icon-right">More
                                 Products<i class="w-icon-long-arrow-right"></i></a>
                         </div>
                         <div class="swiper-container swiper-theme" data-swiper-options="{

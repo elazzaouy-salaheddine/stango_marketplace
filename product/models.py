@@ -13,6 +13,7 @@ class Product(models.Model):
     photo = models.ImageField(upload_to='media/uploads/products/', help_text='image size nice to be 300*338')
     product_short_desc = models.TextField()
     price = models.FloatField()
+    digital = models.BooleanField(default=False, null=True, blank=False)
     description = RichTextField(blank=True, default='')
     color = models.CharField(null=True, blank=True, max_length=255)
     size = models.CharField(null=True, blank=True, max_length=255)

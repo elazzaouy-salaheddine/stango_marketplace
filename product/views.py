@@ -2,6 +2,7 @@ from django.http import request
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView, DetailView 
 from rest_framework import generics
+from user.models import ProfileUser
 
 from category.models import Brand, Category
 from .models import Product
@@ -42,10 +43,14 @@ def ProductsListViews(request):
 def ProductDetailViews(request, pk):
     product = get_object_or_404(Product, pk=pk)
     porducts_related_store = Product.objects.filter(vendor=product.vendor.id)
-    #teged_products = Product.objects.filter(tag=product.tag.id)
+    
+    vendor = ProfileUser.objects.filter(vendor = product.vendor)
+    print('-----------------------------')
+    print(vendor)
     template_name = 'shop/product_detail.html'
     context = {
         'product': product,
-        'porducts_related_store':porducts_related_store
+        'porducts_related_store':porducts_related_store,
+        'vendor':vendor
     }
     return render(request, template_name, context=context)
