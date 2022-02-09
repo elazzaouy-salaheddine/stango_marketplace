@@ -1,9 +1,6 @@
-from argparse import Action
-from asyncio import proactor_events
-from itertools import product
+import datetime
 import json
-from math import prod
-from platform import java_ver
+from re import template
 from django.http import JsonResponse
 from django.shortcuts import render
 from .models import *
@@ -66,9 +63,39 @@ def updateItem(request):
         orderItem.quantity = (orderItem.quantity - 1)
     orderItem.save()
     
-    if orderItem.quantity<=0:
+    if orderItem.quantity <= 0:
         orderItem.delete()    
     return JsonResponse('item was added', safe=False)
 
+
 def orderComplet(request):
-    return JsonResponse('payement complte')
+    date_order = datetime.datetime.now()
+    data =json.loads(request.body)
+    if request.user.is_authenticated:
+        custemer = request.user.custemer
+        order, created = Order.objects.get_or_create(custemer=custemer, complete=False)
+        total = float(data['form']['total'])
+        order.date = date_order
+        if total == float(order.get_cart_total):
+            order.complete = True
+        order.save()    
+        print('------------------------------------------------------')
+        print(order)
+        if order.shipping == True:
+            ShippingAddress.objects.create(
+                custemer = custemer,
+                order = order,
+                address = data['shipping']['address'],
+                city = data['shipping']['city']
+            )
+        
+    else :
+        print('user is not logged in')
+    return JsonResponse('order complte', safe=False)
+
+def orderViews(request):
+    template_name ='order/order_complet.html'
+    context = {
+        
+    }
+    return render(request, template_name, context)

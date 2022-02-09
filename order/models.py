@@ -9,6 +9,7 @@ class Custemer(models.Model):
                                 null=True, blank=True, related_name='custemer')
     name = models.CharField(max_length=25, null=True)
     email = models.EmailField()
+    phone_number = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
@@ -62,7 +63,6 @@ class ShippingAddress(models.Model):
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
     address = models.CharField(max_length=255, null=False)
     city = models.CharField(max_length=255, null=False)
-    state = models.CharField(max_length=255, null=True)
     date_add = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
