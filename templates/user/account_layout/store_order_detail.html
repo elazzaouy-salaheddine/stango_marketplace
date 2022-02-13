@@ -1,0 +1,102 @@
+{% extends "base/layout.html" %}
+{% load static %}
+{% block content %}
+
+<main class="main">
+    <!-- Start of Page Header -->
+
+    {% include './nav_bar_account.html' %}
+    <!-- Start of PageContent -->
+    <div class="page-content pt-2">
+        <div class="container">
+    
+
+            <section>
+                <div class="tab-pane active order">
+                    <p class="mb-7">Order #962 was placed on April 30, 2021 and is currently On hold.</p>
+                    <div class="row"> 
+                    <div class="order-details-wrapper col-sm-8 mb-5">
+                        <h4 class="title text-uppercase ls-25 mb-5">Order Details</h4>
+                        <table class="order-table">
+                            <thead>
+                                <tr>
+                                    <th class="text-dark">Product</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for orderItem in orderItems %}                                
+                                <tr>
+                                    <td>
+                                        <a href=" # ">{{orderItem.product.title}}</a>&nbsp;<strong>x {{orderItem.quantity}}</strong><br>
+                                        
+                                    </td>
+                                    <td>{{orderItem.get_total|floatformat:2}} MAD</td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Subtotal:</th>
+                                    <td>{{order_total|floatformat:2}} MAD</td>
+                                </tr>
+                                <tr>
+                                    <th>Shipping:</th>
+                                    <td>Flat rate</td>
+                                </tr>
+
+                                <tr class="total">
+                                    <th class="border-no">Total:</th>
+                                    <td class="border-no">{{order_total|floatformat:2}} MAD</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- End of Order Details -->
+                    <div class="col-sm-4 mb-8">
+                        <div id="billing-account-addresses">  
+                            
+
+                                <div class="ecommerce-address shipping-address">
+                                    <h4 class="title title-underline ls-25 font-weight-bold">Shipping Address</h4>
+                                    <address class="mb-4">
+                                        <table class="address-table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{order.custemer.name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{order.custemer.phone_number}}</td>
+                                                </tr>
+                                                {% for item  in shippingaddres %}
+                                              
+                                                <tr>
+                                                    <td>{{item.address}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{item.city}}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </address>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Account Address -->
+
+                    <a href="#" class="btn btn-dark btn-rounded btn-icon-left btn-back mt-6 mb-6"><i class="w-icon-long-arrow-left"></i>Back To List</a>
+                </div>
+                
+            </section>
+
+
+        </div>
+    </div>
+    <!-- End of PageContent -->
+</main>
+
+
+{%endblock content%}

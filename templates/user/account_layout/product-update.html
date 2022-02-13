@@ -1,0 +1,26 @@
+{% extends "base/layout.html" %}
+{% load static %}
+{% block content %}
+
+<main class="main">
+    <!-- Start of Page Header -->
+
+    {% include './nav_bar_account.html' %}
+    <!-- Start of PageContent -->
+    <div class='container'>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{product_form.as_p}}
+            <button class="button is-success is-fullwidth is-medium mt-5"
+                    type="submit">add product
+            </button>
+        </form>
+   
+
+  
+    <!-- End of PageContent --></div>
+</main>
+
+
+{%endblock content%}

@@ -4,13 +4,14 @@ from product.models import Product
 from ckeditor.fields import RichTextField
 # Create your models here.
 
+from PIL import Image
 
 class ProfileUser(models.Model):
-    store_name = models.CharField(max_length=100, blank=True,null=False, default='store name', unique=True, error_messages ={
+    store_name = models.CharField(max_length=100, blank=True,null=False, unique=True, error_messages ={
                     "unique":"The store must be unique "
                     })
-    sotre_banner = models.ImageField(upload_to='media/uploads/vendors', default= 'default/image.jpg')
-    sotre_logo = models.ImageField(upload_to='media/uploads/vendors', default= 'default/image.jpg')
+    sotre_banner = models.ImageField(upload_to='media/uploads/vendors')
+    sotre_logo = models.ImageField(upload_to='media/uploads/vendors')
     email = models.EmailField(null=True, blank=True, unique=True)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
     city = models.CharField(max_length=255, null=True, blank=True)
@@ -27,5 +28,11 @@ class ProfileUser(models.Model):
     class Meta:
         verbose_name_plural = 'vendor_profile'
 
+    def save(self):
+        super().save()
+        self.sotre_banner = Image.open(self.sotre_banner.path)
+        self.sotre_logo = Image.open(self.sotre_logo.path)
+
+    
     def __str__(self):
         return self.store_name

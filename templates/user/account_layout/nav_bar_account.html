@@ -27,13 +27,15 @@
                             <a href=" #">Dashboard</a>
                         </li>
                         <li>
-                            <a href="#">Orders</a>
+                            <a href=" {% url 'store_orders' %} ">Orders</a>
 
                         </li>
                         <li>
                             <a href="{% url 'store_products' %} ">Products</a>
                         </li>
-
+                        <li>
+                            <a href="{% url 'store_product_create' %} ">add Product</a>
+                        </li>
                         <li>
                             <a href="# ">Account details</a>
 

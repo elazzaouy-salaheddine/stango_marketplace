@@ -94,8 +94,9 @@ if DEBUG :
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
     STATIC_URL = 'static/'
     CKEDITOR_BASEPATH = "static/ckeditor/ckeditor/"
-    MEDIA_URL = 'media/'
+    
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+    MEDIA_URL = 'media/'
 else :
     DATABASES = {
     'default': {

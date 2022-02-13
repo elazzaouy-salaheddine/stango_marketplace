@@ -27,13 +27,14 @@
                                     <label class="product-label label-discount">200 sales</label>
                                 </div>
                                 <div class="product-action-horizontal">
-                                    <a href="#" class="btn-product-icon btn-cart "
+                                    <a href=" {% url 'store_product_update' pk=product.id %} " class="btn-product-icon "
                                         title="Add to cart"><i class='fa fa-pen'></i> </a>
-                                    <a href="#" class="btn-product-icon btn-wishlist "
+                                    <a href="{% url 'store_product_delete' pk=product.id %}" class="btn-product-icon"
                                         title="Wishlist"><i class="fa fa-trash"></i></a>
 
                                 </div>
                             </figure>
+                            
                             <div class="product-details">
                                 <h3 class="product-name">
                                     <a href="product-default.html">{{product.title}}</a>

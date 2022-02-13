@@ -1,9 +1,11 @@
+from pyexpat import model
 from django.core.exceptions import ValidationError
 from django.forms import Form, CharField, EmailField, PasswordInput
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 from .models import ProfileUser
+from product.models import Product
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -28,5 +30,10 @@ class ProfileForm(forms.ModelForm):
         store_name = data.get("store_name")
         qs = ProfileUser.objects.filter(store_name__iexact=store_name).exclude(store_name__iexact=store_name)
         if qs.exists():
-            self.add_error("store_name", f"\"{store_name}\" is already in use. Please pick another store name.")
+            forms.ValidationError("store_name", f"\"{store_name}\" is already in use. Please pick another store name.")
         return data
+
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        exclude = ['vendor','recommend_product']

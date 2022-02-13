@@ -1,47 +1,39 @@
 import datetime
 import json
+from math import prod
 from re import template
 from django.http import JsonResponse
 from django.shortcuts import render
 from .models import *
+from .utils import cookieCart, cartData, guestOrder
+
+from django.views.decorators.csrf import csrf_protect
 # Create your views here.
 
 
 def cart(request):
-    if request.user.is_authenticated:
-        custemer = request.user.custemer
-        order, created = Order.objects.get_or_create(custemer=custemer, complete=False)
-        items = order.orderitem_set.all()
-    else:
-        items = []
-        order = {
-            'get_cart_total' : 0,
-            'get_cart_items' : 0,
-            'shipping':False
-            }
+    data = cartData(request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items'] 
     context = {
         'items': items,
-        'order': order
+        'order': order,
+        'cartItems': cartItems
     }
     template_name = 'order/cart.html'
     return render(request, template_name, context)
 
 
 def checkout(request):
-    if request.user.is_authenticated:
-        custemer = request.user.custemer
-        order, created = Order.objects.get_or_create(custemer=custemer, complete=False)
-        items = order.orderitem_set.all()
-    else:
-        items = []
-        order = {
-            'get_cart_total': 0,
-            'get_cart_items': 0,
-            'shipping':False
-            }
+    data = cartData(request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
     context = {
         'items': items,
-        'order': order
+        'order': order,
+        'cartItems':cartItems
     }
     template_name = 'order/checkout.html'
     return render(request, template_name, context)
@@ -67,31 +59,31 @@ def updateItem(request):
         orderItem.delete()    
     return JsonResponse('item was added', safe=False)
 
-
+@csrf_protect
 def orderComplet(request):
     date_order = datetime.datetime.now()
     data =json.loads(request.body)
     if request.user.is_authenticated:
         custemer = request.user.custemer
         order, created = Order.objects.get_or_create(custemer=custemer, complete=False)
-        total = float(data['form']['total'])
-        order.date = date_order
-        if total == float(order.get_cart_total):
-            order.complete = True
-        order.save()    
-        print('------------------------------------------------------')
-        print(order)
-        if order.shipping == True:
-            ShippingAddress.objects.create(
-                custemer = custemer,
-                order = order,
-                address = data['shipping']['address'],
-                city = data['shipping']['city']
-            )
         
-    else :
-        print('user is not logged in')
+    else:
+        custemer, order = guestOrder(request, data)
+    total = float(data['form']['total'])
+    order.date = date_order
+    if total == float(order.get_cart_total):
+            order.complete = True
+    order.save()
+    if order.shipping == True:
+        ShippingAddress.objects.create(
+            custemer = custemer,
+            order = order,
+            address = data['shipping']['address'],
+            city = data['shipping']['city']
+            )
+    
     return JsonResponse('order complte', safe=False)
+
 
 def orderViews(request):
     template_name ='order/order_complet.html'

@@ -21,7 +21,7 @@
         <div class="container">
 
             <form id='form' class="form checkout-form" action="#" method="post">
-              
+              {% csrf_token %}
                 <div class="row mb-9">
                     <div class="col-lg-7 pr-lg-4 mb-4">
                         <h3 class="title billing-title text-uppercase ls-10 pt-1 pb-3 mb-0">
@@ -181,7 +181,6 @@
 
     form.addEventListener('submit', function(e){
         e.preventDefault()
-        console.log('fomr submited')
         submitFormData()
     })
     
@@ -218,8 +217,8 @@
         })
         .then((res)=> res.json())
         .then((data)=>{
-            console.log('order complet',data);
-            alert('transaction comlet');
+            cart = {}
+            document.cookie='cart=' + JSON.stringify(cart) + ";domain=;path=/order/order-complet/"
             window.location.href = "{% url 'order_detail' %}"
         })
 
