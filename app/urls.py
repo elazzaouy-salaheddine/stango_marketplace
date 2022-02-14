@@ -13,7 +13,8 @@ urlpatterns = [
     path("api/categores/", include('category.urls')),
     path("order/", include('order.urls'), name="order"),
 
-    path('', include('home.urls'))
+    path('', include('home.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 

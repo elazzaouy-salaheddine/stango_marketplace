@@ -37,3 +37,5 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         exclude = ['vendor','recommend_product']
+
+        

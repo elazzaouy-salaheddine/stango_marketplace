@@ -1,4 +1,5 @@
 {% extends "base/layout.html" %}
+{% load widget_tweaks %}
 {% load static %}
 {% block content %}
 
@@ -9,10 +10,19 @@
     <!-- Start of PageContent -->
     <div class='container'>
 
-        <form method="post" enctype="multipart/form-data">
+        <form class="row form-group mt-4 mb-4" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{product_form.as_p}}
-            <button class="button is-success is-fullwidth is-medium mt-5"
+            {{ form.media }} 
+            {% for field in product_form %}
+            <div class="row form-group mb-2">
+              <label for="{{ field.name}}" class='mb-1 col-sm-2 col-form-label'>{{ field.label}}</label>
+              <div class='mb-1 col-sm-10'>
+                  {{ field|add_class:"form-control " }}
+              </div>
+              
+           </div>
+        {% endfor %}
+            <button class="btn btn-primary"
                     type="submit">add product
             </button>
         </form>

@@ -1,4 +1,5 @@
 {% extends "base/layout.html" %}
+{% load widget_tweaks %}
 {% load static %}
 {% block content %}
 
@@ -10,16 +11,21 @@
     <div class="page-content pt-2">
         <div class="container">
 
-         
-            
-
-            <form class="form account-details-form" action="{% url 'account_setting' %}" method='POST' enctype="multipart/form-data">
- 
-
-                {%csrf_token%}
-                {{ProfileForm.as_p}}
-            
-                <button type='submit' class="btn btn-dark btn-rounded btn-sm mb-4">Update</button>
+            <form class="row form-group mt-4 mb-4" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.media }} 
+                {% for field in ProfileForm %}
+                <div class="row form-group mb-2">
+                  <label for="{{ field.name}}" class='mb-1 col-sm-2 col-form-label'>{{ field.label}}</label>
+                  <div class='mb-1 col-sm-10'>
+                      {{ field|add_class:"form-control " }}
+                  </div>
+                  
+               </div>
+            {% endfor %}
+                <button class="btn btn-primary"
+                        type="submit">update profile
+                </button>
             </form>
         </div>
     </div>

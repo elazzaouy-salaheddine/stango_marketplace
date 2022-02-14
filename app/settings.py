@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-jyp^fvjt0sr)_wm9diqw35*k6mw!3*=wl@8r2$hwhsfcu%-n-5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'widget_tweaks',
     'colorfield',
     'ckeditor',
+    'ckeditor_uploader',
     'home',
     'user',
     'vendor',
@@ -94,10 +96,19 @@ if DEBUG :
     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
     STATIC_URL = 'static/'
-    CKEDITOR_BASEPATH = "static/ckeditor/ckeditor/"
+    CKEDITOR_UPLOAD_PATH  = "static/ckeditor/ckeditor/"
     
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
     MEDIA_URL = 'media/'
+    CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+    KEDITOR_UPLOAD_PATH = 'uploads/'
+    CKEDITOR_IMAGE_BACKEND = "pillow"
+    CKEDITOR_CONFIGS = {
+        'default': {
+            'toolbar': None,
+            },
+        }
+
 else :
     DATABASES = {
     'default': {
