@@ -110,7 +110,7 @@ if DEBUG :
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
     STATIC_URL = 'static/'
     CKEDITOR_UPLOAD_PATH  = "static/ckeditor/ckeditor/"
-    
+    AWS_QUERYSTRING_AUTH = False
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
     MEDIA_URL = 'media/'
     CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
@@ -139,6 +139,7 @@ else :
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',
         }
+    AWS_QUERYSTRING_AUTH = False
     AWS_LOCATION = 'static'
     STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
