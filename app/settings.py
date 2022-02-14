@@ -157,6 +157,7 @@ else :
     CKEDITOR_CONFIGS = {
         'default': {
             'toolbar': None,
+            "removePlugins": "stylesheetparser",
             },
         }
 
