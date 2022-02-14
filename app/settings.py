@@ -105,6 +105,22 @@ if DEBUG :
     STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'app.storage_backends.MediaStorage'
+    CKEDITOR_BASEPATH = "static/ckeditor/ckeditor/"
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+    STATIC_URL = 'static/'
+    CKEDITOR_UPLOAD_PATH  = "static/ckeditor/ckeditor/"
+    
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+    MEDIA_URL = 'media/'
+    CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+    CKEDITOR_UPLOAD_PATH = 'uploads/'
+    CKEDITOR_IMAGE_BACKEND = "pillow"
+    CKEDITOR_CONFIGS = {
+        'default': {
+            'toolbar': None,
+            },
+        }
 else :
     DATABASES = {
     'default': {
@@ -126,23 +142,24 @@ else :
     STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'app.storage_backends.MediaStorage'
-
-CKEDITOR_BASEPATH = "static/ckeditor/ckeditor/"
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
-STATIC_URL = 'static/'
-CKEDITOR_UPLOAD_PATH  = "static/ckeditor/ckeditor/"
+    CKEDITOR_BASEPATH = "static/ckeditor/ckeditor/"
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+    STATIC_URL = 'static/'
+    CKEDITOR_UPLOAD_PATH  = "static/ckeditor/ckeditor/"
     
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-MEDIA_URL = 'media/'
-CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
-KEDITOR_UPLOAD_PATH = 'uploads/'
-CKEDITOR_IMAGE_BACKEND = "pillow"
-CKEDITOR_CONFIGS = {
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+    MEDIA_URL = 'media/'
+    CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+    CKEDITOR_UPLOAD_PATH = 'uploads/'
+    CKEDITOR_IMAGE_BACKEND = "pillow"
+    CKEDITOR_CONFIGS = {
         'default': {
             'toolbar': None,
             },
         }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
