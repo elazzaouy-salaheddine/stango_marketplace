@@ -1,0 +1,158 @@
+{% extends "base/layout.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{% block content %}
+<main class="main">
+    <!-- Start of Breadcrumb -->
+    
+    <!-- End of Breadcrumb -->
+
+    <!-- Start of Page Content -->
+    <div class="page-content mb-10">
+        <div class="container">
+            <!-- Start of Shop Banner -->
+            
+            <!-- End of Shop Category -->
+
+            <div class="shop-content">
+                <!-- Start of Shop Main Content -->
+                <div class="main-content">
+                    <!-- Start of Toolbox -->
+                   
+                    
+                    <div class="shop-content toolbox-horizontal">
+                    <nav class="toolbox sticky-toolbox sticky-content fix-top">
+                        <aside class="sidebar sidebar-fixed shop-sidebar">
+                            <div class="sidebar-overlay"></div>
+                            <a class="sidebar-close" href="#"><i class="close-icon"></i></a>
+                            <div class="sidebar-content toolbox-left">
+                                <!-- Start of Collapsible widget -->
+
+                                
+                               {% comment %}  <form method="get">
+                                    {% for field in my_product_filter.form %}
+                                    <div class="toolbox-item select-menu">
+                                        <a class="select-menu-toggle" href="#">{{ field.label}}</a>
+                                        <ul class="filter-items">
+                                            <li><a href="#">{{ field }}</a></li>
+                                        </ul>
+                                    </div>
+                                    {% endfor %}
+                                    <button type="submit" class="btn btn-dark btn-rounded btn-icon-right">filter</button>
+                                    
+                                </form> {% endcomment %}
+
+                                
+                               
+                                <!-- End of Collapsible Widget -->
+                            </div>
+                        </aside>
+                        
+                        <div class="toolbox-right">
+                            <div class="toolbox-item toolbox-show select-box">
+                                <select name="count" class="form-control">
+                                    <option value="12">Show 12</option>
+                                    <option value="24">Show 24</option>
+                                    <option value="36">Show 36</option>
+                                </select>
+                            </div>
+                            
+                        </div>
+                    </nav>
+                    <div class="selected-items mb-3">
+                        <a href="#" class="filter-clean text-primary">Clean All</a>
+                    </div>
+                    <!-- End of Toolbox -->
+                    <div class="product-wrapper row cols-lg-5 cols-md-4 cols-sm-3 cols-2">
+
+                       
+                        {% for product in  products %}
+                        <div class="product-wrap" >
+                            <div class="product text-center">
+                                <figure class="product-media">
+                                    <a href="product-default.html">
+                                        <img src={{product.photo.url}} alt="Product" width="300"
+                                            height="338" />
+                                    </a>
+                                    <div class="product-action-horizontal">
+                                        <a data-product="{{product.id}}" data-action="add" class="btn btn-primary update-cart btn-product-icon btn-cart w-icon-cart" 
+                                            title="Add to cart"></a>   
+                                    </div>
+                                </figure>
+                                <div class="product-details">
+                                    <div class="product-cat">
+                                        <a href="shop-banner-sidebar.html">
+                                            {% for cat in product.category.all %}
+                                            {{cat.name}}
+                                            {%endfor%}
+                                            
+                                        </a>
+                                    </div>
+                                    <h3 class="product-name">
+                                        <a href="{% url 'product_details' product.id %}">{{product.title}}</a>
+                                    </h3>
+                                    <div class="ratings-container">
+                                        <div class="ratings-full">
+                                            <span class="ratings" style="width: 100%;"></span>
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div>
+                                        <a href="product-default.html" class="rating-reviews">(3 reviews)</a>
+                                    </div>
+                                    <div class="product-pa-wrapper">
+                                        <div class="product-price">
+                                            {{product.price}}$
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                       
+                        
+                        
+                        <div id="product-wrap">
+                           
+                        </div>
+
+                    </div>
+
+
+                    
+                     
+                    <div class="toolbox toolbox-pagination justify-content-between">
+                        
+                        <ul class="pagination">
+                            {% if products.has_previous %}
+                            
+                            <li class="prev">
+                                <a href="?page={{products.previous_page_number}}" aria-label="Previous" tabindex="-1" aria-disabled="true">
+                                    <i class="w-icon-long-arrow-left"></i>Prev
+                                </a>
+                            </li>
+                           
+                           {% endif %}
+                            
+                            <li class="page-item active">
+                                <a class="page-link" href="#">{{products.number}}/{{products.paginator.num_pages}}</a>
+                            </li>
+                            
+                            {% if products.has_next %}
+                            <li class="next">
+                                <a href="?page={{products.next_page_number}}" aria-label="Next">Next<i class="w-icon-long-arrow-right"></i></a>
+                            </li>
+                            {% endif %}
+                            
+                        </ul>
+                    </div>
+                </div></div>
+                <!-- End of Shop Main Content -->
+
+               
+            </div>
+            <!-- End of Shop Content -->
+
+        </div>
+    </div>
+    <!-- End of Page Content -->
+</main>
+{% endblock content %}

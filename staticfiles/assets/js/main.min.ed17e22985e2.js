@@ -502,7 +502,41 @@ $.extend($.easing, {
           e.preventDefault(), t(".top-banner").slideUp();
         });
       }),
-      
+      (Wolmart.accordion = function (e) {
+        Wolmart.$body.on("click", e, function (e) {
+          var a = t(this),
+            n = a.closest(".card").find(a.attr("href")),
+            o = a.closest(".accordion");
+          e.preventDefault(),
+            0 === o.find(".collapsing").length &&
+              0 === o.find(".expanding").length &&
+              (n.hasClass("expanded")
+                ? o.hasClass("radio-type") || i(n)
+                : n.hasClass("collapsed") &&
+                  (o.find(".expanded").length > 0
+                    ? Wolmart.isIE
+                      ? i(o.find(".expanded"), function () {
+                          i(n);
+                        })
+                      : (i(o.find(".expanded")), i(n))
+                    : i(n)));
+        });
+        var i = function (t, i) {
+          var a = t.closest(".card").find(e);
+          t.hasClass("expanded")
+            ? (a.removeClass("collapse").addClass("expand"),
+              t.addClass("collapsing").slideUp(300, function () {
+                t.removeClass("expanded collapsing").addClass("collapsed"),
+                  i && i();
+              }))
+            : t.hasClass("collapsed") &&
+              (a.removeClass("expand").addClass("collapse"),
+              t.addClass("expanding").slideDown(300, function () {
+                t.removeClass("collapsed expanding").addClass("expanded"),
+                  i && i();
+              }));
+        };
+      }),
       (Wolmart.animationOptions = {
         name: "fadeIn",
         duration: "1.2s",
@@ -2571,6 +2605,7 @@ $.extend($.easing, {
       Wolmart.shop.init(),
       Wolmart.alert(".alert"),
       Wolmart.closeTopNotice(".banner-close"),
+      Wolmart.accordion(".card-header > a"),
       Wolmart.sidebar("sidebar"),
       Wolmart.sidebar("right-sidebar"),
       Wolmart.productSingle(".product-single"),

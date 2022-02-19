@@ -1,16 +1,29 @@
 {% extends "base/layout.html" %}
+{% load widget_tweaks %}
 {% load static %}
 
 {% block content %}
 
 <div class="container py-5">
 	<h1>Register</h1>
-	<form method="POST">
+
+	<form class="row form-group mt-4 mb-4" method="POST">
 		{% csrf_token %}
-		{{ register_form }}    
-		               
-		<button class="btn btn-primary" type="submit">Register</button>
+		
+		{% for field in register_form %}
+		<div class="row form-group mb-2">
+		  <label for="{{ field.name}}" class='mb-1 col-sm-2 col-form-label'>{{ field.label}}</label>
+		  <div class='mb-1 col-sm-10'>
+			  {{ field|add_class:"form-control " }}
+		  </div>
+		  
+	   </div>
+	{% endfor %}
+		<button class="btn btn-primary"
+				type="submit">Register
+		</button>
 	</form>
+	
 	<p class="text-center">If you already have an account, <a href={% url 'login' %} >login</a> instead.</p>
 </div>
 

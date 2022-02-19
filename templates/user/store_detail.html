@@ -2,19 +2,7 @@
 {% load static %}
 {% block content %}
 <main class="main">
-          <!-- Start of Breadcrumb -->
-          <nav class="breadcrumb-nav">
-            <div class="container">
-                <ul class="breadcrumb bb-no">
-                    <li><a href="demo1.html">Home</a></li>
-                    <li><a href="#">Vendor</a></li>
-                    <li><a href="#">WCFM</a></li>
-                    <li>Store</li>
-                </ul>
-            </div>
-        </nav>
-        <!-- End of Breadcrumb -->
-
+ 
         <!-- Start of Pgae Contetn -->
         <div class="page-content mb-8">
             <div class="container">
@@ -82,47 +70,8 @@
                         <a href="#" class="sidebar-toggle"><i class="w-icon-angle-right"></i></a>
                         <div class="sidebar-content">
                             <div class="sticky-sidebar">
-                                <div class="widget widget-collapsible widget-categories">
-                                    <h3 class="widget-title"><span>All Categories</span></h3>
-                                    <ul class="widget-body filter-items search-ul">
-                                        <li>
-                                            <a href="#">Clothing</a>
-                                            <ul>
-                                                <li><a href="#">Men's</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">Fashion</a></li>
-                                        <li><a href="#">Healthy &amp; Beauty</a></li>
-                                        <li><a href="#">Home &amp; Kitchen</a></li>
-                                        <li>
-                                            <a href="#">Jewelry &amp; Watch</a>
-                                            <ul>
-                                                <li><a href="#">Smart Watch</a></li>
-                                                <li><a href="#">Watch</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#">Office Electronics</a>
-                                            <ul>
-                                                <li><a href="#">Accessories</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!-- End of Widget -->
-                                <div class="widget widget-collapsible widget-coupons">
-                                    <h3 class="widget-title"><span>Store Coupons</span></h3>
-                                    <div class="widget-body">
-                                        <div class="coupon">
-                                            First Shopping Coupon
-                                            <div class="coupon-tip">
-                                                <div class="coupon-info-title">FREE Shipping Coupon</div>
-                                                <div class="coupon-info-date">April 30, 2021</div>
-                                                <div>Test coupon for vendor page</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
+                                
                                 <!-- End of Widget -->
                                 <div class="widget widget-collapsible widget-time">
                                     <h3 class="widget-title"><span><i class="far fa-clock"></i>Store Time</span>
@@ -159,13 +108,7 @@
                                         <p class="mb-0">Delivery Time: 1-2 business days</p>
                                     </div>
                                 </div>
-                                <!-- End of Widget -->
-                                <div class="widget widget-collapsible widget-location">
-                                    <h3 class="widget-title"><span>Store Location</span></h3>
-                                    <div class="widget-body">
-                                        <div class="google-map" id="googlemaps"></div>
-                                    </div>
-                                </div>
+                                
                                 <!-- End of Widget -->
                                 <div class="widget widget-collapsible widget-products">
                                     <h3 class="widget-title"><span>Best Selling</span></h3>
@@ -283,16 +226,7 @@
                                                     <option value="36">Show 36</option>
                                                 </select>
                                             </div>
-                                            <div class="toolbox-item toolbox-layout">
-                                                <a href="vendor-wcfm-store-product-grid.html"
-                                                    class="icon-mode-grid btn-layout active">
-                                                    <i class="w-icon-grid"></i>
-                                                </a>
-                                                <a href="vendor-wcfm-store-product-list.html"
-                                                    class="icon-mode-list btn-layout">
-                                                    <i class="w-icon-list"></i>
-                                                </a>
-                                            </div>
+                                            
                                         </div>
                                     </nav>
                                     <div class="product-wrapper row cols-md-3 cols-sm-2 cols-2">
@@ -314,11 +248,7 @@
                                                             class="btn-product-icon btn-compare w-icon-compare"
                                                             title="Add to Compare"></a>
                                                     </div>
-                                                    <div class="product-action">
-                                                        <a href="#" class="btn-product btn-quickview"
-                                                            title="Quick View">Quick
-                                                            View</a>
-                                                    </div>
+                                                    
                                                 </figure>
                                                 <div class="product-details">
                                                     <h4 class="product-name">
@@ -335,9 +265,9 @@
                                                     <div class="product-pa-wrapper">
                                                         <div class="product-price">${{store_product.price}}</div>
                                                         <div class="product-action">
-                                                            <a href="#"
-                                                                class="btn-cart btn-product btn btn-icon-right btn-link btn-underline">Add
-                                                                To Cart</a>
+                                                            <a  data-product="{{store_product.id}}" data-action="add"
+                                            class="btn-cart btn-product btn-primary update-cart btn btn-icon-right btn-link btn-underline">Add
+                                            To Cart</a>
                                                         </div>
                                                     </div>
                                                 </div>

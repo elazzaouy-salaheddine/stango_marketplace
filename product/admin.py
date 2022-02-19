@@ -12,7 +12,6 @@ class CommentInline(admin.TabularInline):
 
 
 class ProductAdminForm(forms.ModelForm):
-    description = forms.CharField(widget=CKEditorWidget())
     class Meta:
         model = Product
         fields = '__all__'

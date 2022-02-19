@@ -7,4 +7,6 @@ urlpatterns = [
     path('updateitem/', updateItem, name='updateitem'),
     path('order-complet/', orderComplet, name='ordercomplet'),
     path('order-detail/', orderViews, name='order_detail'),
+    
+    
 ]

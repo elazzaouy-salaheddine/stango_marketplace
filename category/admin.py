@@ -8,6 +8,11 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Category)
-admin.site.register(Brand)
+
+class BrandAdmin(admin.ModelAdmin):
+    list_display = ('name','tag_brand')
+    list_filter = ('tag_brand',)
+    
+admin.site.register(Brand,BrandAdmin)
 admin.site.register(TagProduct)
 admin.site.register(RecommendProduct)

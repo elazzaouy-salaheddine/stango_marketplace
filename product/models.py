@@ -11,10 +11,9 @@ class Product(models.Model):
     recommend_product = models.ManyToManyField(RecommendProduct, default='non',
                                       related_name='product_recommend')
     photo = models.ImageField(upload_to='media/uploads/products/', help_text='image size nice to be 300*338')
-    product_short_desc = models.TextField()
+    product_short_desc = models.TextField(max_length=500)
     price = models.FloatField()
     digital = models.BooleanField(default=False, null=True, blank=False)
-    description = RichTextField(blank=True, default='')
     color = models.CharField(null=True, blank=True, max_length=255)
     size = models.CharField(null=True, blank=True, max_length=255)
     detail = models.TextField()

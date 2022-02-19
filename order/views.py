@@ -1,14 +1,15 @@
 import datetime
 import json
-from math import prod
-from re import template
 from django.http import JsonResponse
 from django.shortcuts import render
 from .models import *
+from order.models import Order
 from .utils import cookieCart, cartData, guestOrder
-
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
 # Create your views here.
+
+
 
 
 def cart(request):
@@ -16,6 +17,7 @@ def cart(request):
     cartItems = data['cartItems']
     order = data['order']
     items = data['items'] 
+
     context = {
         'items': items,
         'order': order,
@@ -33,7 +35,7 @@ def checkout(request):
     context = {
         'items': items,
         'order': order,
-        'cartItems':cartItems
+        'cartItems': cartItems
     }
     template_name = 'order/checkout.html'
     return render(request, template_name, context)
@@ -47,11 +49,11 @@ def updateItem(request):
     custemer = request.user.custemer
     product = Product.objects.get(id=productId)
     order, created = Order.objects.get_or_create(custemer=custemer, complete=False)
-    orderItem, created = OrderItem.objects.get_or_create(order=order,product=product )
+    orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
     
-    if action=='add':
+    if action == 'add':
         orderItem.quantity = (orderItem.quantity + 1)
-    elif action=='remove':
+    elif action == 'remove':
         orderItem.quantity = (orderItem.quantity - 1)
     orderItem.save()
     
@@ -62,7 +64,7 @@ def updateItem(request):
 @csrf_protect
 def orderComplet(request):
     date_order = datetime.datetime.now()
-    data =json.loads(request.body)
+    data = json.loads(request.body)
     if request.user.is_authenticated:
         custemer = request.user.custemer
         order, created = Order.objects.get_or_create(custemer=custemer, complete=False)
