@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-jyp^fvjt0sr)_wm9diqw35*k6mw!3*=wl@8r2$hwhsfcu%-n-5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -94,62 +94,16 @@ if DEBUG :
             "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
         }
     }
-    AWS_ACCESS_KEY_ID = 'AKIASFYOKGCQZDFZD4ST'
-    AWS_SECRET_ACCESS_KEY = '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'
-    AWS_STORAGE_BUCKET_NAME = 'stango-static-django'
-    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-    AWS_S3_OBJECT_PARAMETERS = {
-        'CacheControl': 'max-age=86400',
-        }
-    AWS_LOCATION = 'static'
-    STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    DEFAULT_FILE_STORAGE = 'app.storage_backends.MediaStorage'
     CKEDITOR_BASEPATH = "static/ckeditor/ckeditor/"
     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
     STATIC_URL = 'static/'
     CKEDITOR_UPLOAD_PATH  = "static/ckeditor/ckeditor/"
-    AWS_QUERYSTRING_AUTH = False
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
     MEDIA_URL = 'media/'
     CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
     CKEDITOR_UPLOAD_PATH = 'uploads/'
     CKEDITOR_IMAGE_BACKEND = "pillow"
-else :
-    DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dfrlbhsoime72c',
-        'USER': 'tmwcxremlqqmpn',
-        'PASSWORD': 'cd491a5c2d753cd251b06c728a5247acd7d29e2b87dfac9bb05e777dba56844b',
-        'HOST': 'ec2-54-164-238-108.compute-1.amazonaws.com',
-        'PORT': '5432',}
-    }
-    AWS_ACCESS_KEY_ID = 'AKIASFYOKGCQZDFZD4ST'
-    AWS_SECRET_ACCESS_KEY = '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'
-    AWS_STORAGE_BUCKET_NAME = 'stango-static-django'
-    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-    AWS_S3_OBJECT_PARAMETERS = {
-        'CacheControl': 'max-age=86400',
-        }
-    AWS_QUERYSTRING_AUTH = False
-    AWS_LOCATION = 'static'
-    STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    DEFAULT_FILE_STORAGE = 'app.storage_backends.MediaStorage'
-    CKEDITOR_BASEPATH = "static/ckeditor/ckeditor/"
-    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
-    STATIC_URL = 'static/'
-    CKEDITOR_UPLOAD_PATH  = "static/ckeditor/ckeditor/"
-    
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-    MEDIA_URL = 'media/'
-    CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
-    CKEDITOR_UPLOAD_PATH = 'uploads/'
-    CKEDITOR_IMAGE_BACKEND = "pillow"
-
 
 
 
