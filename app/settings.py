@@ -95,6 +95,7 @@ if DEBUG :
             "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
         }
     }
+<<<<<<< HEAD
  
 
 else :
@@ -119,18 +120,24 @@ else :
     STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'app.storage_backends.MediaStorage'
+=======
+>>>>>>> e773292096812eaf262a2532a42bfcd7c092bf33
     CKEDITOR_BASEPATH = "static/ckeditor/ckeditor/"
     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
     STATIC_URL = 'static/'
     CKEDITOR_UPLOAD_PATH  = "static/ckeditor/ckeditor/"
+<<<<<<< HEAD
     
+=======
+>>>>>>> e773292096812eaf262a2532a42bfcd7c092bf33
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
     MEDIA_URL = 'media/'
     CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
     CKEDITOR_UPLOAD_PATH = 'uploads/'
     CKEDITOR_IMAGE_BACKEND = "pillow"
 
+<<<<<<< HEAD
 CKEDITOR_BASEPATH = "static/ckeditor/ckeditor/"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
@@ -142,6 +149,8 @@ MEDIA_URL = 'media/'
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
+=======
+>>>>>>> e773292096812eaf262a2532a42bfcd7c092bf33
 
 
 # Password validation
