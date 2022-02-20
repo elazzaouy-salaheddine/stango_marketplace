@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -43,6 +46,7 @@ INSTALLED_APPS = [
     'django_filters',
     'ckeditor',
     'ckeditor_uploader',
+    'cloudinary',
     'home',
     'user',
     'vendor',
@@ -86,7 +90,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
-'''
+
 DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
@@ -94,8 +98,8 @@ DATABASES = {
         }
     }
 
-'''
-DATABASES = {
+''' else:
+    DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'dfrlbhsoime72c',
@@ -104,7 +108,7 @@ DATABASES = {
         'HOST': 'ec2-54-164-238-108.compute-1.amazonaws.com',
         'PORT': '5432',}
     }
- 
+ '''
 CKEDITOR_BASEPATH = "static/ckeditor/ckeditor/"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
@@ -171,3 +175,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+cloudinary.config( 
+  cloud_name = "salaheddine", 
+  api_key = "764272537345453", 
+  api_secret = "cBkypjqw1XXsZ3X4Y5-iKuQ3pMw" 
+)
