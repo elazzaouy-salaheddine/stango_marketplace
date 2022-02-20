@@ -5,13 +5,15 @@ from ckeditor.fields import RichTextField
 # Create your models here.
 import uuid
 from PIL import Image
+from cloudinary.models import CloudinaryField
+
 
 class ProfileUser(models.Model):
     store_name = models.CharField(max_length=100, blank=True,null=False, unique=True, default=uuid.uuid1, error_messages ={
                     "unique":"The store must be unique "
                     })
-    sotre_banner = models.ImageField(upload_to='media/uploads/vendors',default='default/1.jpg')
-    sotre_logo = models.ImageField(upload_to='media/uploads/vendors', default='default/1.jpg')
+    sotre_banner = CloudinaryField('media/uploads/vendors',default='default/1.jpg')
+    sotre_logo = CloudinaryField('media/uploads/vendors', default='default/1.jpg')
     email = models.EmailField(null=True, blank=True, unique=True)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
     city = models.CharField(max_length=255, null=True, blank=True)
