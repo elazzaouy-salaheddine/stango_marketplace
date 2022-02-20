@@ -30,11 +30,6 @@ class ProfileUser(models.Model):
     class Meta:
         verbose_name_plural = 'vendor_profile'
 
-    def save(self, *args, **kwargs):
-        super().save()
-        self.sotre_banner = Image.open(self.sotre_banner.path)
-        self.sotre_logo = Image.open(self.sotre_logo.path)
-
     
     def __str__(self):
         return self.store_name
