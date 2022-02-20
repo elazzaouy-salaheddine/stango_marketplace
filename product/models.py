@@ -27,10 +27,6 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['created']
-    
-    def save(self):
-        super().save()
-        self.photo = Image.open(self.photo.path)
 
     def __str__(self):
         return self.title
