@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 from dotenv import load_dotenv
 
 
@@ -44,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'cloudinary',
     'rest_framework',
     'widget_tweaks',
     'colorfield',
@@ -113,6 +117,11 @@ POSTGRES_READY = (
     and POSTGRES_USER is not None
     and POSTGRES_HOST is not None
     and POSTGRES_PORT is not None
+)
+cloudinary.config( 
+  cloud_name=os.environ.get("CLOUDINARY_NAME"),
+  api_key=os.environ.get("CLOUDINARY_API_KEY"),
+  api_secret=os.environ.get("CLOUDINARY_SECRET_KEY") 
 )
 
 if POSTGRES_READY:

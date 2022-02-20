@@ -1,5 +1,5 @@
 from django.db import models
-
+from cloudinary.models import CloudinaryField
 
 class Category(models.Model):
     name = models.CharField(max_length=100, blank=False, default='')
@@ -16,7 +16,7 @@ class Category(models.Model):
 
 
 class Brand(models.Model):
-    logo = models.ImageField(upload_to='media/uploads/brands')
+    logo = CloudinaryField('media/uploads/brands')
     name = models.CharField(max_length=255)
     tag_brand = models.CharField(max_length=255)
 

@@ -1,6 +1,7 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from category.models import Category, TagProduct, RecommendProduct
+from cloudinary.models import CloudinaryField
 from PIL import Image
 
 class Product(models.Model):
@@ -10,7 +11,7 @@ class Product(models.Model):
                                       related_name='product_category')
     recommend_product = models.ManyToManyField(RecommendProduct, default='non',
                                       related_name='product_recommend')
-    photo = models.ImageField(upload_to='media/uploads/products/', help_text='image size nice to be 300*338')
+    photo = CloudinaryField('media/uploads/products/', help_text='image size nice to be 300*338')
     product_short_desc = models.TextField(max_length=500)
     price = models.FloatField()
     digital = models.BooleanField(default=False, null=True, blank=False)
@@ -25,10 +26,6 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['created']
-    
-    def save(self):
-        super().save()
-        self.photo = Image.open(self.photo.path)
 
     def __str__(self):
         return self.title
