@@ -90,7 +90,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
-
+'''
 DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
@@ -98,8 +98,8 @@ DATABASES = {
         }
     }
 
-''' else:
-    DATABASES = {
+''' 
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'dfrlbhsoime72c',
@@ -108,7 +108,7 @@ DATABASES = {
         'HOST': 'ec2-54-164-238-108.compute-1.amazonaws.com',
         'PORT': '5432',}
     }
- '''
+
 CKEDITOR_BASEPATH = "static/ckeditor/ckeditor/"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
