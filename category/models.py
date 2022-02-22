@@ -1,13 +1,18 @@
 from django.db import models
 from cloudinary.models import CloudinaryField
+from django.utils.translation import gettext_lazy as _
+from mptt.models import MPTTModel, TreeForeignKey
+
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100, blank=False, default='')
     category_logo = models.CharField( max_length=255, default='tshirt2')
     owner = models.ForeignKey('auth.User', related_name='categories',
                               on_delete=models.CASCADE)
-    slug = models.SlugField(blank=True, null=True)
+    slug = models.SlugField(blank=True, null=True, unique=True)
     active = models.BooleanField(default=True)
+
     class Meta:
         verbose_name_plural = 'categories'
 

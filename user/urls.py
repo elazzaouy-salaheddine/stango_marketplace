@@ -16,7 +16,7 @@ urlpatterns = [
     
     #path('profile/', AccountSetting.as_view(), name='profile'),
     path('', StoreView, name='store_list'),
-    path('<int:pk>/', SotreDetail, name='store_detail'),
+    path('<str:store_name>/', SotreDetail, name='store_detail'),
     path('becomevendor/', BecomeVendor, name='become_vendor'),
     
     

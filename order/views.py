@@ -71,7 +71,9 @@ def orderComplet(request):
         
     else:
         custemer, order = guestOrder(request, data)
-    total = float(data['form']['total'])
+    tota = data['form']['total']
+    tota = tota.replace(',', '.')
+    total = float(tota)
     order.date = date_order
     if total == float(order.get_cart_total):
             order.complete = True

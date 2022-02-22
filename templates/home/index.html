@@ -11,65 +11,13 @@
         <div class="col-lg-3 mb-4">
             <div class="">
                 <ul class="menu vertical-menu category-menu">
-                    <li>
-                        <a href="shop-fullwidth-banner.html">
-                            <i class="w-icon-tshirt2"></i>Fashion
-                        </a>
-                        
-                    </li>
-                    <li>
-                        <a href="shop-fullwidth-banner.html">
-                            <i class="w-icon-home"></i>Home & Garden
-                        </a>
-                        
-                    </li>
-                    <li>
-                        <a href="shop-fullwidth-banner.html">
-                            <i class="w-icon-electronics"></i>Electronics
-                        </a>
-                        
-                    </li>
-                    <li>
-                        <a href="shop-fullwidth-banner.html">
-                            <i class="w-icon-furniture"></i>Furniture
-                        </a>
-                        
-                    </li>
-                    <li>
-                        <a href="shop-fullwidth-banner.html">
-                            <i class="w-icon-heartbeat"></i>Healthy & Beauty
-                        </a>
-                    </li>
-                    <li>
-                        <a href="shop-fullwidth-banner.html">
-                            <i class="w-icon-gift"></i>Gift Ideas
-                        </a>
-                    </li>
-                    <li>
-                        <a href="shop-fullwidth-banner.html">
-                            <i class="w-icon-gamepad"></i>Toy & Games
-                        </a>
-                    </li>
-                    <li>
-                        <a href="shop-fullwidth-banner.html">
-                            <i class="w-icon-ice-cream"></i>Cooking
-                        </a>
-                    </li>
-                    <li>
-                        <a href="shop-fullwidth-banner.html">
-                            <i class="w-icon-ios"></i>Smart Phones
-                        </a>
-                    </li>
-                    <li>
-                        <a href="shop-fullwidth-banner.html">
-                            <i class="w-icon-camera"></i>Cameras & Photo
-                        </a>
-                    </li>
-                    <li>
-                        <a href="shop-fullwidth-banner.html">
-                            <i class="w-icon-ruby"></i>Accessories
-                        </a>
-                    </li>
+                    {% for category in categories %}
+                    <li> <a href={% url 'category_details' category.slug  %}> <i class="w-icon-{{category.category_logo}}"></i> {{ category.name }}</a> </li>
+                    {% endfor %}
+
+                  
+                    
+                    
                     
                 </ul>
             </div>

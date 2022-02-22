@@ -8,6 +8,7 @@ from category.models import Category, Brand
 
 def Home(request):
     template_name='home/index.html'
+    category_list = Category.objects.all()
     products = Product.objects.all()
     popular_brand = Brand.objects.filter(tag_brand='PopularBrand')
     product_clothing = Product.objects.filter(category__name='Clothing & Apparel')
@@ -28,7 +29,8 @@ def Home(request):
         'product_garden': product_garden,
         'deals_hot': deals_hot,
         'product_electric_recommend': product_electric_recommend,
-        'product_garden_recommend': product_garden_recommend
+        'product_garden_recommend': product_garden_recommend,
+        'categories': category_list
         }
     return render(request, template_name, context)
 

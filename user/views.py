@@ -66,8 +66,8 @@ def StoreView(request):
     return render(request, template_name, context)
 
 
-def SotreDetail(request, pk):
-    store = get_object_or_404(ProfileUser, pk=pk)
+def SotreDetail(request, store_name):
+    store = get_object_or_404(ProfileUser, store_name=store_name)
     store_products = Product.objects.filter(vendor=store.vendor)
     context = {
         'store_products': store_products,

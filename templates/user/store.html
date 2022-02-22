@@ -94,7 +94,7 @@
                                 <!-- End of Store Header -->
                                 <div class="store-content">
                                     <h4 class="store-title">
-                                        <a href="vendor-dokan-store.html">{{vendor.store_name}}</a>
+                                        <a href="{% url 'store_detail' vendor.store_name %}">{{vendor.store_name}}</a>
                                     </h4>
                                     <div class="ratings-container">
                                         <div class="ratings-full">
@@ -122,7 +122,7 @@
                                     <figure class="seller-brand">
                                         <img src={{vendor.sotre_logo.url}} alt="Brand" width="80" height="80">
                                     </figure>
-                                    <a href="{% url 'store_detail' vendor.id %}" class="btn btn-rounded btn-visit">Visit</a>
+                                    <a href="{% url 'store_detail' vendor.store_name %}" class="btn btn-rounded btn-visit">Visit</a>
                                 </div>
                                 <!-- End of Store Footer -->
                             </div>

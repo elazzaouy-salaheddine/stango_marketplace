@@ -2,13 +2,13 @@ from django.db import models
 from ckeditor.fields import RichTextField
 from category.models import Category, TagProduct, RecommendProduct
 from cloudinary.models import CloudinaryField
+from mptt.models import TreeManyToManyField
 from PIL import Image
 
 class Product(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100, blank=True, default='')
-    category = models.ManyToManyField(Category, 
-                                      related_name='product_category')
+    category = models.ManyToManyField(Category, related_name='product_category')
     recommend_product = models.ManyToManyField(RecommendProduct, default='non',
                                       related_name='product_recommend')
     photo = CloudinaryField('media/uploads/products/', help_text='image size nice to be 300*338')

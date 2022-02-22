@@ -74,7 +74,7 @@
                                         <div class="product-categories">
                                             Category:
                                             {% for cat in product.category.all %}
-                                            <span class="product-category"><a href="#"> {{cat.name}}</a></span>
+                                            <span class="product-category"><a href="{% url 'category_details' cat.slug %}"> {{cat.name}}</a></span>
                                               {% endfor %}
                                         </div>
                                         <div class="product-sku">
