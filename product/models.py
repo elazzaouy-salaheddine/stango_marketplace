@@ -13,7 +13,7 @@ class Product(models.Model):
     recommend_product = models.ManyToManyField(RecommendProduct, default='non',
                                       related_name='product_recommend')
     photo = CloudinaryField('media/uploads/products/', help_text='image size nice to be 300*338')
-    product_short_desc = models.TextField(max_length=500)
+    product_short_desc = RichTextField()
     price = models.FloatField()
     digital = models.BooleanField(default=False, null=True, blank=False)
     color = models.CharField(null=True, blank=True, max_length=255)
