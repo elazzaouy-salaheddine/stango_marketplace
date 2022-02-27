@@ -224,26 +224,28 @@
 
                 <!-- Start of Pagination -->
                 <div class="toolbox toolbox-pagination justify-content-between">
-                    <p class="showing-info mb-2 mb-sm-0">
                         
-                    </p>
                     <ul class="pagination">
-                        <li class="prev disabled">
-                            <a href="#" aria-label="Previous" tabindex="-1" aria-disabled="true">
+                        {% if products.has_previous %}
+                        
+                        <li class="prev">
+                            <a href="?page={{products.previous_page_number}}" aria-label="Previous" tabindex="-1" aria-disabled="true">
                                 <i class="w-icon-long-arrow-left"></i>Prev
                             </a>
                         </li>
+                       
+                       {% endif %}
+                        
                         <li class="page-item active">
-                            <a class="page-link" href="#">1</a>
+                            <a class="page-link" href="#">{{products.number}}/{{products.paginator.num_pages}}</a>
                         </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
+                        
+                        {% if products.has_next %}
                         <li class="next">
-                            <a href="#" aria-label="Next">
-                                Next<i class="w-icon-long-arrow-right"></i>
-                            </a>
+                            <a href="?page={{products.next_page_number}}" aria-label="Next">Next<i class="w-icon-long-arrow-right"></i></a>
                         </li>
+                        {% endif %}
+                        
                     </ul>
                 </div>
                 <!-- End of Pagination -->

@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = str(os.environ.get('DEBUG')) == '1'
+DEBUG = str(os.environ.get('DEBUG'))
 
 ENV_ALLOWED_HOST = os.environ.get('DJANGO_ALLOWED_HOST') or None
 ALLOWED_HOSTS = []
@@ -171,7 +171,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'fr-fr'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
@@ -202,4 +202,5 @@ LOGOUT_REDIRECT_URL = '/'
 CORS_ALLOW_ALL_ORIGINS = True 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+MPTT_ADMIN_LEVEL_INDENT = 20
 

@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib.auth import views
 from rest_framework.urlpatterns import format_suffix_patterns
 from .views import  (ProfileView, RegisterUser, UserList, UserDetail, StoreView, 
-                     SotreDetail, BecomeVendor, AccountSetting, 
+                     SotreDetail, BecomeVendor, AccountSetting, load_sub_categoires,
                      StoreProducts,StoreProductCreate,StoreProductUpdate,StoreProductDelete, StoreOrders, SotreOrdersDetail)
 urlpatterns = [
     path('api/', UserList.as_view()),
@@ -32,15 +32,16 @@ urlpatterns = [
     path('reset/done/', views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     
     path('register/', RegisterUser, name='register_page'),
-    path('account_setting/', AccountSetting, name='account_setting'),
+    path('account_setting/$/', AccountSetting, name='account_setting'),
     
-    path("products/", StoreProducts, name="store_products"),
-    path("products/create-product/", StoreProductCreate, name="store_product_create"),
-    path("products/<int:pk>/update-product/", StoreProductUpdate, name="store_product_update"),
+    path("products/$/", StoreProducts, name="store_products"),
+    path("products/create-product/$/", StoreProductCreate, name="store_product_create"),
+    path('ajax/load-subcate/',load_sub_categoires, name='load_sub_categoires'), # AJAX
+    path("products/<int:pk>/update-product/$/", StoreProductUpdate, name="store_product_update"),
     path("products/<int:pk>/delete-product/", StoreProductDelete, name="store_product_delete"),
     
-    path("orders/", StoreOrders, name="store_orders"),
-    path('orders/<int:pk>/', SotreOrdersDetail, name='store_order_detail'),
+    path("orders/$/", StoreOrders, name="store_orders"),
+    path('orders/<int:pk>/$/', SotreOrdersDetail, name='store_order_detail'),
 
     
 ]

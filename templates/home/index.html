@@ -575,7 +575,7 @@
     </div>
     <!-- End of Container -->
 </section>
-
+{% endcomment %}
  <section class="category-section mb-10 pb-1 container">
     <h2 class="title title-center mb-5">Category Group</h2>
     <div class="swiper-container swiper-theme show-code-action" data-swiper-options="{
@@ -586,81 +586,32 @@
                 'slidesPerView': 2
             },
             '992': {
-                'slidesPerView': 3
+                'slidesPerView': 4
             }
         }
     }">
         <div class="swiper-wrapper row cols-lg-3 cols-md-2 cols-1">
+            {% for categorie in  categories %}
             <div class="swiper-slide category-wrap">
                 <div class="category category-group-image">
                     <div class="category-content">
-                        <h4 class="category-name"><a href="shop-fullwidth-banner.html">Jumpers</a>
+                        <h4 class="category-name"><a href="shop-fullwidth-banner.html">{{categorie.name}}</a>
                         </h4>
                         <ul class="category-list">
-                            <li><a href="#">Accessories</a></li>
-                            <li><a href="#">Dress &amp; Skirts</a></li>
-                            <li><a href="#">Jumpers</a></li>
-                            <li><a href="#">Knitwears</a></li>
-                            <li><a href="#">Men's</a></li>
-                            <li><a href="#">Trousers</a></li>
+                            {% for subcat in  categorie.sub_categories.all %}
+                            <li><a href="{% url 'category_details' subcat.slug %}">{{subcat.title}}</a></li>
+                        
+                            {% endfor %}
                         </ul>
                     </div>
-                    <a href="#">
-                        <figure class="category-media">
-                            <img src="assets/images/categories/category-1.jpg" alt="Category"
-                                width="190" height="214" />
-                        </figure>
-                    </a>
+                    
                 </div>
             </div>
-            <div class="swiper-slide category-wrap">
-                <div class="category category-group-image">
-                    <div class="category-content">
-                        <h4 class="category-name"><a href="shop-fullwidth-banner.html">Office
-                                Electronics</a></h4>
-                        <ul class="category-list">
-                            <li><a href="#">Accessories</a></li>
-                            <li><a href="#">Phones</a></li>
-                            <li><a href="#">Printers</a></li>
-                            <li><a href="#">Projectors</a></li>
-                            <li><a href="#">Scanners</a></li>
-                            <li><a href="#">Store &amp; Business</a></li>
-                        </ul>
-                    </div>
-                    <a href="#">
-                        <figure class="category-media">
-                            <img src="assets/images/categories/category-2.jpg" alt="Category"
-                                width="190" height="214" />
-                        </figure>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-slide category-wrap">
-                <div class="category category-group-image">
-                    <div class="category-content">
-                        <h4 class="category-name"><a href="shop-fullwidth-banner.html">Cookwares</a>
-                        </h4>
-                        <ul class="category-list">
-                            <li><a href="#">Bedroom</a></li>
-                            <li><a href="#">Cookwears</a></li>
-                            <li><a href="#">Furnitures &amp; Decor</a></li>
-                            <li><a href="#">Garden Tools</a></li>
-                            <li><a href="#">Livingroom</a></li>
-                            <li><a href="#">Utensil &amp; Gadgets</a></li>
-                        </ul>
-                    </div>
-                    <a href="#">
-                        <figure class="category-media">
-                            <img src="assets/images/categories/category-3.jpg" alt="Category"
-                                width="190" height="214" />
-                        </figure>
-                    </a>
-                </div>
-            </div>
+           {% endfor %}
         </div>
         <div class="swiper-pagination"></div>
     </div>
-</section> {% endcomment %}
+</section> 
 <!-- End of Category Section -->
 
 {% endblock %}

@@ -30,6 +30,7 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerOrReadOnly]
 
+
 @csrf_exempt
 def ProductsSearche(request) :
     if request.method =='POST':
@@ -37,7 +38,8 @@ def ProductsSearche(request) :
         products = Product.objects.filter(title__icontains=search_str)| Product.objects.filter(category__name__icontains=search_str)| Product.objects.filter(tag__tage_name__icontains=search_str)
         data = products.values()
         return JsonResponse(list(data), safe=False)
-        
+
+
 def ProductsListViews(request):
     brands = Brand.objects.all()
     popular_brand = Brand.objects.filter(tag_brand='PopularBrand')
@@ -54,7 +56,8 @@ def ProductsListViews(request):
         'brands': brands,
         'categores': categores,
         'my_product_filter': my_product_filter,
-        'popular_brand':popular_brand    }
+        'popular_brand': popular_brand
+        }
     return render(request, template_name, context=context)
 
 

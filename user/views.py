@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.models import User
@@ -6,6 +7,7 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic import FormView
 from django.contrib import messages
+from category.models import Category, SubCategories
 from order.models import OrderItem
 from product.models import Product
 from .models import ProfileUser
@@ -84,6 +86,7 @@ def BecomeVendor(request):
 
 
 def  AccountSetting(request):
+    
     p_form = ProfileForm(request.POST or None, request.FILES, instance=request.user.vendor_profile) 
     if request.method == 'POST':
         #u_form = UserUpdateForm(request.POST, instance=request.user)
@@ -115,7 +118,16 @@ def StoreProducts(request):
     return render(request, template_name, context)
 
 
+# AJAX
+def load_sub_categoires(request):
+    id_category = request.GET.get('id_category')
+    sub_categories = SubCategories.objects.filter(category_id=id_category).all()
+    return render(request, 'user/account_layout/sub_categories_options.html', {'sub_categories': sub_categories})
+    # return JsonResponse(list(cities.values('id', 'name')), safe=False)
+
+
 def StoreProductCreate(request):
+    categories = Category.objects.all()
     product_form = ProductForm(request.POST or None, request.FILES)
     if request.method == "POST":
         if product_form.is_valid():
@@ -126,7 +138,8 @@ def StoreProductCreate(request):
     product_form = ProductForm()
     template_name = 'user/account_layout/product-create.html'
     context ={
-        'product_form' : product_form
+        'product_form' : product_form,
+        'categories':categories,
     }
     return render(request, template_name, context)
 

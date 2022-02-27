@@ -6,6 +6,8 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import ProfileUser
 from product.models import Product
+from category.models import Category, SubCategories
+
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -37,5 +39,16 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         exclude = ['vendor','recommend_product']
-
-        
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['sub_category'].queryset = SubCategories.objects.none()
+        if 'category' in self.data:
+            try:
+                category = int(self.data.get('category'))
+                self.fields['sub_category'].queryset = SubCategories.objects.filter(category_id=category).order_by('title')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['category'].queryset = Category.objects.all()
+            self.fields['sub_category'].queryset = SubCategories.objects.all()

@@ -11,18 +11,24 @@
     <div class="page-content pt-2">
         <div class="container">
 
-            <form class="row form-group mt-4 mb-4" method="post" enctype="multipart/form-data">
+            <form class="row form-group mt-4 mb-4" method="post" enctype="multipart/form-data" style="
+            border-radius: 10px;
+            border: 2px solid;
+            padding: 10px;
+        ">
                 {% csrf_token %}
                 {{ form.media }} 
-                {% for field in ProfileForm %}
-                <div class="row form-group mb-2">
-                  <label for="{{ field.name}}" class='mb-1 col-sm-2 col-form-label'>{{ field.label}}</label>
-                  <div class='mb-1 col-sm-10'>
-                      {{ field|add_class:"form-control " }}
-                  </div>
-                  
-               </div>
-            {% endfor %}
+                <div class='row'>
+                    {% for field in ProfileForm %}
+
+                    <div class="form-group col-md-4 mb-3" >
+                        <label for="{{ field.name}}" class=''>{{ field.label}}</label>
+                        <div class=''>{{ field|add_class:"form-control " }}</div>
+                    </div>
+                    <br>
+                    <br>
+                    {% endfor %}
+                </div>
                 <button class="btn btn-primary"
                         type="submit">update profile
                 </button>

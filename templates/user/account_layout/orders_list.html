@@ -22,14 +22,16 @@
                     </div>
                 </div>
 
-                <table class="shop-table table table-striped account-orders-table mb-6">
+                <table class="shop-table table table-striped account-orders-table mb-6" style="
+                text-align: justify;
+            ">
 
                     <thead>
                         <tr>
                             <th class="">Order</th>
                             <th class="order-date">Date</th>
-                            <th class="order-status">Status</th>
-                            <th class="order-total">Total</th>
+                            
+                            
                             <th class="order-actions">Actions</th>
                         </tr>
                     </thead>
@@ -39,10 +41,8 @@
                         <tr>
                             <td class="order-id">#{{order.id}}</td>
                             <td class="order-date">{{order.date}}</td>
-                            <td class="order-status">{{order.complete}}</td>
-                            <td class="order-total">
-                                <span class="order-price">${{order}}</span> 
-                            </td>
+                            
+                            
                             <td class="order-action">
                                 <a href="{% url 'store_order_detail' order.id %} "
                                     class="btn btn-outline btn-default btn-block btn-sm btn-rounded">View</a>

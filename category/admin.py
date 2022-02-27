@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Brand, TagProduct,RecommendProduct
+from .models import Category, Brand, TagProduct,RecommendProduct, SubCategories
 # Register your models here.
 
 
@@ -8,7 +8,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Category)
-
+admin.site.register(SubCategories)
 class BrandAdmin(admin.ModelAdmin):
     list_display = ('name','tag_brand')
     list_filter = ('tag_brand',)

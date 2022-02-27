@@ -36,15 +36,12 @@
                         <li>
                             <a href="{% url 'store_product_create' %} ">add Product</a>
                         </li>
-                        <li>
-                            <a href="# ">Account details</a>
-
-                        </li>
+                       
                         <li>
                             <a href=" {% url 'account_setting' %}">Store details</a>
                         </li>
                         <li>
-                            <a href=" {% url 'store_detail' request.user.vendor_profile.id %}">My Store</a>
+                            <a href=" {% url 'store_detail' request.user.vendor_profile.store_name %}">My Store</a>
                         </li>
                     </ul>
                 </nav>

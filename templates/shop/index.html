@@ -68,7 +68,7 @@
                     <ul class="menu horizontal-menu category-menu">
                         {% for popular_bran in categores %}
                         <li>
-                            <a href="demo9-shop.html">
+                            <a href=" {% url 'category_details' popular_bran.slug %} ">
                                 <i class="w-icon-{{popular_bran.category_logo}}"></i>{{popular_bran.name}}
                             </a>
                         </li>
