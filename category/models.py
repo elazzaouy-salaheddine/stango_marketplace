@@ -1,4 +1,3 @@
-from tkinter import CASCADE
 from django.db import models
 from cloudinary.models import CloudinaryField
 from django.utils.translation import gettext_lazy as _
