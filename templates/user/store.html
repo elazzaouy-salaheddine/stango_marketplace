@@ -84,6 +84,8 @@
                     <div class="row cols-sm-2">
 
                         {% for vendor in vendors %}
+                        {% if vendor.phone_number %}
+                        
                         <div class="store-wrap mb-4">
                             <div class="store store-grid store-wcfm">
                                 <div class="store-header">
@@ -128,6 +130,8 @@
                             </div>
                             <!-- End of Store -->
                         </div>
+                        {% endif %}
+                        
                         {% endfor %}
                         
 

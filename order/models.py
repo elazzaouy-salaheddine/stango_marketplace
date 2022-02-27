@@ -12,6 +12,8 @@ class Custemer(models.Model):
     phone_number = models.CharField(max_length=255)
 
     def __str__(self):
+        if self.name==None:
+            return "ERROR-CUSTOMER NAME IS NULL"
         return self.name
 
 

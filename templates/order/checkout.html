@@ -90,7 +90,7 @@
                                             <td class="product-name">{{item.product.title}}<i
                                                     class="fas fa-times"></i> <span
                                                     class="product-quantity">{{item.quantity}}</span></td>
-                                            <td class="product-total">$ {{item.get_total|floatformat:2}}</td>
+                                            <td class="product-total"> {{item.get_total|floatformat:2}} MAD</td>
                                         </tr>
                                        {% endfor %}
                                         {% comment %} <tr class="cart-subtotal bb-no">
@@ -143,7 +143,7 @@
                                                 <b>Total</b>
                                             </th>
                                             <td>
-                                                <b>$ {{order.get_cart_total|floatformat:2}}</b>
+                                                <b> {{order.get_cart_total|floatformat:2}} MAD</b>
                                             </td>
                                         </tr>
                                     </tfoot>

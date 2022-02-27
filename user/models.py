@@ -1,4 +1,3 @@
-from operator import truediv
 from django.db import models
 from product.models import Product
 from ckeditor.fields import RichTextField
@@ -11,8 +10,8 @@ class ProfileUser(models.Model):
     store_name = models.CharField(max_length=100, blank=True,null=False, unique=True, default=uuid.uuid1, error_messages ={
                     "unique":"The store must be unique "
                     })
-    sotre_banner = CloudinaryField('media/uploads/vendors',default='default/1.jpg')
-    sotre_logo = CloudinaryField('media/uploads/vendors', default='default/1.jpg')
+    sotre_banner = CloudinaryField('media/uploads/vendors',default='v1645988134/default/1_yf3l0n.jpg')
+    sotre_logo = CloudinaryField('media/uploads/vendors', default='v1645988456/default/1.jpg')
     email = models.EmailField(null=True, blank=True, unique=True)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
     city = models.CharField(max_length=255, null=True, blank=True)

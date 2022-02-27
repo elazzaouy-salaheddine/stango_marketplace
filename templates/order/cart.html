@@ -50,7 +50,7 @@
                                         {{item.product.title}}
                                     </a>
                                 </td>
-                                <td class="product-price"><span class="amount">$ {{item.product.price|floatformat:2}}</span></td>
+                                <td class="product-price"><span class="amount"> {{item.product.price|floatformat:2}} MAD</span></td>
                                 <td class="product-quantity">
                                     <div class="input-group">
                                         
@@ -60,7 +60,7 @@
                                     </div>
                                 </td>
                                 <td class="product-subtotal product-price">
-                                    <span class="amount">$ {{item.get_total|floatformat:2}}</span>
+                                    <span class="amount"> {{item.get_total|floatformat:2}} MAD</span>
                                 </td>
 
                             </tr>
@@ -87,7 +87,7 @@
                             <h3 class="cart-title text-uppercase">Cart Totals</h3>
                             <div class="cart-subtotal d-flex align-items-center justify-content-between">
                                 <label class="ls-25">Subtotal</label>
-                                <span class='product-price'>$ {{order.get_cart_total|floatformat:2}}</span>
+                                <span class='product-price'> {{order.get_cart_total|floatformat:2}} MAD</span>
                             </div>
 
                             <hr class="divider">
