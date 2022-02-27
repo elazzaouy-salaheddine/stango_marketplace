@@ -10,26 +10,8 @@
             <li>{{product.title}}</li>
         </ul>
         <ul class="product-nav list-style-none">
-            <li class="product-nav-prev">
-                <a href="#">
-                    <i class="w-icon-angle-left"></i>
-                </a>
-                <span class="product-nav-popup">
-                    <img src=" {% static 'assets/images/products/product-nav-prev.jpg' %} " alt="Product" width="110"
-                        height="110" />
-                    <span class="product-name">Soft Sound Maker</span>
-                </span>
-            </li>
-            <li class="product-nav-next">
-                <a href="#">
-                    <i class="w-icon-angle-right"></i>
-                </a>
-                <span class="product-nav-popup">
-                    <img src="{% static 'assets/images/products/product-nav-next.jpg' %} " alt="Product" width="110"
-                        height="110" />
-                    <span class="product-name">Fabulous Sound Speaker</span>
-                </span>
-            </li>
+            
+            
         </ul>
     </nav>
     <!-- End of Breadcrumb -->
@@ -73,9 +55,11 @@
                                     <div class="product-meta">
                                         <div class="product-categories">
                                             Category:
-                                            {% for cat in product.category.all %}
-                                            <span class="product-category"><a href="{% url 'category_details' cat.slug %}"> {{cat.name}}</a></span>
-                                              {% endfor %}
+                                            <span class="product-category"><a href="{% url 'category_details' product.category.slug %}">{{product.category}}</a></span>
+                                        </div>
+                                        <div class="product-categories">
+                                            Sub-Category:
+                                            <span class="product-category"><a href="{% url 'category_details' product.sub_category.slug %}">{{product.sub_category}}</a></span>
                                         </div>
                                         <div class="product-sku">
                                             SKU: <span>jlkdadaulka4661646{{product.id}}</span>
@@ -104,9 +88,7 @@
 
                                 
 
-                                <div class="product-variation-price">
-                                    <span></span>
-                                </div>
+                                
 
                                 <div class="fix-bottom ">
                                     <div class="product-form ">
@@ -201,7 +183,7 @@
                                                 <a href="#tel:">{{vendo.phone_number}}</a>
                                             </li>
                                         </ul>
-                                        <a href="{% url 'store_detail' vendo.id %}"
+                                        <a href="{% url 'store_detail' vendo.store_name %}"
                                             class="btn btn-dark btn-link btn-underline btn-icon-right">Visit
                                             Store<i class="w-icon-long-arrow-right"></i></a>
                                     </div>
@@ -396,8 +378,8 @@
                     <section class="vendor-product-section">
                         <div class="title-link-wrapper mb-4">
                             {% for vend in vendor %} 
-                            <h4 class="title text-left">More Products From This Vendor</h4>
-                            <a href="{% url 'store_detail' vend.id %}" class="btn btn-dark btn-link btn-slide-right btn-icon-right">More
+                            <h4 class="title text-left">Plus de produits de ce fournisseur</h4>
+                            <a href="{% url 'store_detail' vend.store_name %}" class="btn btn-dark btn-link btn-slide-right btn-icon-right">More
                                 Products<i class="w-icon-long-arrow-right"></i></a> 
                             {% endfor %}
                         </div>
@@ -455,7 +437,7 @@
                                             <a href="product-default.html" class="rating-reviews">(3 reviews)</a>
                                         </div>
                                         <div class="product-pa-wrapper">
-                                            <div class="product-price">${{product.price|floatformat:2}}</div>
+                                            <div class="product-price">{{product.price|floatformat:2}} MAD</div>
                                         </div>
                                     </div>
                                 </div>
@@ -481,7 +463,7 @@
                                     </span>
                                     <div class="icon-box-content">
                                         <h4 class="icon-box-title">Free Shipping & Returns</h4>
-                                        <p>For all orders over $99</p>
+                                        <p>For all orders over 500 MAD</p>
                                     </div>
                                 </div>
                                 <div class="icon-box icon-box-side">
@@ -524,7 +506,7 @@
                             </div>
                             <!-- End of Widget Banner -->
 
-                            <div class="widget widget-products">
+                           {% comment %}  <div class="widget widget-products">
                                 <div class="title-link-wrapper mb-2">
                                     <h4 class="title title-link font-weight-bold">More Products</h4>
                                 </div>
@@ -668,7 +650,8 @@
                                         <button class="swiper-button-prev"></button>
                                     </div>
                                 </div>
-                            </div>
+                            </div> {% endcomment %}
+
                         </div>
                     </div>
                 </aside>

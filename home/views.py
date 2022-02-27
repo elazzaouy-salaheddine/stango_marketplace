@@ -41,3 +41,4 @@ def AboutUs(request):
         
     }
     return render(request, template_name, context)
+
