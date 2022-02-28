@@ -156,7 +156,7 @@
                             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing
                                 hendrerit. Pellentesque aliquet nibh nec urna dolor sit
                                 In nisi dapibus id, mattis</p>
-                            <a href="vendor-dokan-store.html" class="btn btn-dark btn-link btn-underline btn-icon-right">
+                            <a href="{% url 'store_list' %}" class="btn btn-dark btn-link btn-underline btn-icon-right">
                                 Visit Vendors<i class="w-icon-long-arrow-right"></i></a>
                         </div>
                         <!-- End of Col -->
@@ -280,13 +280,12 @@
             </div>
             <!-- End of Container -->
 
-            <div class="banner parallax" data-parallax-options="{'speed': 10, 'parallaxHeight': '200%', 'offset': -99}"
-                data-image-src="assets/images/pages/become/3.jpg" style="background-color: #929294;">
+            <div class="banner parallax"  style="background-color: #929294;">
                 <div class="container">
                     <div class="banner-content text-center">
                         <h2 class="title title-center text-white font-weight-bold">Let’s talk about how we can make
                                 brands work for you</h2>
-                        <a href="#" class="btn btn-white btn-outline btn-rounded ls-25">Register Now</a>
+                        <a href="{% url 'register_page' %}" class="btn btn-white btn-outline btn-rounded ls-25">Register Now</a>
                     </div>
                 </div>
             </div>

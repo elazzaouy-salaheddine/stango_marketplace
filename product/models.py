@@ -5,6 +5,8 @@ from category.models import Category, TagProduct, RecommendProduct, SubCategorie
 from cloudinary.models import CloudinaryField
 from PIL import Image
 
+
+
 class Product(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100, blank=True, default='')
@@ -18,7 +20,7 @@ class Product(models.Model):
     digital = models.BooleanField(default=False, null=True, blank=False)
     color = models.CharField(null=True, blank=True, max_length=255)
     size = models.CharField(null=True, blank=True, max_length=255)
-    detail = models.TextField()
+    detail = RichTextField()
     vendor = models.ForeignKey('auth.User',
                                related_name='vendor',
                                on_delete=models.CASCADE)

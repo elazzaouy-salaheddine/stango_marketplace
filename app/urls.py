@@ -8,7 +8,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path("users/", include('user.urls')),
     path("products/", include('product.urls')),
-    path("api/comments/", include('comment.urls')),
+    path("comments/", include('comment.urls')),
     path("api/categores/", include('category.urls')),
     path("order/", include('order.urls'), name="order"),
     path("categories/", include('category.urls'), name="categorie"),

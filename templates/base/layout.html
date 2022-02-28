@@ -765,7 +765,11 @@
                                       height="45" />
                               </a>
                               <div class="widget-body">
-                                  
+                                <p class="widget-about-title">Got Question? Contact  us 24/7</p>
+                                <a href="tel:18005707777" class="widget-about-call">+212 6 23 22 62 76</a>
+                                <p class="widget-about-desc">
+                                </p>
+
   
                                   <div class="social-icons social-icons-colored">
                                       <a href="#" class="social-icon social-facebook w-icon-facebook"></a>
@@ -794,16 +798,16 @@
                           <div class="widget">
                               <h4 class="widget-title">My Account</h4>
                               <ul class="widget-body">
-                                  <li><a href="#">Track My Order</a></li>
+                                  {% comment %} <li><a href="#">Track My Order</a></li> {% endcomment %}
                                   <li><a href="{% url 'cart' %}">View Cart</a></li>
                                   <li><a href={% url 'login' %} >Sign In</a></li>
-                                  <li><a href="#">Help</a></li>
+                                  {% comment %} <li><a href="#">Help</a></li>
                                   <li><a href="#">My Wishlist</a></li>
-                                  <li><a href="#">Privacy Policy</a></li>
+                                  <li><a href="#">Privacy Policy</a></li> {% endcomment %}
                               </ul>
                           </div>
                       </div>
-                      <div class="col-lg-3 col-sm-6">
+                      {% comment %} <div class="col-lg-3 col-sm-6">
                           <div class="widget">
                               <h4 class="widget-title">Customer Service</h4>
                               <ul class="widget-body">
@@ -815,7 +819,7 @@
                                   <li><a href="#">Term and Conditions</a></li>
                               </ul>
                           </div>
-                      </div>
+                      </div> {% endcomment %}
                   </div>
               </div>
               {% comment %} <div class="footer-middle">
@@ -896,7 +900,7 @@
               </div> {% endcomment %}
               <div class="footer-bottom">
                   <div class="footer-left">
-                      <p class="copyright">Copyright © 2021 Wolmart Store. All Rights Reserved.</p>
+                      <p class="copyright">Copyright © 2021 Stango. All Rights Reserved.</p>
                   </div>
 
                   {% comment %} <div class="footer-right">

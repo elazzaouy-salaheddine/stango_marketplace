@@ -3,14 +3,12 @@ from product.models import Product
 
 
 class Comment(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
+    custemer_name = models.CharField(max_length=255)
+    custemer_email = models.EmailField()
     body = models.TextField(blank=False)
-    owner = models.ForeignKey('auth.User',
-                              related_name='comments',
-                              on_delete=models.CASCADE)
-    product = models.ForeignKey(Product,
-                                related_name='comments',
-                                on_delete=models.CASCADE)
+    review = models.ForeignKey(Product, on_delete=models.CASCADE)
+    is_active = models.BooleanField(default=True)
+    add_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['created']
+        ordering = ['add_at']

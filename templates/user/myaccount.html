@@ -10,18 +10,18 @@
     <!-- Start of PageContent -->
     <div class="page-content pt-2">
         <div class="container">
-
-            <form class="row form-group mt-4 mb-4" method="post" enctype="multipart/form-data" style="
-            border-radius: 10px;
-            border: 2px solid;
-            padding: 10px;
-        ">
+<h2 class='text-center text-capitalize'>update store info</h2>
+            <form class="row form-group mt-4 mb-4" method="post" enctype="multipart/form-data" >
                 {% csrf_token %}
                 {{ form.media }} 
-                <div class='row'>
+                <div class='row' style="
+                border-radius: 10px;
+                border: 2px solid;
+                padding: 10px;
+            ">
                     {% for field in ProfileForm %}
 
-                    <div class="form-group col-md-4 mb-3" >
+                    <div class="form-group col-md-8 mb-3" >
                         <label for="{{ field.name}}" class=''>{{ field.label}}</label>
                         <div class=''>{{ field|add_class:"form-control " }}</div>
                     </div>
@@ -29,8 +29,8 @@
                     <br>
                     {% endfor %}
                 </div>
-                <button class="btn btn-primary"
-                        type="submit">update profile
+                <button class="btn btn-primary w-50"
+                        type="submit">update store details
                 </button>
             </form>
         </div>

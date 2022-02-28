@@ -1,9 +1,11 @@
 from itertools import product
 import json
 from django.http import JsonResponse, request
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, DetailView 
 from rest_framework import generics
+from comment.models import Comment
+from comment.forms import CommentForm
 from user.models import ProfileUser
 from .filters import ProductFilter
 from category.models import Brand, Category
@@ -64,15 +66,29 @@ def ProductsListViews(request):
 def ProductDetailViews(request, pk):
     product = get_object_or_404(Product, pk=pk)
     porducts_related_store = Product.objects.filter(vendor=product.vendor.id)
-    
-    vendor = ProfileUser.objects.filter(vendor = product.vendor)
+    reviews = Comment.objects.filter(review=pk)
+    vendor = ProfileUser.objects.filter(vendor=product.vendor)
     template_name = 'shop/product_detail.html'
+    
+    p_form = CommentForm(request.POST or None)
+    #obj = get_object_or_404(Product, id = pk)
+    if request.method == 'POST':
+        if p_form.is_valid():
+            form = p_form.save(commit=False)
+            form.review = product
+            form.save()
+            return redirect('/') # Redirect back to profile page
+    else:
+        p_form = CommentForm()
     context = {
         'product': product,
         'porducts_related_store':porducts_related_store,
-        'vendor':vendor
+        'vendor':vendor,
+        'reviews':reviews,
+        'add_review':p_form
     }
     return render(request, template_name, context=context)
+
 
 def ProductSearch(request):
     template_name = 'shop/products_search.html'

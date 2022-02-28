@@ -1,3 +1,4 @@
+from tokenize import blank_re
 from django.db import models
 from product.models import Product
 from ckeditor.fields import RichTextField
@@ -15,14 +16,18 @@ class ProfileUser(models.Model):
     email = models.EmailField(null=True, blank=True, unique=True)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
     city = models.CharField(max_length=255, null=True, blank=True)
-    description = models.TextField()
+    description = RichTextField()
     vendor = models.OneToOneField('auth.User', related_name='vendor_profile',
                             on_delete=models.CASCADE)
     product = models.ManyToManyField(Product,
                             related_name='vendor_products')
-    Shipping_Policy = models.TextField(blank=True)
-    Refund_Policy = models.TextField(blank=True)
-    Return_Policy = models.TextField(blank=True)
+    Shipping_Policy = RichTextField(null=True, blank=True)
+    Refund_Policy = RichTextField(null=True, blank=True)
+    Return_Policy = RichTextField(null=True, blank=True)
+    facebook_link = models.URLField(max_length=255, null=True, blank=True)
+    twitter_link = models.URLField(max_length=255, null=True, blank=True)
+    instagram_link = models.URLField(max_length=255, null=True, blank=True)
+    watsapp_link = models.URLField(max_length=255, null=True, blank=True)
     
     
     class Meta:

@@ -24,7 +24,7 @@ from order.models import Order, ShippingAddress
 from django.db import IntegrityError
 from django.shortcuts import render
 from django.contrib import messages
-
+from comment.models import Comment
 
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
@@ -52,7 +52,7 @@ def RegisterUser(request):
                 # store.save()
                 login(request, user)
                 messages.success(request, "Registration successful." )
-                return redirect("/")
+                return redirect("account_setting")
         messages.error(request, "Unsuccessful registration. Invalid information.")
     form = RegisterForm()
     vendor_form = ProfileForm()

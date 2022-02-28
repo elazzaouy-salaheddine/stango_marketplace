@@ -81,7 +81,7 @@
                                 </div>
 
                                 <div class="product-short-desc">
-                                    {{product.product_short_desc}}
+                                    {{product.product_short_desc|safe}}
                                 </div>
 
                                 <hr class="product-divider">
@@ -135,7 +135,7 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="product-tab-description">
                                 product_short_desc
-                                {{product.detail}}
+                                {{product.detail|safe}}
                             </div>
 
                             <div class="tab-pane" id="product-tab-vendor">
@@ -159,7 +159,7 @@
                                                 </a>
                                             </figure>
                                             <div>
-                                                <div class="vendor-name"><a href="#">{{vendo.store_name}}</a></div>
+                                                <div class="vendor-name"><a href="{% url 'store_detail' vendo.store_name %}">{{vendo.store_name}}</a></div>
                                                 <div class="ratings-container">
                                                     <div class="ratings-full">
                                                         <span class="ratings" style="width: 90%;"></span>
@@ -188,7 +188,7 @@
                                             Store<i class="w-icon-long-arrow-right"></i></a>
                                     </div>
                                 </div>
-                                <p class="mb-5">{{vendo.description}}
+                                <p class="mb-5">{{vendo.description|safe}}
                                 </p>
                                {% endfor %}
                             </div>
@@ -283,7 +283,34 @@
                                         </div>
                                     </div>
                                     <div class="col-xl-8 col-lg-7 mb-4">
-                                        <div class="review-form-wrapper">
+                                        <form action="#" method="POST" class="review-form">
+            
+                                            {% csrf_token %}
+                                           {% comment %}  <div class="rating-form">
+                                                <label for="rating">Your Rating Of This Product :</label>
+                                                <span class="rating-stars">
+                                                    <a class="star-1" href="#">1</a>
+                                                    <a class="star-2" href="#">2</a>
+                                                    <a class="star-3" href="#">3</a>
+                                                    <a class="star-4" href="#">4</a>
+                                                    <a class="star-5" href="#">5</a>
+                                                </span>
+                                                <select name="rating" id="rating" required=""
+                                                    style="display: none;">
+                                                    <option value="">Rate…</option>
+                                                    <option value="5">Perfect</option>
+                                                    <option value="4">Good</option>
+                                                    <option value="3">Average</option>
+                                                    <option value="2">Not that bad</option>
+                                                    <option value="1">Very poor</option>
+                                                </select>
+                                            </div> {% endcomment %}
+                                           
+                                            {{add_review}}
+                                            <button type="submit" class="btn btn-dark">Submit
+                                                Review</button>
+                                        </form>
+                                        {% comment %} <div class="review-form-wrapper">
                                             <h3 class="title tab-pane-title font-weight-bold mb-1">Submit Your
                                                 Review</h3>
                                             <p class="mb-3">Your email address will not be published. Required
@@ -330,7 +357,7 @@
                                                 <button type="submit" class="btn btn-dark">Submit
                                                     Review</button>
                                             </form>
-                                        </div>
+                                        </div> {% endcomment %}
                                     </div>
                                 </div>
 
@@ -339,7 +366,7 @@
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="show-all">
                                             <ul class="comments list-style-none">
-                                                {% for comment in product.comments.all %}
+                                                {% for comment in reviews %}
                                                 
                                                 
                                                 <li class="comment">
@@ -350,8 +377,8 @@
                                                         </figure>
                                                         <div class="comment-content">
                                                             <h4 class="comment-author">
-                                                                <a href="#">{{comment.owner}}</a>
-                                                                <span class="comment-date">{{comment.created}}</span>
+                                                                <a href="#">{{comment.custemer_name}}</a>
+                                                                <span class="comment-date">{{comment.add_at}}</span>
                                                             </h4>
                                                             <div class="ratings-container comment-rating">
                                                                 <div class="ratings-full">

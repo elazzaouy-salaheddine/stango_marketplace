@@ -4,7 +4,7 @@ from.models import Comment
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('product', 'owner')
+    list_display = ('add_at',)
 
 
 admin.site.register(Comment, CommentAdmin)

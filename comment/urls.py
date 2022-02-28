@@ -1,10 +1,10 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from .views import CommentList, CommentDetail
+from .views import CommentList, CommentDetail, ProductReviewsForm
 
 urlpatterns = [
     # code omitted for brevity
-    path('', CommentList.as_view()),
+    path('', ProductReviewsForm),
     path('<int:pk>/', CommentDetail.as_view()),
 ]
 

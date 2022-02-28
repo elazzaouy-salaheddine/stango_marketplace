@@ -48,14 +48,19 @@
                             </div>
                         </div>
                         <div class="store-content-right">
-                            <div class="btn btn-white btn-rounded btn-icon-left btn-inquiry"><i
-                                    class="far fa-question-circle"></i>Inquiry</div>
                             <div class="social-icons social-icons-colored border-thin">
-                                <a href="#" class="social-icon social-facebook w-icon-facebook"></a>
-                                <a href="#" class="social-icon social-twitter w-icon-twitter"></a>
-                                <a href="#" class="social-icon social-linkedin fab fa-linkedin"></a>
-                                <a href="#" class="social-icon social-youtube w-icon-youtube"></a>
-                                <a href="#" class="social-icon social-instagram w-icon-instagram"></a>
+                                {% if store.facebook_link %} 
+                                <a href="{{store.facebook_link}}" class="social-icon social-facebook w-icon-facebook"></a>
+                                {% endif %}
+                                {% if store.twitter_link %}
+                                <a href="{{store.twitter_link}}" class="social-icon social-twitter w-icon-twitter"></a>
+                                {% endif %}
+                                {% if store.watsapp_link %}
+                                <a href="{{store.watsapp_link}}" class="social-icon social-whatsapp fab fa-whatsapp"></a>
+                                {% endif %}
+                                {% if store.instagram_link %}
+                                <a href="{{store.instagram_link}}" class="social-icon social-instagram w-icon-instagram"></a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -305,26 +310,7 @@
                                     <!-- End of Reveiw Area -->
                                     <div class="review-area">
                                         <h3 class="title font-weight-bold mb-5">Reviews</h3>
-                                        <div class="reviewers d-flex align-items-center flex-wrap mb-7">
-                                            <div class="reviewers-picture d-flex mr-2">
-                                                <figure>
-                                                    <img src="assets/images/vendor/wcfm/avatar.png" alt="Avatar"
-                                                        width="113" height="112" />
-                                                </figure>
-                                                <figure>
-                                                    <img src="assets/images/vendor/wcfm/avatar.png" alt="Avatar"
-                                                        width="113" height="112" />
-                                                </figure>
-                                                <figure>
-                                                    <img src="assets/images/vendor/wcfm/avatar.png" alt="Avatar"
-                                                        width="113" height="112" />
-                                                </figure>
-                                            </div>
-                                            <div class="reviewer-name">
-                                                <a href="#" class="font-weight-bold mr-1">John Doe</a>has reviewed
-                                                this store
-                                            </div>
-                                        </div>
+                                        
                                         <!-- End of Reviewers -->
                                         <div class="review-ratings">
                                             <div class="review-ratings-left mr-auto">
@@ -371,10 +357,12 @@
                                             <!-- End of Review Ratings Right -->
                                         </div>
                                         <!-- End of Review Ratings -->
+
+
                                         <div class="user-wrap">
                                             <div class="user-photo">
                                                 <figure>
-                                                    <img src="assets/images/vendor/wcfm/avatar.png" alt="Avatar"
+                                                    <img src=" {% static 'assets/images/vendor/wcfm/avatar.png' %} " alt="Avatar"
                                                         width="113" height="112" />
                                                 </figure>
                                                 <div class="rated text-center">
@@ -395,38 +383,7 @@
                                                 </p>
                                             </div>
                                             <!-- End of User Info -->
-                                            <div class="review-ratings">
-                                                <div class="ratings-container">
-                                                    <div class="ratings-full">
-                                                        <span class="ratings" style="width: 100%;"></span>
-                                                    </div>
-                                                    <label>5.0 Feature</label>
-                                                </div>
-                                                <div class="ratings-container">
-                                                    <div class="ratings-full">
-                                                        <span class="ratings" style="width: 100%;"></span>
-                                                    </div>
-                                                    <label>5.0 Varity</label>
-                                                </div>
-                                                <div class="ratings-container">
-                                                    <div class="ratings-full">
-                                                        <span class="ratings" style="width: 100%;"></span>
-                                                    </div>
-                                                    <label>5.0 Flexibility</label>
-                                                </div>
-                                                <div class="ratings-container">
-                                                    <div class="ratings-full">
-                                                        <span class="ratings" style="width: 100%;"></span>
-                                                    </div>
-                                                    <label>5.0 Delivery</label>
-                                                </div>
-                                                <div class="ratings-container">
-                                                    <div class="ratings-full">
-                                                        <span class="ratings" style="width: 100%;"></span>
-                                                    </div>
-                                                    <label>5.0 Support</label>
-                                                </div>
-                                            </div>
+                                            
                                         </div>
                                         <!-- End of User Wrap -->
                                     </div>

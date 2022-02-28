@@ -17,7 +17,7 @@ urlpatterns = [
     #path('profile/', AccountSetting.as_view(), name='profile'),
     path('', StoreView, name='store_list'),
     path('<str:store_name>/', SotreDetail, name='store_detail'),
-    path('becomevendor/', BecomeVendor, name='become_vendor'),
+    path('becomevendor/$/', BecomeVendor, name='become_vendor'),
     
     
     path('login/$/', views.LoginView.as_view(template_name='registration/login.html'), name='login'),
