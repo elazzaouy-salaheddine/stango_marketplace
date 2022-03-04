@@ -66,7 +66,7 @@ def ProductsListViews(request):
 def ProductDetailViews(request, pk):
     product = get_object_or_404(Product, pk=pk)
     porducts_related_store = Product.objects.filter(vendor=product.vendor.id)
-    reviews = Comment.objects.filter(review=pk).distinct("custemer_email") 
+    reviews = Comment.objects.filter(review=pk)
     vendor = ProfileUser.objects.filter(vendor=product.vendor)
     template_name = 'shop/product_detail.html'
     
