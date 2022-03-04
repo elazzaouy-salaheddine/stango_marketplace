@@ -202,6 +202,13 @@ LOGIN_REDIRECT_URL = 'home_page'
 LOGOUT_REDIRECT_URL = '/'
 CORS_ALLOW_ALL_ORIGINS = True 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
 MPTT_ADMIN_LEVEL_INDENT = 20
 

@@ -1,4 +1,5 @@
 {% extends "base/layout.html" %}
+{% load widget_tweaks %}
 {% load static %}
 {% block content %}
 <main class="main mb-10 pb-1">
@@ -283,81 +284,29 @@
                                         </div>
                                     </div>
                                     <div class="col-xl-8 col-lg-7 mb-4">
-                                        <form action="#" method="POST" class="review-form">
-            
-                                            {% csrf_token %}
-                                           {% comment %}  <div class="rating-form">
-                                                <label for="rating">Your Rating Of This Product :</label>
-                                                <span class="rating-stars">
-                                                    <a class="star-1" href="#">1</a>
-                                                    <a class="star-2" href="#">2</a>
-                                                    <a class="star-3" href="#">3</a>
-                                                    <a class="star-4" href="#">4</a>
-                                                    <a class="star-5" href="#">5</a>
-                                                </span>
-                                                <select name="rating" id="rating" required=""
-                                                    style="display: none;">
-                                                    <option value="">Rate…</option>
-                                                    <option value="5">Perfect</option>
-                                                    <option value="4">Good</option>
-                                                    <option value="3">Average</option>
-                                                    <option value="2">Not that bad</option>
-                                                    <option value="1">Very poor</option>
-                                                </select>
-                                            </div> {% endcomment %}
-                                           
-                                            {{add_review}}
-                                            <button type="submit" class="btn btn-dark">Submit
-                                                Review</button>
-                                        </form>
-                                        {% comment %} <div class="review-form-wrapper">
+                                        
+                                        <div class="review-form-wrapper">
                                             <h3 class="title tab-pane-title font-weight-bold mb-1">Submit Your
                                                 Review</h3>
                                             <p class="mb-3">Your email address will not be published. Required
                                                 fields are marked *</p>
-                                            <form action="#" method="POST" class="review-form">
-                                                <div class="rating-form">
-                                                    <label for="rating">Your Rating Of This Product :</label>
-                                                    <span class="rating-stars">
-                                                        <a class="star-1" href="#">1</a>
-                                                        <a class="star-2" href="#">2</a>
-                                                        <a class="star-3" href="#">3</a>
-                                                        <a class="star-4" href="#">4</a>
-                                                        <a class="star-5" href="#">5</a>
-                                                    </span>
-                                                    <select name="rating" id="rating" required=""
-                                                        style="display: none;">
-                                                        <option value="">Rate…</option>
-                                                        <option value="5">Perfect</option>
-                                                        <option value="4">Good</option>
-                                                        <option value="3">Average</option>
-                                                        <option value="2">Not that bad</option>
-                                                        <option value="1">Very poor</option>
-                                                    </select>
-                                                </div>
-                                                <textarea cols="30" rows="6"
-                                                    placeholder="Write Your Review Here..." class="form-control"
-                                                    id="review"></textarea>
+                                            <form action="" method="POST" class="review-form">
+                                                {% csrf_token %}
+                                                
+                                                    {{add_review.body|add_class:"form-control" }}
                                                 <div class="row gutter-md">
                                                     <div class="col-md-6">
-                                                        <input type="text" class="form-control"
-                                                            placeholder="Your Name" id="author">
+                                                        {{add_review.custemer_name|add_class:"form-control" }}
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="text" class="form-control"
-                                                            placeholder="Your Email" id="email_1">
+                                                        {{add_review.custemer_email|add_class:"form-control" }}
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <input type="checkbox" class="custom-checkbox"
-                                                        id="save-checkbox">
-                                                    <label for="save-checkbox">Save my name, email, and website
-                                                        in this browser for the next time I comment.</label>
-                                                </div>
+                                                
                                                 <button type="submit" class="btn btn-dark">Submit
                                                     Review</button>
                                             </form>
-                                        </div> {% endcomment %}
+                                        </div> 
                                     </div>
                                 </div>
 

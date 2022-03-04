@@ -66,18 +66,17 @@ def ProductsListViews(request):
 def ProductDetailViews(request, pk):
     product = get_object_or_404(Product, pk=pk)
     porducts_related_store = Product.objects.filter(vendor=product.vendor.id)
-    reviews = Comment.objects.filter(review=pk)
+    reviews = Comment.objects.filter(review=pk).distinct("custemer_email") 
     vendor = ProfileUser.objects.filter(vendor=product.vendor)
     template_name = 'shop/product_detail.html'
     
     p_form = CommentForm(request.POST or None)
-    #obj = get_object_or_404(Product, id = pk)
     if request.method == 'POST':
         if p_form.is_valid():
             form = p_form.save(commit=False)
             form.review = product
             form.save()
-            return redirect('/') # Redirect back to profile page
+            p_form = CommentForm()
     else:
         p_form = CommentForm()
     context = {

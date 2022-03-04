@@ -11,4 +11,4 @@ class Comment(models.Model):
     add_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['add_at']
+        ordering = ['-add_at']
