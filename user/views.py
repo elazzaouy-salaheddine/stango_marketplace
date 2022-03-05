@@ -56,7 +56,7 @@ def RegisterUser(request):
         messages.error(request, "Unsuccessful registration. Invalid information.")
     form = RegisterForm()
     vendor_form = ProfileForm()
-    return render(request,'registration/register.html', context={"register_form":form,"vendor_form":vendor_form})
+    return render(request,'registratio/register.html', context={"register_form":form,"vendor_form":vendor_form})
 
 
 def StoreView(request):
