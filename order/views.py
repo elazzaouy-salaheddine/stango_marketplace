@@ -17,7 +17,6 @@ def cart(request):
     cartItems = data['cartItems']
     order = data['order']
     items = data['items'] 
-
     context = {
         'items': items,
         'order': order,

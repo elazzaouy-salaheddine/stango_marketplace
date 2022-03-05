@@ -1,6 +1,65 @@
-
+{% comment %} 
 
 <a class="compare label-down link d-xs-show" href="{% url 'cart' %}">
     <i class="w-icon-cart"></i>
-    <span class="compare-label d-lg-show">Cart</span>
+    <span class="compare-label d-lg-show">Cart {{cartItems}}</span>
 </a>
+
+<a href="#" class="cart-toggle label-down link">
+    <i class="w-icon-cart">
+        <span class="cart-count">2</span>
+    </i>
+    <span class="cart-label">Cart</span>
+</a> {% endcomment %}
+
+<div class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2">
+    <div class="cart-overlay"></div>
+    <a href="#" class="cart-toggle label-down link">
+        <i class="w-icon-cart">
+            <span class="cart-count">{{cartItems}}</span>
+        </i>
+        <span class="cart-label">Cart</span>
+    </a>
+    <div class="dropdown-box">
+        <div class="cart-header">
+            <span>Shopping Cart</span>
+            <a href="#" class="btn-close">Close<i class="w-icon-long-arrow-right"></i></a>
+        </div>
+        
+        
+        
+        <div class="products">
+            {% for item in items %}
+            <div class="product product-cart">
+                <div class="product-detail">
+                    <a href="{% url 'product_details' item.product.id %}" class="product-name">{{item.product.title}}</a>
+                    <div class="price-box">
+                        <span class="product-quantity">{{item.quantity}}</span>
+                        <span class="product-price">{{item.product.price|floatformat:2}} MAD</span>
+                    </div>
+                </div>
+                <figure class="product-media">
+                    <a href="product-default.html">
+                        <img src="{{item.product.photo.url}}" alt="product" height="84" width="94">
+                    </a>
+                </figure>
+                <button class="btn btn-link btn-close" aria-label="button">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            {% endfor %}
+            
+        </div>
+
+        <div class="cart-total">
+            <label>Subtotal:</label>
+            <span class="price"> {{order.get_cart_total|floatformat:2}} MAD</span>
+        </div>
+
+        <div class="cart-action">
+            <a href="{% url 'cart' %}" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
+            <a href=" {% url 'checkout' %} " class="btn btn-primary  btn-rounded">Checkout</a>
+        </div>
+    </div>
+    <!-- End of Dropdown Box -->
+</div>

@@ -81,12 +81,11 @@ def SotreDetail(request, store_name):
 
 def BecomeVendor(request):
     context = {}
-    template_name= 'user/BecomeVendor.html'
+    template_name = 'user/BecomeVendor.html'
     return render(request, template_name, context)
 
 
 def  AccountSetting(request):
-    
     p_form = ProfileForm(request.POST or None, request.FILES, instance=request.user.vendor_profile) 
     if request.method == 'POST':
         #u_form = UserUpdateForm(request.POST, instance=request.user)

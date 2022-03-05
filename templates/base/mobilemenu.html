@@ -88,6 +88,7 @@
                     {% for category in categories %}
                     <li> <a href={% url 'category_details' category.slug  %}> <i class="w-icon-{{category.category_logo}}"></i> {{ category.name }}</a> </li>
                     {% endfor %}
+                    
                 </ul>
             </div>
         </div>
