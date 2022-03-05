@@ -20,3 +20,6 @@ def CartTemplate(request):
     template_name = 'base/cart.html'
     return render(request, template_name, context)
 
+
+def page_not_found_view(request, exception):
+    return render(request, 'base/404.html', status=404)
