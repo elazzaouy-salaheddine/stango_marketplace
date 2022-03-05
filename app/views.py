@@ -19,3 +19,4 @@ def CartTemplate(request):
     }
     template_name = 'base/cart.html'
     return render(request, template_name, context)
+
