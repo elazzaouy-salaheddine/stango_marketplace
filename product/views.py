@@ -47,7 +47,7 @@ def ProductsListViews(request):
     popular_brand = Brand.objects.filter(tag_brand='PopularBrand')
     categores = Category.objects.all()
     template_name = 'shop/index.html'
-    products = Product.objects.all()
+    products = Product.objects.filter(puslish=True)
     my_product_filter = ProductFilter(request.GET, queryset=products)
     products = my_product_filter.qs
     pagi = Paginator(products,30)
@@ -94,7 +94,7 @@ def ProductSearch(request):
     query_dict = request.GET
     query = query_dict.get('title')
     print(query)
-    products = Product.objects.filter(title__icontains=query)
+    products = Product.objects.filter(title__icontains=query,puslish=True)
     context = {
         'products': products
         }

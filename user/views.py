@@ -1,19 +1,21 @@
+from distutils.log import error
 from unicodedata import category
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.forms import inlineformset_factory, modelformset_factory
 from django.urls import reverse
 from django.views import View
 from django.views.generic import FormView
 from django.contrib import messages
 from category.models import Category, SubCategories
 from order.models import OrderItem
-from product.models import Product
+from product.models import Product, ProductImages
 from .models import ProfileUser
 from django.shortcuts import get_object_or_404, redirect, render
 from rest_framework import generics
-from .froms import ProductForm, ProfileForm, RegisterForm
+from .froms import ProductForm, ProductImagesForm, ProfileForm, RegisterForm, ProductImagesFormSet
 from user import serializers 
 from app import settings
 from .serializers import ProfileSerializer
@@ -25,7 +27,7 @@ from django.db import IntegrityError
 from django.shortcuts import render
 from django.contrib import messages
 from comment.models import Comment
-
+from django.contrib import messages
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
@@ -70,7 +72,7 @@ def StoreView(request):
 
 def SotreDetail(request, store_name):
     store = get_object_or_404(ProfileUser, store_name=store_name)
-    store_products = Product.objects.filter(vendor=store.vendor)
+    store_products = Product.objects.filter(vendor=store.vendor,puslish=True)
     context = {
         'store_products': store_products,
         'store': store
@@ -128,35 +130,59 @@ def load_sub_categoires(request):
 def StoreProductCreate(request):
     categories = Category.objects.all()
     product_form = ProductForm(request.POST or None, request.FILES)
+    #ProductImagesFormSe = ProductImagesFormSet(request.POST, request.FILES)
     if request.method == "POST":
         if product_form.is_valid():
             form = product_form.save(commit=False)
             form.vendor = request.user
             form.save()
-            return redirect("store_products")
+            formset = ProductImagesFormSet(request.POST,request.FILES, instance=form)
+            if formset.is_valid():
+                formset.save()
+            messages.success(request, 'product add success')
+            messages.error(request, error)
+            #return redirect("store_products")
+        else:
+            messages.warning(request, 'products not created!')
     product_form = ProductForm()
+    ProductImagesFormSe = ProductImagesFormSet()
     template_name = 'user/account_layout/product-create.html'
     context ={
         'product_form' : product_form,
         'categories':categories,
+        'ProductImagesFormSet':ProductImagesFormSe
     }
     return render(request, template_name, context)
 
-
-def StoreProductUpdate(request, pk):
+# importing formset_factory
+from django.forms import formset_factory
+def StoreProductUpdate(request, pk ,*args, **kwargs):
     obj = get_object_or_404(Product, id = pk)
- 
+    product_images  = ProductImages.objects.filter(product_image=obj.pk)
     # pass the object as instance in form
     product_form = ProductForm(request.POST or None, request.FILES, instance=obj)
+    ProductImagesFormSe = modelformset_factory(ProductImages, form=ProductImagesForm, extra=2)
+    qs = obj.productimages_set.all()
+    formset = ProductImagesFormSe(request.POST or None,request.FILES, queryset=qs)
     if request.method == 'POST':
         if product_form.is_valid():
             product_form.save()
+            formset = ProductImagesFormSet(queryset=qs)
+            if formset.is_valid():
+                formset.save()
             return redirect("store_products")
     else:
             #u_form = UserUpdateForm(instance=request.user)
         product_form = ProductForm(instance=obj)
+        formset = ProductImagesFormSe(queryset=qs)
+    print('-------------*******************')
+    print(qs)
     context ={
-        'product_form' : product_form
+        'product_form' : product_form,
+        'ProductImagesFormSet':formset,
+        'obj':obj,
+        'qs':qs,
+        'product_images':product_images
     }
  
     return render(request, "user/account_layout/product-update.html", context)

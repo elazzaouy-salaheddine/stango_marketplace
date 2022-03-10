@@ -17,7 +17,7 @@
                     <h4 class="banner-subtitle font-weight-bold">Accessories Collection</h4>
                     <h3 class="banner-title text-white text-uppercase font-weight-bolder ls-normal">Smart Wrist
                         Watches</h3>
-                    <a href="shop-banner-sidebar.html" class="btn btn-dark btn-rounded btn-icon-right">Discover
+                    <a href="#" class="btn btn-dark btn-rounded btn-icon-right">Discover
                         Now<i class="w-icon-long-arrow-right"></i></a>
                 </div>
             </div>
@@ -153,7 +153,7 @@
                                 </figure>
                                 <div class="product-details">
                                     <div class="product-cat">
-                                        <a href="shop-banner-sidebar.html">
+                                        <a href="#">
                                             {% for cat in product.category.all %}
                                             {{cat.name}}
                                             {%endfor%}
@@ -168,11 +168,11 @@
                                             <span class="ratings" style="width: 100%;"></span>
                                             <span class="tooltiptext tooltip-top"></span>
                                         </div>
-                                        <a href="product-default.html" class="rating-reviews">(3 reviews)</a>
+                                        <a href="#" class="rating-reviews">(3 reviews)</a>
                                     </div>
                                     <div class="product-pa-wrapper">
                                         <div class="product-price">
-                                            {{product.price}}$
+                                            {{product.price|floatformat:2}} MAD
                                         </div>
                                     </div>
                                 </div>

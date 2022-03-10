@@ -6,8 +6,8 @@
     <!-- Start of Breadcrumb -->
     <nav class="breadcrumb-nav container">
         <ul class="breadcrumb bb-no">
-            <li><a href="demo1.html">Home</a></li>
-            <li><a href="product-default.html">Products</a></li>
+            <li><a href="{% url 'home_page' %}">Home</a></li>
+            <li><a href="{% url 'shop' %}">Products</a></li>
             <li>{{product.title}}</li>
         </ul>
         <ul class="product-nav list-style-none">
@@ -135,7 +135,6 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="product-tab-description">
-                                product_short_desc
                                 {{product.detail|safe}}
                             </div>
 

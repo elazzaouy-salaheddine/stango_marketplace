@@ -186,7 +186,7 @@
             <div class="swiper-slide vendor-widget">
                 <div class="vendor-widget-banner">
                     <figure class="vendor-banner">
-                        <a href={% url 'store_detail' ven.id %} >
+                        <a href={% url 'store_detail' ven.store_name %} >
                             {% if ven.sotre_banner %}
                             <img src="{{ ven.sotre_banner.url}}" alt="Vendor Banner" width="1200"
                                 height="390" style="background-color: #ECE7DF;" />
@@ -199,7 +199,7 @@
                     <div class="vendor-details">
                         <figure class="vendor-logo">
                             {% if ven.sotre_logo  %}
-                            <a href={% url 'store_detail' ven.id %}>
+                            <a href={% url 'store_detail' ven.store_name %}>
                                 <img src="{{ven.sotre_logo.url}}" alt="Vendor Logo"
                                     width="90" height="90" style="
                                     width: 90px;
@@ -215,7 +215,7 @@
                         </figure>
                         <div class="vendor-personal">
                             <h4 class="vendor-name">
-                                <a href={% url 'store_detail' ven.id %}>{{ven.store_name}}</a>
+                                <a href={% url 'store_detail' ven.store_name %}>{{ven.store_name}}</a>
                             </h4>
                             <span class="vendor-product-count">25 products</span>
                         </div>
@@ -293,7 +293,7 @@
                                 </div>
                                 <div class="product-pa-wrapper">
                                     <div class="product-price">
-                                        <ins class="new-price">${{product_clothing_item.price}}</ins>
+                                        <ins class="new-price">{{product_clothing_item.price|floatformat:2}} MAD</ins>
                                     </div>
                                     <div class="product-action">
                                         
@@ -409,7 +409,7 @@
                                 </div>
                                 <div class="product-pa-wrapper">
                                     <div class="product-price">
-                                        <ins class="new-price">${{product.price}}</ins>
+                                        <ins class="new-price">{{product.price|floatformat:2}} MAD</ins>
                                     </div>
                                     <div class="product-action">
                                         <a  data-product="{{product.id}}" data-action="add"
@@ -493,7 +493,7 @@
                                 </div>
                                 <div class="product-pa-wrapper">
                                     <div class="product-price">
-                                        <ins class="new-price">${{product_garden_item.price}}</ins>
+                                        <ins class="new-price">{{product_garden_item.price|floatformat:2}} MAD</ins>
                                     </div>
                                     <div class="product-action">
                                         <a  data-product="{{product_garden_item.id}}" data-action="add"

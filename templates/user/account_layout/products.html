@@ -19,12 +19,21 @@
                     <div class="col-md-3 col-6 mb-4">
                         <div class="product text-center">
                             <figure class="product-media">
-                                <a href="product-default.html">
+                                <a href="{% url 'product_details' product.id %}">
                                     <img src={{product.photo.url}} alt="Product" width="295"
                                         height="335" />
                                 </a>
                                 <div class="product-label-group">
-                                    <label class="product-label label-discount">200 sales</label>
+                                    {% if product.puslish %}
+                                    <label class="product-label label-discount"  style="
+                                    background: green;
+                                ">Published</label>
+                                    {% else %}
+                                    <label class="product-label label-discount" style="
+                                    background: red;
+                                ">Not Published</label>
+                                    {% endif %}
+                                    
                                 </div>
                                 <div class="product-action-horizontal">
                                     <a href=" {% url 'store_product_update' pk=product.id %} " class="btn-product-icon "
@@ -37,18 +46,18 @@
                             
                             <div class="product-details">
                                 <h3 class="product-name">
-                                    <a href="product-default.html">{{product.title}}</a>
+                                    <a href="{% url 'product_details' product.id %}">{{product.title}}</a>
                                 </h3>
                                 <div class="ratings-container">
                                     <div class="ratings-full">
                                         <span class="ratings" style="width: 100%;"></span>
                                         <span class="tooltiptext tooltip-top"></span>
                                     </div>
-                                    <a href="product-default.html" class="rating-reviews">(3 reviews)</a>
+                                    <a href="#" class="rating-reviews">(3 reviews)</a>
                                 </div>
                                 <div class="product-pa-wrapper">
                                     <div class="product-price">
-                                        <ins class="new-price">${{product.price}}</ins>
+                                        <ins class="new-price">{{product.price|floatformat:2}} MAD</ins>
                                     </div>
                                 </div>
                             </div>

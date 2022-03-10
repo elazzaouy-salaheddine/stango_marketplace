@@ -9,31 +9,56 @@
     {% include './nav_bar_account.html' %}
    <!-- Start of PageContent -->
      <div class='container'>
-        <form class="row form-group mt-4 mb-4" id="productform" method="post" enctype="multipart/form-data" data-cities-url="{% url 'load_sub_categoires' %}">
-            {% csrf_token %}
-            {% for error in errors  %}
-            <div class="alert alert-danger mb-4" role="alert">
-                    <strong>{{ error }}</strong>
-                </div>
-        {% endfor %}
-            {{ form.media }} 
-            {% for field in product_form %}
+         <div class='row'>
+
+            <div class='col-md-2'>
+
+            </div>
+            <div class='col-md-10'>
+                {% for message in messages %}
+                  {{message}}
+                {% endfor %}
+                <form action="." class="row form-group mt-4 mb-4" id="productform" method="post" enctype="multipart/form-data" data-cities-url="{% url 'load_sub_categoires' %}">
+                    {% csrf_token %}
+                    {% for error in field.errors  %}
+                    <div class="alert alert-danger mb-4" role="alert">
+                            <strong>{{ error|escape  }}</strong>
+                        </div>
+                {% endfor %}
+                    {{ form.media }} 
+                    {% for field in product_form %}
+        
+        
+                    <div class="row form-group mb-2">
+                      <label for="{{ field.name}}" class='mb-1 col-sm-2 col-form-label'>{{ field.label}}</label>
+                      <div class='mb-1 col-sm-10 col-md-8'>
+                         
+                          {{ field|add_class:"form-control " }}
+                          
+                      </div>
+                      
+                   </div>
+                {% endfor %}
+                <h2>Add images</h2>
+                 {{ ProductImagesFormSet.management_form }}
+                 {% for form in ProductImagesFormSet %}
+                 {{ form }}
+                 {% endfor %}
+   
+                    <button class="btn btn-primary" style="
+                    width: max-content;
+                    border-radius: 10px;
+                    
+                    margin-left: auto;
+                "
+                            type="submit">add product
+                    </button>
+                </form>
+            </div>
+         </div>
 
 
-            <div class="row form-group mb-2">
-              <label for="{{ field.name}}" class='mb-1 col-sm-2 col-form-label'>{{ field.label}}</label>
-              <div class='mb-1 col-sm-10 col-md-8'>
-                 
-                  {{ field|add_class:"form-control " }}
-                  
-              </div>
-              
-           </div>
-        {% endfor %}
-            <button class="btn btn-primary"
-                    type="submit">add product
-            </button>
-        </form>
+        
     </div> 
 </main>
 

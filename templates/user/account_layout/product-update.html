@@ -27,8 +27,21 @@
               
            </div>
         {% endfor %}
+        <h2>Add images slider</h2>
+        {{ ProductImagesFormSet.management_form }}
+        <div class='row' >
+            {% for form in ProductImagesFormSet %} 
+            <div class='col-md-3' >
+                {{ form }}
+                <img src="{{form.instance.image.url}}"/>
+            </div>
+            
+            {% endfor %}
+
+        </div>
+
             <button class="btn btn-primary"
-                    type="submit">add product
+                    type="submit">update product
             </button>
         </form>
    
