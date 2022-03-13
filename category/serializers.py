@@ -15,4 +15,4 @@ class CategorySerializer(serializers.ModelSerializer):
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
-        fields = ['name', 'logo']
+        fields = ['name', 'logo'] 

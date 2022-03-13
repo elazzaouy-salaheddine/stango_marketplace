@@ -2,7 +2,7 @@ from itertools import product
 import json
 from django.http import JsonResponse, request
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import ListView, DetailView 
+from django.views.generic import ListView, DetailView
 from rest_framework import generics
 from comment.models import Comment
 from comment.forms import CommentForm
@@ -24,7 +24,7 @@ class ProductList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(vendor=self.request.user)
-    
+
 
 class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
@@ -34,10 +34,11 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 @csrf_exempt
-def ProductsSearche(request) :
-    if request.method =='POST':
+def ProductsSearche(request):
+    if request.method == 'POST':
         search_str = json.loads(request.body).get('searche')
-        products = Product.objects.filter(title__icontains=search_str)| Product.objects.filter(category__name__icontains=search_str)| Product.objects.filter(tag__tage_name__icontains=search_str)
+        products = Product.objects.filter(title__icontains=search_str) | Product.objects.filter(
+            category__name__icontains=search_str) | Product.objects.filter(tag__tage_name__icontains=search_str)
         data = products.values()
         return JsonResponse(list(data), safe=False)
 
@@ -50,7 +51,7 @@ def ProductsListViews(request):
     products = Product.objects.filter(puslish=True)
     my_product_filter = ProductFilter(request.GET, queryset=products)
     products = my_product_filter.qs
-    pagi = Paginator(products,30)
+    pagi = Paginator(products, 30)
     page = request.GET.get('page')
     products = pagi.get_page(page)
     context = {
@@ -59,7 +60,7 @@ def ProductsListViews(request):
         'categores': categores,
         'my_product_filter': my_product_filter,
         'popular_brand': popular_brand
-        }
+    }
     return render(request, template_name, context=context)
 
 
@@ -69,7 +70,7 @@ def ProductDetailViews(request, pk):
     reviews = Comment.objects.filter(review=pk)
     vendor = ProfileUser.objects.filter(vendor=product.vendor)
     template_name = 'shop/product_detail.html'
-    
+
     p_form = CommentForm(request.POST or None)
     if request.method == 'POST':
         if p_form.is_valid():
@@ -79,12 +80,14 @@ def ProductDetailViews(request, pk):
             p_form = CommentForm()
     else:
         p_form = CommentForm()
+
     context = {
         'product': product,
-        'porducts_related_store':porducts_related_store,
-        'vendor':vendor,
-        'reviews':reviews,
-        'add_review':p_form
+        'porducts_related_store': porducts_related_store,
+
+        'vendor': vendor,
+        'reviews': reviews,
+        'add_review': p_form
     }
     return render(request, template_name, context=context)
 
@@ -94,8 +97,8 @@ def ProductSearch(request):
     query_dict = request.GET
     query = query_dict.get('title')
     print(query)
-    products = Product.objects.filter(title__icontains=query,puslish=True)
+    products = Product.objects.filter(title__icontains=query, puslish=True)
     context = {
         'products': products
-        }
+    }
     return render(request, template_name, context=context)

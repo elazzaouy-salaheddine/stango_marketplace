@@ -14,11 +14,6 @@
                     {% for category in categories %}
                     <li> <a href={% url 'category_details' category.slug  %}> <i class="w-icon-{{category.category_logo}}"></i> {{ category.name }}</a> </li>
                     {% endfor %}
-
-                  
-                    
-                    
-                    
                 </ul>
             </div>
         </div>
@@ -60,34 +55,22 @@
                                         <div class="product-details scrollable">
                                             <h2 class="product-title mb-1"><a href={% url 'product_details' deals_hot_item.id %}>{{deals_hot_item.title}}</a></h2>
 
-                                            <hr class="product-divider">
+
 
                                             <div class="product-price"><ins class="new-price ls-50">{{deals_hot_item.price}} MAD</ins></div>
 
                                            
 
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 80%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                                <a href="#" class="rating-reviews">(3 Reviews)</a>
-                                            </div>
-                                            <div class="product-short-desc">
-                                                {{deals_hot_item.product_short_desc}}
-                                            </div>
-            
-                                            
 
-                                           
+                                            <div class="product-short-desc">
+                                                {{deals_hot_item.product_short_desc|safe}}
+                                            </div>
                                             <div class="product-form pt-4">
-                                                
                                                 <button data-product="{{deals_hot_item.id}}" data-action="add" class="btn btn-primary update-cart">
                                                     <i class="w-icon-cart"></i>
                                                     <span>Add to Cart</span>
                                                 </button>
                                             </div>
-
                                             <div class="social-links-wrapper mt-1">
                                                 <div class="social-links">
                                                     <div class="social-icons social-no-color border-thin">
@@ -284,13 +267,7 @@
                             <div class="product-details">
                                 <h4 class="product-name"><a href= {% url 'product_details' product_clothing_item.id %} >{{product_clothing_item.title}}</a>
                                 </h4>
-                                <div class="ratings-container">
-                                    <div class="ratings-full">
-                                        <span class="ratings" style="width: 100%;"></span>
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                    <a href={% url 'product_details' product_clothing_item.id %} class="rating-reviews">(3 reviews)</a>
-                                </div>
+
                                 <div class="product-pa-wrapper">
                                     <div class="product-price">
                                         <ins class="new-price">{{product_clothing_item.price|floatformat:2}} MAD</ins>
@@ -400,13 +377,7 @@
                             <div class="product-details">
                                 <h4 class="product-name"><a href={% url 'product_details' product.id %}>{{product.title}}</a>
                                 </h4>
-                                <div class="ratings-container">
-                                    <div class="ratings-full">
-                                        <span class="ratings" style="width: 100%;"></span>
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                    <a href={% url 'product_details' product.id %} class="rating-reviews">(3 reviews)</a>
-                                </div>
+
                                 <div class="product-pa-wrapper">
                                     <div class="product-price">
                                         <ins class="new-price">{{product.price|floatformat:2}} MAD</ins>
@@ -484,13 +455,7 @@
                             </figure>
                             <div class="product-details">
                                 <h4 class="product-name"><a href={% url 'product_details' product_garden_item.id %}>{{product_garden_item.title}}</a></h4>
-                                <div class="ratings-container">
-                                    <div class="ratings-full">
-                                        <span class="ratings" style="width: 60%;"></span>
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                    <a href={% url 'product_details' product_garden_item.id %} class="rating-reviews">(3 reviews)</a>
-                                </div>
+
                                 <div class="product-pa-wrapper">
                                     <div class="product-price">
                                         <ins class="new-price">{{product_garden_item.price|floatformat:2}} MAD</ins>

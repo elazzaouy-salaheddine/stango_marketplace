@@ -8,31 +8,32 @@
 
     {% include './account_layout/nav_bar_account.html' %}
     <!-- Start of PageContent -->
-    <div class="page-content pt-2">
+    <div class="page-content pt-2" style="margin-bottom: 10rem;">
         <div class="container">
-<h2 class='text-center text-capitalize'>update store info</h2>
-            <form class="row form-group mt-4 mb-4" method="post" enctype="multipart/form-data" >
-                {% csrf_token %}
-                {{ form.media }} 
-                <div class='row' style="
-                border-radius: 10px;
-                border: 2px solid;
-                padding: 10px;
-            ">
-                    {% for field in ProfileForm %}
+            <div class="row">
+                <div class="col-md-2">
 
-                    <div class="form-group col-md-8 mb-3" >
-                        <label for="{{ field.name}}" class=''>{{ field.label}}</label>
-                        <div class=''>{{ field|add_class:"form-control " }}</div>
-                    </div>
-                    <br>
-                    <br>
-                    {% endfor %}
                 </div>
-                <button class="btn btn-primary w-50"
-                        type="submit">update store details
-                </button>
-            </form>
+                <div class="col-md-10">
+                    <h2 class='text-center text-capitalize'>update store info</h2>
+                    <form class="" method="post" enctype="multipart/form-data" >
+                        {% csrf_token %}
+                        {{ form.media }}
+                        <div class='row' >
+                            {% for field in ProfileForm %}
+
+                            <div class="form-group row" style="margin: 1rem 0rem; background: whitesmoke;padding: 2rem 0rem;">
+                                <label for="{{ field.name}}" class='col-sm-2 col-form-label'style="margin: 1rem 0rem;">{{ field.label}} :</label>
+                                <div class='col-sm-10' style=" background: white; border-radius: 5px; margin: 0px; padding: 0px;">
+                                    {{ field|add_class:"form-control " }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <button class="btn btn-primary w-50"  style="float: right;" type="submit">update store details</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     <!-- End of PageContent -->

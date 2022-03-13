@@ -16,7 +16,7 @@ class ProfileUser(models.Model):
     email = models.EmailField(null=True, blank=True, unique=True)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
     city = models.CharField(max_length=255, null=True, blank=True)
-    description = RichTextField()
+    description = RichTextField(null=True, blank=True)
     vendor = models.OneToOneField('auth.User', related_name='vendor_profile',
                             on_delete=models.CASCADE)
     product = models.ManyToManyField(Product,
@@ -27,7 +27,7 @@ class ProfileUser(models.Model):
     facebook_link = models.URLField(max_length=255, null=True, blank=True)
     twitter_link = models.URLField(max_length=255, null=True, blank=True)
     instagram_link = models.URLField(max_length=255, null=True, blank=True)
-    watsapp_link = models.URLField(max_length=255, null=True, blank=True)
+    watsapp_link = models.IntegerField(null=True, blank=True)
     
     
     class Meta:

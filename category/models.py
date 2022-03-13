@@ -38,7 +38,7 @@ class TagProduct(models.Model):
     tage_name = models.CharField(max_length=255)
     
     def __str__(self):
-        return self.tage_name
+        return self.tage_name 
 
 
 class RecommendProduct(models.Model):
