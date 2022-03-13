@@ -45,14 +45,12 @@
                                     <button class="swiper-button-next"></button>
                                     <button class="swiper-button-prev"></button>
                                 </div>
-                                
                             </div>
                         </div>
                         <div class="col-md-6 mb-4 mb-md-6">
                             <div class="product-details" data-sticky-options="{'minWidth': 767}">
                                 <h1 class="product-title">{{product.title}}</h1>
                                 <div class="product-bm-wrapper">
-                                    
                                     <div class="product-meta">
                                         <div class="product-categories">
                                             Category:
@@ -67,23 +65,18 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <hr class="product-divider">
-
                                 <div class="product-price"><ins class="new-price">{{product.price|floatformat:2}} MAD</ins></div>
-
-
-
+                                {% if product.lang == 'AR' %}
+                                <div class="product-short-desc" style="text-align: end;">
+                                    {{product.product_short_desc|safe}}
+                                </div>
+                                {% else %}
                                 <div class="product-short-desc">
                                     {{product.product_short_desc|safe}}
                                 </div>
-
-                                <hr class="product-divider">
-
-                                
-
-                                
-
+                                {% endif %}
+                            <hr class="product-divider">
                                 <div class="fix-bottom ">
                                     <div class="product-form ">
                                         
@@ -109,7 +102,6 @@
                                         </div>
                                     </div>
                                     
-                                    
                                 </div>
                             </div>
                         </div>
@@ -127,9 +119,15 @@
                             </li>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane active" id="product-tab-description">
+                            {% if product.lang == 'AR' %}
+                                <div class="tab-pane active" id="product-tab-description" style="text-align: end;">
+                                    {{product.product_short_desc|safe}}
+                                </div>
+                            {% else %}
+                                <div class="tab-pane active" id="product-tab-description">
                                 {{product.detail|safe}}
-                            </div>
+                                </div>
+                            {% endif %}
 
                             <div class="tab-pane" id="product-tab-vendor">
                                 

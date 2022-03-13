@@ -7,7 +7,18 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class Product(models.Model):
+    FRANCHE = 'FR'
+    ARABIC = 'AR'
+    YEAR_IN_SCHOOL_CHOICES = [
+        (FRANCHE, 'FRANCHE'),
+        (ARABIC, 'ARABIC'),
+    ]
     created = models.DateTimeField(auto_now_add=True)
+    lang = models.CharField(
+        max_length=2,
+        choices=YEAR_IN_SCHOOL_CHOICES,
+        default=FRANCHE,
+    )
     title = models.CharField(max_length=100, default='')
     category = models.ForeignKey(
         Category, related_name='product_category_parent', on_delete=models.CASCADE)
