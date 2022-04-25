@@ -1,102 +1,159 @@
-{% extends "base/layout.html" %}
+{% extends "base/adminlayout.html" %}
 {% load static %}
 {% block content %}
 
-<main class="main">
-    <!-- Start of Page Header -->
 
-    {% include './nav_bar_account.html' %}
-    <!-- Start of PageContent -->
-    <div class="page-content pt-2">
-        <div class="container">
-    
-
-            <section>
-                <div class="tab-pane active order">
-                    <p class="mb-7">Order #962 was placed on April 30, 2021 and is currently On hold.</p>
-                    <div class="row"> 
-                    <div class="order-details-wrapper col-sm-8 mb-5">
-                        <h4 class="title text-uppercase ls-25 mb-5">Order Details</h4>
-                        <table class="order-table">
-                            <thead>
-                                <tr>
-                                    <th class="text-dark">Product</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for orderItem in orderItems %}                                
-                                <tr>
-                                    <td>
-                                        <a href=" # ">{{orderItem.product.title}}</a>&nbsp;<strong>x {{orderItem.quantity}}</strong><br>
-                                        
-                                    </td>
-                                    <td>{{orderItem.get_total|floatformat:2}} MAD</td>
-                                </tr>
-                                {% endfor %}
-
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>Subtotal:</th>
-                                    <td>{{order_total|floatformat:2}} MAD</td>
-                                </tr>
-                                <tr>
-                                    <th>Shipping:</th>
-                                    <td>Flat rate</td>
-                                </tr>
-
-                                <tr class="total">
-                                    <th class="border-no">Total:</th>
-                                    <td class="border-no">{{order_total|floatformat:2}} MAD</td>
-                                </tr>
-                            </tfoot>
-                        </table>
+    <div class="content container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-xl-10">
+          <div class="card invoice-info-card">
+            <div class="card-body">
+              <div class="invoice-item invoice-item-one">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="invoice-logo">
+                      <img src="assets/img/logo.png" alt="logo" />
                     </div>
-                    <!-- End of Order Details -->
-                    <div class="col-sm-4 mb-8">
-                        <div id="billing-account-addresses">  
-                            
-
-                                <div class="ecommerce-address shipping-address">
-                                    <h4 class="title title-underline ls-25 font-weight-bold">Shipping Address</h4>
-                                    <address class="mb-4">
-                                        <table class="address-table">
-                                            <tbody>
-                                                <tr>
-                                                    <td>{{order.custemer.name}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>{{order.custemer.phone_number}}</td>
-                                                </tr>
-                                                {% for item  in shippingaddres %}
-                                              
-                                                <tr>
-                                                    <td>{{item.address}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>{{item.city}}</td>
-                                                </tr>
-                                                {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </address>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="invoice-head">
+                      <h2>Invoice</h2>
+                      <p>Invoice Number : {{order.id}}</p>
                     </div>
-                    <!-- End of Account Address -->
-
-                    <a href="#" class="btn btn-dark btn-rounded btn-icon-left btn-back mt-6 mb-6"><i class="w-icon-long-arrow-left"></i>Back To List</a>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="invoice-info">
+                      <strong class="customer-text-one"
+                        >Invoice From</strong
+                      >
+                      <h6 class="invoice-name">Company Name</h6>
+                      <p class="invoice-details">
+                        9087484288 <br />
+                        Address line 1, Address line 2<br />
+                        Zip code ,City - Country
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                
-            </section>
+              </div>
 
+              <div class="invoice-item invoice-item-two">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="invoice-info">
+                      <strong class="customer-text-one">Shipping Address</strong>
+                      <h6 class="invoice-name">{{order.custemer.name}}</h6>
+                      <p class="invoice-details invoice-details-two">
+                        {{order.custemer.phone_number}} <br />
+                        {% for item  in shippingaddres %}
+                            {{item.address}}
+                            <br>
+                            {{item.city}}
+                        {% endfor %}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    
+                  </div>
+                </div>
+              </div>
 
+              <div class="invoice-issues-box">
+                <div class="row">
+                  <div class="col-lg-8 col-md-8">
+                    <div class="invoice-issues-date">
+                      <p>Due Date : {{order.date}}</p>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4">
+                    <div class="invoice-issues-date">
+                      <p>Due Amount : {{order.get_cart_total}} MAD</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="invoice-item invoice-table-wrap">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="table-responsive">
+                      <table class="invoice-table table table-center mb-0">
+                        <thead>
+                          <tr>
+                            <th>Description</th>
+                      
+                            <th>Price Unite</th>
+                            <th>Quantity</th>
+                     
+                            <th class="text-end">Amount</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          
+                            {% for orderItem in orderItems %}                                
+                            <tr>
+                                <td>
+                                    <a href=" # ">{{orderItem.product.title}}</a>
+                                    
+                                </td>
+                                <th>{{orderItem.product.price}} MAD</th>
+                                <th>{{orderItem.quantity}}</th>
+                                <th class="text-end">{{orderItem.get_total|floatformat:2}} MAD</th>
+                            </tr>
+                            {% endfor %}
+                          
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row align-items-center justify-content-center">
+                <div class="col-lg-6 col-md-6">
+                  <div class="invoice-terms">
+                    <h6>Notes:</h6>
+                    <p class="mb-0">
+                      Enter customer notes or any other details
+                    </p>
+                  </div>
+                  <div class="invoice-terms">
+                    <h6>Terms and Conditions:</h6>
+                    <p class="mb-0">
+                      Enter customer notes or any other details
+                    </p>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                  <div class="invoice-total-card">
+                    <div class="invoice-total-box">
+{% comment %}                       <div class="invoice-total-inner">
+                        <p>Taxable <span>$6,660.00</span></p>
+                        <p>Additional Charges <span>$6,660.00</span></p>
+                        <p>Discount <span>$3,300.00</span></p>
+                        <p class="mb-0">Sub total <span>$3,300.00</span></p>
+                      </div> {% endcomment %}
+                      <div class="invoice-total-footer">
+                        <h4>Total Amount <span>{{order_total|floatformat:2}} MAD</span></h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="invoice-sign text-end">
+                <img
+                  class="img-fluid d-inline-block"
+                  src="assets/img/signature.png"
+                  alt="sign"
+                />
+                <span class="d-block">Harristemp</span>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    <!-- End of PageContent -->
-</main>
+ 
 
 
 {%endblock content%}
+

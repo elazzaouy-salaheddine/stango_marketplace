@@ -1,77 +1,142 @@
-{% extends "base/layout.html" %}
-{% load static %}
+{% extends "base/adminlayout.html" %} 
+{% load static %} 
 {% block content %}
-
-<main class="main">
-    <!-- Start of Page Header -->
-
-    {% include './nav_bar_account.html' %}
-    <!-- Start of PageContent -->
-    <div class="page-content pt-2">
-        <div class="container">
-    
-
-            <section>
-                <h2 class="title title-center mb-5 ls-15">My Products</h2>
-                <div class="row show-code-action">
-
-                    {% for product in products %}
-                    <div class="col-md-3 col-6 mb-4">
-                        <div class="product text-center">
-                            <figure class="product-media">
-                                <a href="{% url 'product_details' product.id %}">
-                                    <img src={{product.photo.url}} alt="Product" width="295"
-                                        height="335" />
-                                </a>
-                                <div class="product-label-group">
-                                    {% if product.puslish %}
-                                    <label class="product-label label-discount"  style="
-                                    background: green;
-                                ">Published</label>
-                                    {% else %}
-                                    <label class="product-label label-discount" style="
-                                    background: red;
-                                ">Not Published</label>
-                                    {% endif %}
-                                    
-                                </div>
-                                <div class="product-action-horizontal">
-                                    <a href=" {% url 'store_product_update' pk=product.id %} " class="btn-product-icon "
-                                        title="Add to cart"><i class='fa fa-pen'></i> </a>
-                                    <a href="{% url 'store_product_delete' pk=product.id %}" class="btn-product-icon"
-                                        title="Wishlist"><i class="fa fa-trash"></i></a>
-
-                                </div>
-                            </figure>
-                            
-                            <div class="product-details">
-                                <h3 class="product-name">
-                                    <a href="{% url 'product_details' product.id %}">{{product.title}}</a>
-                                </h3>
-                                <div class="ratings-container">
-                                    <div class="ratings-full">
-                                        <span class="ratings" style="width: 100%;"></span>
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                    <a href="#" class="rating-reviews">(3 reviews)</a>
-                                </div>
-                                <div class="product-pa-wrapper">
-                                    <div class="product-price">
-                                        <ins class="new-price">{{product.price|floatformat:2}} MAD</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                  {% endfor %}
-                </div>
-            </section>
-
-
+<div class="content container-fluid">
+    <div class="page-header">
+      <div class="row align-items-center">
+        <div class="col">
+          <h3 class="page-title">Products list</h3>
+         
         </div>
+       
+      </div>
     </div>
-    <!-- End of PageContent -->
-</main>
 
 
-{%endblock content%}
+    <div class="card invoices-tabs-card">
+      <div class="card-body card-body pt-0 pb-0">
+        <div class="invoices-main-tabs">
+          <div class="row align-items-center">
+            <div class="col-lg-8 col-md-8">
+              
+            </div>
+            <div class="col-lg-4 col-md-4">
+              <div class="invoices-settings-btn">
+                <a
+                  href="invoices-settings.html"
+                  class="invoices-settings-icon"
+                >
+                  <i data-feather="settings"></i>
+                </a>
+                <a href="{% url 'store_product_create' %}"class="btn">
+                  <i data-feather="plus-circle"></i> New Product
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card card-table">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-stripped table-hover datatable">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Product ID</th>
+                    <th>Category</th>
+                    <th>Created on</th>
+                   
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Status</th>
+                    <th class="text-end">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <label class="custom_check">
+                        <input type="checkbox" name="invoice" />
+                        <span class="checkmark"></span>
+                      </label>
+                      <a href="view-invoice.html" class="invoice-link"
+                        >IN093439#@09</a
+                      >
+                    </td>
+                    
+                    <td>16 Mar 2022</td>
+                    <td>
+                      <h2 class="table-avatar">
+                        <a href="profile.html"
+                          >
+                          Barbara Moore</a
+                        >
+                      </h2>
+                    </td>
+                    <td class="text-primary">$1,54,220</td>
+                    <td>23 Mar 2022</td>
+                    <td>
+                      <span class="badge bg-success-light">Paid</span>
+                    </td>
+                    <td class="text-end">
+                      <div class="dropdown dropdown-action">
+                        <a
+                          href="#"
+                          class="action-icon dropdown-toggle"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                          ><i class="fas fa-ellipsis-v"></i
+                        ></a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                          <a
+                            class="dropdown-item"
+                            href="edit-invoice.html"
+                            ><i class="far fa-edit me-2"></i>Edit</a
+                          >
+                          <a
+                            class="dropdown-item"
+                            href="view-invoice.html"
+                            ><i class="far fa-eye me-2"></i>View</a
+                          >
+                          <a
+                            class="dropdown-item"
+                            href="javascript:void(0);"
+                            ><i class="far fa-trash-alt me-2"></i
+                            >Delete</a
+                          >
+                          <a
+                            class="dropdown-item"
+                            href="javascript:void(0);"
+                            ><i class="far fa-check-circle me-2"></i>Mark
+                            as sent</a
+                          >
+                          <a
+                            class="dropdown-item"
+                            href="javascript:void(0);"
+                            ><i class="far fa-paper-plane me-2"></i>Send
+                            Invoice</a
+                          >
+                          <a
+                            class="dropdown-item"
+                            href="javascript:void(0);"
+                            ><i class="far fa-copy me-2"></i>Clone
+                            Invoice</a
+                          >
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{%endblock content %}

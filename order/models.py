@@ -17,10 +17,50 @@ class Custemer(models.Model):
         return self.name
 
 
+
+
 class Order(models.Model):
+    Delivered = 'Delivered'
+    Return = 'Return'
+    Unknown = 'Unknown'
+    SHIPPING_CHOICES = [
+        (Delivered, 'Delivered'),
+        (Return, 'Return'),
+        (Unknown,'Unknown'),
+    ]
+    Unpaid = 'Unpaid'
+    Paid = 'Paid'
+    PAYMENT_CHOICES = [
+        (Unpaid, 'Unpaid'),
+        (Paid, 'Paid'),
+    ]
+    No_Reply= 'No Reply'
+    Confirmed='Confirmed'
+    Canceled='Canceled'
+    Call_Center_CHOICES =[
+        (No_Reply, 'No Reply'),
+        (Confirmed, 'Confirmed'),
+        (Canceled, 'Canceled'),
+        (Unknown,'Unknown'),
+    ]
     custemer = models.ForeignKey(Custemer, on_delete=models.SET_NULL, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False)
+    Payment_status = models.CharField(
+        max_length=10,
+        choices=PAYMENT_CHOICES,
+        default=Unpaid,
+    )
+    Shipping_status = models.CharField(
+        max_length=10,
+        choices=SHIPPING_CHOICES,
+        default=Unknown,
+    )
+    Call_Center_status = models.CharField(
+        max_length=10,
+        choices=Call_Center_CHOICES,
+        default=Unknown,
+    )
 
     def __str__(self):
         return str(self.id)

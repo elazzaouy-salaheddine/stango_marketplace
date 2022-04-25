@@ -18,7 +18,7 @@ class SubCategories(models.Model):
     category_id=models.ForeignKey(Category,on_delete=models.CASCADE, related_name='sub_categories')
     title=models.CharField(max_length=255)
     slug=models.CharField(max_length=255)
-    thumbnail=CloudinaryField('media/uploads/subcategories')
+    #thumbnail=CloudinaryField('media/uploads/subcategories')
     description=models.TextField()
     created_at=models.DateTimeField(auto_now_add=True)
     is_active=models.BooleanField(default=True)

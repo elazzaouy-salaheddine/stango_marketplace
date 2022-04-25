@@ -13,6 +13,7 @@ class Product(models.Model):
         (FRANCHE, 'FRANCHE'),
         (ARABIC, 'ARABIC'),
     ]
+    
     created = models.DateTimeField(auto_now_add=True)
     lang = models.CharField(
         max_length=2,
