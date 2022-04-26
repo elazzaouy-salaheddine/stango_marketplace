@@ -1,54 +1,133 @@
-{% extends "base/layout.html" %}
+{% extends "base/adminlayout.html" %}
 {% load widget_tweaks %}
 {% load static %}
 {% block content %}
 
-<main class="main">
+
     <!-- Start of Page Header -->
 
-    {% include './nav_bar_account.html' %}
-    <!-- Start of PageContent -->
-    <div class='container'>
 
-        <form class="row form-group mt-4 mb-4" id="productform" method="post" enctype="multipart/form-data" data-cities-url="{% url 'load_sub_categoires' %}">
-            {% csrf_token %}
-            {% for error in errors  %}
-            <div class="alert alert-danger mb-4" role="alert">
-                    <strong>{{ error }}</strong>
-                </div>
-        {% endfor %}
-            {{ form.media }} 
-            {% for field in product_form %}
-            <div class="row form-group mb-2">
-              <label for="{{ field.name}}" class='mb-1 col-sm-2 col-form-label'>{{ field.label}}</label>
-              <div class='mb-1 col-sm-10'>
-                  {{ field|add_class:"form-control " }}
+   <!-- Start of PageContent -->
+     <div class='content container-fluid'>
+        <div class="page-header">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="page-title">Add Product</h3>
+               
               </div>
-              
-           </div>
-        {% endfor %}
-        <h2>Add images slider</h2>
-        {{ ProductImagesFormSet.management_form }}
-        <div class='row' >
-            {% for form in ProductImagesFormSet %} 
-            <div class='col-md-3' >
-                {{ form }}
-                <img src="{{form.instance.image.url}}"/>
+             
             </div>
-            
-            {% endfor %}
+          </div>
+         <div class='row'>
+             <div class="col-md-4">
+                 product info
+             </div>
+            <div class='col-md-8'>
+                {% for message in messages %}
+                  {{message}}
+                {% endfor %}
+                <form action="." class="" id="productform" method="post" enctype="multipart/form-data" data-cities-url="{% url 'load_sub_categoires' %}">
+                    {% csrf_token %}
+                    {% for error in field.errors  %}
+                    <div class="alert alert-danger mb-4" role="alert">
+                            <strong>{{ error|escape  }}</strong>
+                        </div>
+                {% endfor %}
+                    {{ form.media }} 
+                    {% comment %} ------------------------- {% endcomment %}
+                    <div class="row form-group">
+                        <label for="{{ field.lang}}" class='col-sm-3 col-form-label input-label'>{{ product_form.lang.label }}</label>
+                        <div class='col-sm-9'> {{  product_form.lang |add_class:"form-control "}}</div>
+                     </div>
+                     {% comment %} ------------------------- {% endcomment %}
+                     {% comment %} ------------------------- {% endcomment %}
+                     <div class="row form-group">
+                        <label for="{{ field.title}}" class='col-sm-3 col-form-label input-label'>{{ product_form.title.label }}</label>
+                        <div class='col-sm-9'>{{  product_form.title |add_class:"form-control "}}</div>
+                     </div>
+                    {% comment %} ------------------------- {% endcomment %}
+                    
+                    {% comment %} ------------------------- {% endcomment %}
+                    <div class="row form-group">
+                        <label for="{{ field.category}}" class='col-sm-3 col-form-label input-label'>{{ product_form.category.label }}</label>
+                        <div class='col-sm-9'>
+                            {{  product_form.category |add_class:"form-control "}}
+                        </div>
+                    </div>
+                    {% comment %} ------------------------- {% endcomment %}
 
-        </div>
-
-            <button class="btn btn-primary"
-                    type="submit">update product
-            </button>
-        </form>
+                    {% comment %} ------------------------- {% endcomment %}
+                    <div class="row form-group">
+                        <label for="{{ field.sub_category}}" class='col-sm-3 col-form-label input-label'>{{ product_form.sub_category.label }}</label>
+                        <div class='col-sm-9'>
+                            {{  product_form.sub_category |add_class:"form-control "}}
+                        </div>
+                    </div>
+                    {% comment %} ------------------------- {% endcomment %}
+                    {% comment %} ------------------------- {% endcomment %}
+                    <div class="row form-group">
+                        <label for="{{ field.photo}}" class='col-sm-3 col-form-label input-label'>{{ product_form.photo.label }}</label>
+                        <div class='col-sm-9'>
+                            {{  product_form.photo |add_class:"form-control "}}
+                        </div>
+                    </div>
+                    {% comment %} ------------------------- {% endcomment %}
+                    {% comment %} ------------------------- {% endcomment %}
+                    <div class="row form-group">
+                        <label for="{{ field.product_short_desc}}" class='col-sm-3 col-form-label input-label'>{{ product_form.product_short_desc.label }}</label>
+                        <div class='col-sm-9'>
+                            {{  product_form.product_short_desc |add_class:"form-control "}}
+                        </div>
+                    </div>
+                    {% comment %} ------------------------- {% endcomment %}
+                    {% comment %} ------------------------- {% endcomment %}
+                    <div class="row form-group">
+                        <label for="{{ field.price}}" class='col-sm-3 col-form-label input-label'>{{ product_form.price.label }}</label>
+                        <div class='col-sm-9'>
+                            {{  product_form.price |add_class:"form-control "}}
+                        </div>
+                    </div>
+                    {% comment %} ------------------------- {% endcomment %}
+                    {% comment %} ------------------------- {% endcomment %}
+                    <div class="row form-group">
+                        <label for="{{ field.digital}}" class='col-sm-3 col-form-label input-label'>{{ product_form.digital.label }}</label>
+                        <div class='col-sm-9'>
+                            {{  product_form.digital |add_class:"form-control "}}
+                        </div>
+                    </div>
+                    {% comment %} ------------------------- {% endcomment %}
+                    {% comment %} ------------------------- {% endcomment %}
+                    <div class="row form-group">
+                        <label for="{{ field.detail}}" class='col-sm-3 col-form-label input-label'>{{ product_form.detail.label }}</label>
+                        <div class='col-sm-9'>
+                            {{  product_form.detail |add_class:"form-control "}}
+                        </div>
+                    </div>
+                    {% comment %} ------------------------- {% endcomment %}
+                    {% comment %} ------------------------- {% endcomment %}
+                    <div class="row form-group">
+                        <label for="{{ field.puslish}}" class='col-sm-3 col-form-label input-label'>{{ product_form.puslish.label }}</label>
+                        <div class='col-sm-9'>
+                            {{  product_form.puslish }}
+                        </div>
+                    </div>
+                    {% comment %} ------------------------- {% endcomment %}
+                  
+                <h2>Add images</h2>
+                 {{ ProductImagesFormSet.management_form }}
+                 {% for form in ProductImagesFormSet %}
+                 {{ form }}
+                 
+                 {% endfor %}
    
+                    <button class="btn btn-primary" style="width: max-content;border-radius: 10px;margin-left: auto;" type="submit">update product</button>
+                </form>
+            </div>
+         </div>
+</div>
 
-  
-    <!-- End of PageContent --></div>
-</main>
+
+    <script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
     $("#id_category").change(function () {
@@ -77,5 +156,114 @@
 
     });
 </script>
+
+{% comment %} <div class="row">
+    <div class="col-lg-12">
+            <div class="card">
+                <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="card-body">
+                    <h5>add products to the store</h5>
+                    <hr>
+
+                    <div class="row"> 
+                        <div class="col-lg-6">
+                            <label>Product title</label>
+                            <input class="form-control" name="product_title" placeholder="Product title" id="title" />
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Category</label>
+                            <select name="sub_category" class="form-control">
+                                {% for category in categories %}
+                                    <optgroup  label={{ category.name }}>
+                                    <span></span>
+                                    {% for sub_cat in category.sub_categories.all   %}
+                                        <option value="{{ sub_cat.id }}">{{ sub_cat.title }}</option>
+                                    {% endfor %}
+                                     </optgroup>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    
+                    
+                        
+                        
+                    
+                        <br>
+                        <div class="row media_div_row first_media">
+                            
+                            <div class="col-lg-4">
+                                <label>Select Media</label>
+                                <input type="file" name="photo" id="id_photo" class="form-control select_media" />
+                            </div>
+                            
+                        </div>
+                        <div class="row form-group mb-2">
+                            <label for="product_short_desc" class="mb-1 col-sm-2 col-form-label">Product short desc</label>
+                            <div class="mb-1 col-sm-10">
+                                <textarea name="product_short_desc" cols="40" rows="10" maxlength="500" class="form-control " required="" id="id_product_short_desc"></textarea>
+                            </div>
+                            
+                         </div>
+
+                         <div class="row form-group mb-2">
+                            <label for="price" class="mb-1 col-sm-2 col-form-label">Price</label>
+                            <div class="mb-1 col-sm-10">
+                                <input type="number" name="price" step="any" class="form-control " required="" id="id_price">
+                            </div>
+                            
+                         </div>
+
+                         <div class="row form-group mb-2">
+                            <label for="digital" class="mb-1 col-sm-2 col-form-label">Digital</label>
+                            <div class="mb-1 col-sm-10">
+                                <select name="digital" class="form-control " id="id_digital">
+                                    <option value="unknown">Unknown</option>
+                                    <option value="true">Yes</option>
+                                    <option value="false" selected="">No</option>
+                                </select>
+                            </div>
+                            
+                         </div>
+
+                         <div class="row form-group mb-2">
+                            <label for="color" class="mb-1 col-sm-2 col-form-label">Color</label>
+                            <div class="mb-1 col-sm-10">
+                                <input type="text" name="color" maxlength="255" class="form-control " id="id_color">
+                            </div>
+                            
+                         </div>
+
+                         <div class="row form-group mb-2">
+                            <label for="size" class="mb-1 col-sm-2 col-form-label">Size</label>
+                            <div class="mb-1 col-sm-10">
+                                <input type="text" name="size" maxlength="255" class="form-control " id="id_size">
+                            </div>
+                            
+                         </div>
+
+                         <div class="row form-group mb-2">
+                            <label for="detail" class="mb-1 col-sm-2 col-form-label">Detail</label>
+                            <div class="mb-1 col-sm-10">
+                                <textarea name="detail" cols="40" rows="10" class="form-control " required="" id="id_detail"></textarea>
+                            </div>
+                            
+                         </div>
+                   
+
+                    <div class="row">
+                        <button class="btn btn-primary"
+                    type="submit">add product
+            </button>
+                    </div>
+
+                 </div>
+                 </form>
+            </div>
+    </div>
+</div> {% endcomment %}
 
 {%endblock content%}

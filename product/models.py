@@ -39,7 +39,7 @@ class Product(models.Model):
     puslish = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ['created']
+        ordering = ['-created']
 
     def __str__(self):
         return self.title

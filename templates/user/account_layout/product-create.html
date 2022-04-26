@@ -19,9 +19,10 @@
             </div>
           </div>
          <div class='row'>
-
-        </div>
-            <div class='col-md-12'>
+             <div class="col-md-4">
+                 product info
+             </div>
+            <div class='col-md-8'>
                 {% for message in messages %}
                   {{message}}
                 {% endfor %}
@@ -33,117 +34,84 @@
                         </div>
                 {% endfor %}
                     {{ form.media }} 
-
-{% comment %} ------------------------- {% endcomment %}
+                    {% comment %} ------------------------- {% endcomment %}
                     <div class="row form-group">
                         <label for="{{ field.lang}}" class='col-sm-3 col-form-label input-label'>{{ product_form.lang.label }}</label>
-                        <div class='col-sm-9'>
-                           
-                            {{  product_form.lang |add_class:"form-control "}}
-                            
-                        </div>
-                        
+                        <div class='col-sm-9'> {{  product_form.lang |add_class:"form-control "}}</div>
                      </div>
-{% comment %} ------------------------- {% endcomment %}
-{% comment %} ------------------------- {% endcomment %}
-<div class="row form-group">
-    <label for="{{ field.title}}" class='col-sm-3 col-form-label input-label'>{{ product_form.title.label }}</label>
-    <div class='col-sm-9'>
-       
-        {{  product_form.title |add_class:"form-control "}}
-        
-    </div>
-    
- </div>
-{% comment %} ------------------------- {% endcomment %}
-{% comment %} ------------------------- {% endcomment %}
-<div class="row form-group">
-    <label for="{{ field.category}}" class='col-sm-3 col-form-label input-label'>{{ product_form.category.label }}</label>
-    <div class='col-sm-9'>
-       
-        {{  product_form.category |add_class:"form-control "}}
-        
-    </div>
-    
- </div>
-{% comment %} ------------------------- {% endcomment %}
-{% comment %} ------------------------- {% endcomment %}
-<div class="row form-group">
-    <label for="{{ field.sub_category}}" class='col-sm-3 col-form-label input-label'>{{ product_form.sub_category.label }}</label>
-    <div class='col-sm-9'>
-       
-        {{  product_form.sub_category |add_class:"form-control "}}
-        
-    </div>
-    
- </div>
-{% comment %} ------------------------- {% endcomment %}
-{% comment %} ------------------------- {% endcomment %}
-<div class="row form-group">
-    <label for="{{ field.photo}}" class='col-sm-3 col-form-label input-label'>{{ product_form.photo.label }}</label>
-    <div class='col-sm-9'>
-       
-        {{  product_form.photo |add_class:"form-control "}}
-        
-    </div>
-    
- </div>
-{% comment %} ------------------------- {% endcomment %}
-{% comment %} ------------------------- {% endcomment %}
-<div class="row form-group">
-    <label for="{{ field.product_short_desc}}" class='col-sm-3 col-form-label input-label'>{{ product_form.product_short_desc.label }}</label>
-    <div class='col-sm-9'>
-       
-        {{  product_form.product_short_desc |add_class:"form-control "}}
-        
-    </div>
-    
- </div>
-{% comment %} ------------------------- {% endcomment %}
-{% comment %} ------------------------- {% endcomment %}
-<div class="row form-group">
-    <label for="{{ field.price}}" class='col-sm-3 col-form-label input-label'>{{ product_form.price.label }}</label>
-    <div class='col-sm-9'>
-       
-        {{  product_form.price |add_class:"form-control "}}
-        
-    </div>
-    
- </div>
-{% comment %} ------------------------- {% endcomment %}
-{% comment %} ------------------------- {% endcomment %}
-<div class="row form-group">
-    <label for="{{ field.digital}}" class='col-sm-3 col-form-label input-label'>{{ product_form.digital.label }}</label>
-    <div class='col-sm-9'>
-       
-        {{  product_form.digital |add_class:"form-control "}}
-        
-    </div>
-    
- </div>
-{% comment %} ------------------------- {% endcomment %}
-{% comment %} ------------------------- {% endcomment %}
-<div class="row form-group">
-    <label for="{{ field.detail}}" class='col-sm-3 col-form-label input-label'>{{ product_form.detail.label }}</label>
-    <div class='col-sm-9'>
-       
-        {{  product_form.detail |add_class:"form-control "}}
-        
-    </div>
-    
- </div>
-{% comment %} ------------------------- {% endcomment %}
-{% comment %} ------------------------- {% endcomment %}
-<div class="row form-group">
-    <label for="{{ field.puslish}}" class='col-sm-3 col-form-label input-label'>{{ product_form.puslish.label }}</label>
-    <div class='col-sm-9'>
-       
-        {{  product_form.puslish }}
-        
-    </div>
-    
- </div>
-{% comment %} ------------------------- {% endcomment %}
+                     {% comment %} ------------------------- {% endcomment %}
+                     {% comment %} ------------------------- {% endcomment %}
+                     <div class="row form-group">
+                        <label for="{{ field.title}}" class='col-sm-3 col-form-label input-label'>{{ product_form.title.label }}</label>
+                        <div class='col-sm-9'>{{  product_form.title |add_class:"form-control "}}</div>
+                     </div>
+                    {% comment %} ------------------------- {% endcomment %}
+                    
+                    {% comment %} ------------------------- {% endcomment %}
+                    <div class="row form-group">
+                        <label for="{{ field.category}}" class='col-sm-3 col-form-label input-label'>{{ product_form.category.label }}</label>
+                        <div class='col-sm-9'>
+                            {{  product_form.category |add_class:"form-control "}}
+                        </div>
+                    </div>
+                    {% comment %} ------------------------- {% endcomment %}
+
+                    {% comment %} ------------------------- {% endcomment %}
+                    <div class="row form-group">
+                        <label for="{{ field.sub_category}}" class='col-sm-3 col-form-label input-label'>{{ product_form.sub_category.label }}</label>
+                        <div class='col-sm-9'>
+                            {{  product_form.sub_category |add_class:"form-control "}}
+                        </div>
+                    </div>
+                    {% comment %} ------------------------- {% endcomment %}
+                    {% comment %} ------------------------- {% endcomment %}
+                    <div class="row form-group">
+                        <label for="{{ field.photo}}" class='col-sm-3 col-form-label input-label'>{{ product_form.photo.label }}</label>
+                        <div class='col-sm-9'>
+                            {{  product_form.photo |add_class:"form-control "}}
+                        </div>
+                    </div>
+                    {% comment %} ------------------------- {% endcomment %}
+                    {% comment %} ------------------------- {% endcomment %}
+                    <div class="row form-group">
+                        <label for="{{ field.product_short_desc}}" class='col-sm-3 col-form-label input-label'>{{ product_form.product_short_desc.label }}</label>
+                        <div class='col-sm-9'>
+                            {{  product_form.product_short_desc |add_class:"form-control "}}
+                        </div>
+                    </div>
+                    {% comment %} ------------------------- {% endcomment %}
+                    {% comment %} ------------------------- {% endcomment %}
+                    <div class="row form-group">
+                        <label for="{{ field.price}}" class='col-sm-3 col-form-label input-label'>{{ product_form.price.label }}</label>
+                        <div class='col-sm-9'>
+                            {{  product_form.price |add_class:"form-control "}}
+                        </div>
+                    </div>
+                    {% comment %} ------------------------- {% endcomment %}
+                    {% comment %} ------------------------- {% endcomment %}
+                    <div class="row form-group">
+                        <label for="{{ field.digital}}" class='col-sm-3 col-form-label input-label'>{{ product_form.digital.label }}</label>
+                        <div class='col-sm-9'>
+                            {{  product_form.digital |add_class:"form-control "}}
+                        </div>
+                    </div>
+                    {% comment %} ------------------------- {% endcomment %}
+                    {% comment %} ------------------------- {% endcomment %}
+                    <div class="row form-group">
+                        <label for="{{ field.detail}}" class='col-sm-3 col-form-label input-label'>{{ product_form.detail.label }}</label>
+                        <div class='col-sm-9'>
+                            {{  product_form.detail |add_class:"form-control "}}
+                        </div>
+                    </div>
+                    {% comment %} ------------------------- {% endcomment %}
+                    {% comment %} ------------------------- {% endcomment %}
+                    <div class="row form-group">
+                        <label for="{{ field.puslish}}" class='col-sm-3 col-form-label input-label'>{{ product_form.puslish.label }}</label>
+                        <div class='col-sm-9'>
+                            {{  product_form.puslish }}
+                        </div>
+                    </div>
+                    {% comment %} ------------------------- {% endcomment %}
                   
                 <h2>Add images</h2>
                  {{ ProductImagesFormSet.management_form }}
@@ -152,21 +120,12 @@
                  
                  {% endfor %}
    
-                    <button class="btn btn-primary" style="
-                    width: max-content;
-                    border-radius: 10px;
-                    
-                    margin-left: auto;
-                "
-                            type="submit">add product
-                    </button>
+                    <button class="btn btn-primary" style="width: max-content;border-radius: 10px;margin-left: auto;" type="submit">add product</button>
                 </form>
             </div>
          </div>
+</div>
 
-
-        
-    </div> 
 
     <script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

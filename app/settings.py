@@ -18,7 +18,7 @@ import cloudinary.api
 from dotenv import load_dotenv
 
 
-load_dotenv() 
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -103,11 +103,11 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 
 DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-        }
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
+}
 
 
 POSTGRES_DB = os.environ.get("POSTGRES_DB")
@@ -123,10 +123,10 @@ POSTGRES_READY = (
     and POSTGRES_HOST is not None
     and POSTGRES_PORT is not None
 )
-cloudinary.config( 
-  cloud_name=os.environ.get("CLOUDINARY_NAME"),
-  api_key=os.environ.get("CLOUDINARY_API_KEY"),
-  api_secret=os.environ.get("CLOUDINARY_SECRET_KEY") 
+cloudinary.config(
+    cloud_name=os.environ.get("CLOUDINARY_NAME"),
+    api_key=os.environ.get("CLOUDINARY_API_KEY"),
+    api_secret=os.environ.get("CLOUDINARY_SECRET_KEY")
 )
 
 if POSTGRES_READY:
@@ -155,7 +155,7 @@ CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',
         'height': 300,
-        'width': 800,
+        'width': 500,
     },
 }
 
@@ -190,7 +190,6 @@ USE_I18N = True
 USE_TZ = True
 
 
-
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 WHITENOISE_AUTOREFRESH = True
@@ -212,7 +211,7 @@ REST_FRAMEWORK = {
 LOGIN_URL = 'login/'
 LOGIN_REDIRECT_URL = 'home_page'
 LOGOUT_REDIRECT_URL = '/'
-CORS_ALLOW_ALL_ORIGINS = True 
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
@@ -223,4 +222,3 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 MPTT_ADMIN_LEVEL_INDENT = 20
-
