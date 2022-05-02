@@ -1,0 +1,93 @@
+{% extends "base/adminlayout.html" %} 
+{% load static %} 
+{% block content %}
+
+
+
+
+<div class="content container-fluid">
+    {% if is_empty %}
+        <h1>No profiles to interact with</h1>
+    {% endif %}
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card card-table">
+          <div class="card-header">
+            <h4 class="card-title">My list of Shippers</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table
+                class="table table-stripped table-center table-hover datatable"
+              >
+                <thead class="thead-light">
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Registered On</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                    {% for shipper in profile.shippers.all %}
+
+                  <tr>
+                    <td>
+                      <h2 class="table-avatar">
+                        <a href="profile.html"
+                          >
+                          {{ shipper }} </a
+                        >
+                      </h2>
+                    </td>
+                    <td>
+                      <a
+                        href="https://kanakku.dreamguystech.com/cdn-cgi/l/email-protection"
+                        class="__cf_email__"
+                        data-cfemail="f0939891829c95839891969e9582b09588919d809c95de939f9d"
+                        >{{ shipper.email }}</a
+                      >
+                    </td>
+                    <td>16 Nov 2020</td>
+                    <td><span class="text-success">{{ shipper.job }}</span></td>
+                    <td>
+                      <span class="badge badge-pill bg-success-light"
+                        >Active</span
+                      >
+                    </td>
+                    <td class="text-end">
+
+
+                    
+                      <form action=" {% url 'send-invitations-view' %} " method="POST">
+                          {% csrf_token %}
+                          <input type="hidden" name="profile_pk" value={{shipper.pk}}>
+                          <button type="submit" class="btn btn-sm btn-white text-success me-2"><i class="plus square icon"></i>send message</button>
+                      </form>
+                   
+
+                   
+                    
+                        <form action=" {% url 'delete-invitations-view' %} " method="POST">
+                          {% csrf_token %}
+                          <input type="hidden" name="profile_pk" value={{shipper.pk}}>
+                          <button type="submit" class="btn btn-sm btn-white text-danger me-2"><i class="minus square icon"></i>Remove from friends</button>
+                        </form>
+                    
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}

@@ -25,7 +25,7 @@ class RegisterForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = ProfileUser
-        exclude = ['vendor','product']
+        exclude = ['vendor','product','shippers']
     
     def clean(self):
         data = self.cleaned_data

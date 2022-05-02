@@ -1,3 +1,4 @@
+from django.dispatch import receiver
 from django.forms import formset_factory
 from distutils.log import error
 from unicodedata import category
@@ -13,7 +14,7 @@ from django.contrib import messages
 from category.models import Category, SubCategories
 from order.models import OrderItem
 from product.models import Product, ProductImages
-from .models import ProfileUser
+from .models import ProfileUser, Relationship
 from django.shortcuts import get_object_or_404, redirect, render
 from rest_framework import generics
 from .froms import ProductForm, ProductImagesForm, ProfileForm, RegisterForm, ProductImagesFormSet
@@ -25,10 +26,11 @@ from user.models import ProfileUser
 from comment.models import Comment
 from order.models import Order, ShippingAddress
 from django.db import IntegrityError
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from comment.models import Comment
 from django.contrib import messages
+from django.db.models import Q
 
 
 class UserList(generics.ListAPIView):
@@ -89,6 +91,120 @@ def BecomeVendor(request):
     context = {}
     template_name = 'user/BecomeVendor.html'
     return render(request, template_name, context)
+
+
+def ProfileViews(request):
+    profile = ProfileUser.objects.get(vendor=request.user)
+    context = {
+        'profile': profile
+    }
+    return render(request, 'user/profile.html', context)
+
+
+def invites_received_view(request):
+    profile = ProfileUser.objects.get(vendor=request.user)
+    qs = Relationship.objects.invatations_received(profile)
+
+    context = {
+        'qs': qs
+    }
+    return render(request, 'user/my_invites.html', context)
+
+
+def MyshippersListViews(request):
+    profile = ProfileUser.objects.get(vendor=request.user)
+    context = {'profile':profile}
+    return render(request, 'user/myshipperlistview.html', context)
+
+
+class sippersProfileListView(ListView):
+    model = ProfileUser
+    template_name = 'user/profile_list.html'
+    # context_object_name = 'qs'
+
+    def get_queryset(self):
+        qs = ProfileUser.objects.get_all_profiles(self.request.user)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = User.objects.get(username__iexact=self.request.user)
+        profile = ProfileUser.objects.get(vendor=user)
+        rel_r = Relationship.objects.filter(sender=profile)
+        rel_s = Relationship.objects.filter(receiver=profile)
+        rel_receiver = []
+        rel_sender = []
+        for item in rel_r:
+            rel_receiver.append(item.receiver.vendor)
+        for item in rel_s:
+            rel_sender.append(item.sender.vendor)
+
+        context["rel_receiver"] = rel_receiver
+        context["rel_sender"] = rel_sender
+        context['is_empty'] = False
+        if len(self.get_queryset()) == 0:
+            context['is_empty'] = True
+
+        return context
+
+
+def send_invitations(request):
+    if request.method == 'POST':
+        pk = request.POST.get('profile_pk')
+        user = request.user
+        sender = ProfileUser.objects.get(vendor=user)
+        receiver = ProfileUser.objects.get(pk=pk)
+        rel = Relationship.objects.create(
+            sender=sender, receiver=receiver, status='send')
+        return redirect(request.META.get('HTTP_REFERER'))
+    return redirect('profilesListViews')
+
+
+def accept_invatation(request):
+    if request.method == "POST":
+        pk = request.POST.get('profile_pk')
+        sender = ProfileUser.objects.get(pk=pk)
+        receiver = ProfileUser.objects.get(vendor=request.user)
+        rel = get_object_or_404(Relationship, sender=sender, receiver=receiver)
+        if rel.status == 'send':
+            rel.status = 'accepted'
+            rel.save()
+    return redirect('profilesListViews')
+
+
+def reject_invatation(request):
+    if request.method == "POST":
+        pk = request.POST.get('profile_pk')
+        receiver = ProfileUser.objects.get(vendor=request.user)
+        sender = ProfileUser.objects.get(pk=pk)
+        rel = get_object_or_404(Relationship, sender=sender, receiver=receiver)
+        rel.delete()
+    return redirect('profilesListViews')
+
+
+def remove_from_friends(request):
+    if request.method == 'POST':
+        pk = request.POST.get('profile_pk')
+        user = request.user
+        sender = ProfileUser.objects.get(vendor=user)
+        receiver = ProfileUser.objects.get(pk=pk)
+
+        rel = Relationship.objects.get(
+            (Q(sender=sender) & Q(receiver=receiver)) | (
+                Q(sender=receiver) & Q(receiver=sender))
+        )
+        rel.delete()
+        return redirect(request.META.get('HTTP_REFERER'))
+    return redirect('profilesListViews')
+
+
+def invite_profiles_list_view(request):
+    user = request.user
+    qs = ProfileUser.objects.get_all_profiles_to_invite(user)
+
+    context = {'qs': qs}
+
+    return render(request, 'user/to_invite_list.html', context)
 
 
 def AccountSetting(request):

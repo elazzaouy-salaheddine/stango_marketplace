@@ -221,13 +221,13 @@
               <span>Admin</span>
             </a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="profile.html"
+              <a class="dropdown-item" href="{% url 'profile' %}"
                 ><i data-feather="user" class="me-1"></i> Profile</a
               >
               <a class="dropdown-item" href="{% url 'account_setting' %}"
                 ><i data-feather="settings" class="me-1"></i> Settings</a
               >
-              <a class="dropdown-item" href="login.html"
+              <a class="dropdown-item" href="{% url 'logout' %}"
                 ><i data-feather="log-out" class="me-1"></i> Logout</a
               >
             </div>
@@ -266,7 +266,9 @@
                       >Products List</a
                     >
                   </li>
-                  <li><a href="{% url 'store_product_create' %} ">Add Products</a></li>
+                  <li>
+                    <a href="{% url 'store_product_create' %} ">Add Products</a>
+                  </li>
                 </ul>
               </li>
               <li class="submenu">
@@ -297,11 +299,11 @@
                 ></a>
                 <ul>
                   <li>
-                    <a href=" {% url 'store_orders' %} " class="active"
+                    <a href=" {% url 'profilesListViews' %} " class="active"
                       >Shippers List</a
                     >
                   </li>
-                  <li><a href="invoice-grid.html">Invoices Grid</a></li>
+                  <li><a href=" {% url 'myshippers' %} ">My shippers</a></li>
                   <li><a href="add-invoice.html">Add Invoices</a></li>
                   <li><a href="edit-invoice.html">Edit Invoices</a></li>
                   <li><a href="view-invoice.html">Invoices Details</a></li>
@@ -324,6 +326,5 @@
     </div>
 
     {% include 'base/admin_pages/scripts.html' %}
-
   </body>
 </html>

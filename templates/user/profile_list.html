@@ -1,0 +1,99 @@
+{% extends "base/adminlayout.html" %} {% load static %} {% block content %}
+
+
+
+
+<div class="content container-fluid">
+    {% if is_empty %}
+        <h1>No profiles to interact with</h1>
+    {% endif %}
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card card-table">
+          <div class="card-header">
+            <h4 class="card-title">List of Shippers</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table
+                class="table table-stripped table-center table-hover datatable"
+              >
+                <thead class="thead-light">
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Registered On</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                    {% for obj in object_list %}
+                      {% if request.user not in obj.shippers.all %} 
+
+                        <tr>
+                            <td>
+                                <h2 class="table-avatar">
+                                    <a href="profile.html">{{ obj }} </a>
+                                </h2>
+                            </td>
+                            <td>
+                                <a href="https://kanakku.dreamguystech.com/cdn-cgi/l/email-protection" class="__cf_email__"
+                                      data-cfemail="f0939891829c95839891969e9582b09588919d809c95de939f9d">{{ item.email }}
+                                </a>
+                            </td>
+                            <td>16 Nov 2020</td>
+                            <td><span class="text-success">{{ item.job }}</span></td>
+                            <td><span class="badge badge-pill bg-success-light">Active</span></td>
+                            <td class="text-end">
+
+                              {% if   obj.vendor  in rel_sender %}
+                                <form action=" {% url 'accept-invatation-view' %} " method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="profile_pk" value={{obj.pk}}>
+                                    <button type="submit" class="btn btn-sm btn-white text-success me-2"><i class="plus square icon"></i>Accept</button>
+                                </form>
+
+                                <form action=" {% url 'reject-invatation-view' %} " method="POST">
+                                  {% csrf_token %}
+                                  <input type="hidden" name="profile_pk" value={{obj.pk}}>
+                                  <button type="submit" class="btn btn-sm btn-white text-danger me-2"><i class="plus square icon"></i>Rejecte</button>
+                                </form>
+                              {% endif %}
+
+                              {% if obj.vendor not in rel_receiver and obj.vendor not in rel_sender %}
+                                <form action=" {% url 'send-invitations-view' %} " method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="profile_pk" value={{obj.pk}}>
+                                    <button type="submit" class="btn btn-sm btn-white text-success me-2"><i class="plus square icon"></i>Add to friends</button>
+                                </form>
+                              {% endif %}
+
+                              {% if obj.vendor in rel_receiver and request.user not in obj.shippers.all %}
+                                <button class="btn btn-sm btn-white text-info me-2" disabled><i class="user icon"></i>Waiting for approval</button>
+                              {% endif %}
+
+                              {% if request.user in obj.shippers.all %}
+                                  <form action=" {% url 'delete-invitations-view' %} " method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="profile_pk" value={{obj.pk}}>
+                                    <button type="submit" class="btn btn-sm btn-white text-danger me-2"><i class="minus square icon"></i>Remove from friends</button>
+                                  </form>
+                              {% endif %}
+                            </td>
+                          </tr>
+                          {% endif %}
+                    {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}
