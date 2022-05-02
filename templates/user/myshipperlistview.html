@@ -27,18 +27,18 @@
                     <th>Email</th>
                     <th>Registered On</th>
                     <th>Role</th>
-                    <th>Status</th>
+                    <th>City</th>
                     <th class="text-end">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
 
-                    {% for shipper in profile.shippers.all %}
-
+                    {% for shipper in object_list %}
+                    {% if request.user  in shipper.shippers.all %} 
                   <tr>
                     <td>
                       <h2 class="table-avatar">
-                        <a href="profile.html"
+                        <a href=" {% url 'shipper_profile_detail' pk=shipper.pk %} "
                           >
                           {{ shipper }} </a
                         >
@@ -47,23 +47,21 @@
                     <td>
                       <a
                         href="https://kanakku.dreamguystech.com/cdn-cgi/l/email-protection"
-                        class="__cf_email__"
-                        data-cfemail="f0939891829c95839891969e9582b09588919d809c95de939f9d"
                         >{{ shipper.email }}</a
                       >
                     </td>
-                    <td>16 Nov 2020</td>
-                    <td><span class="text-success">{{ shipper.job }}</span></td>
+                    <td>{{ shipper.phone_number }}</td>
+                    <td><span class="text-success">{{ shipper.city }}</span></td>
                     <td>
                       <span class="badge badge-pill bg-success-light"
-                        >Active</span
+                        >{{ shipper.city }}</span
                       >
                     </td>
-                    <td class="text-end">
+                    <td class="text-end d-flex flex-row-reverse ">
 
 
                     
-                      <form action=" {% url 'send-invitations-view' %} " method="POST">
+                      <form action=" {% url 'send-invitations-view' %} " method="POST" class='d-flex justify-content-end'>
                           {% csrf_token %}
                           <input type="hidden" name="profile_pk" value={{shipper.pk}}>
                           <button type="submit" class="btn btn-sm btn-white text-success me-2"><i class="plus square icon"></i>send message</button>
@@ -72,7 +70,7 @@
 
                    
                     
-                        <form action=" {% url 'delete-invitations-view' %} " method="POST">
+                        <form action=" {% url 'delete-invitations-view' %} " method="POST" class='d-flex justify-content-end'>
                           {% csrf_token %}
                           <input type="hidden" name="profile_pk" value={{shipper.pk}}>
                           <button type="submit" class="btn btn-sm btn-white text-danger me-2"><i class="minus square icon"></i>Remove from friends</button>
@@ -80,6 +78,7 @@
                     
                     </td>
                   </tr>
+                  {% endif %}
                   {% endfor %}
                 </tbody>
               </table>
@@ -89,5 +88,5 @@
       </div>
     </div>
   </div>
-  
+ 
 {% endblock %}

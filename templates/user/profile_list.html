@@ -25,7 +25,7 @@
                     <th>Email</th>
                     <th>Registered On</th>
                     <th>Role</th>
-                    <th>Status</th>
+                    <th>City</th>
                     <th class="text-end">Actions</th>
                   </tr>
                 </thead>
@@ -37,17 +37,16 @@
                         <tr>
                             <td>
                                 <h2 class="table-avatar">
-                                    <a href="profile.html">{{ obj }} </a>
+                                    <a href="{% url 'shipper_profile_detail' pk=obj.pk %} ">{{ obj }} </a>
                                 </h2>
                             </td>
                             <td>
-                                <a href="https://kanakku.dreamguystech.com/cdn-cgi/l/email-protection" class="__cf_email__"
-                                      data-cfemail="f0939891829c95839891969e9582b09588919d809c95de939f9d">{{ item.email }}
+                                <a mailto="{{ obj.email }}">{{ obj.email }}
                                 </a>
                             </td>
-                            <td>16 Nov 2020</td>
-                            <td><span class="text-success">{{ item.job }}</span></td>
-                            <td><span class="badge badge-pill bg-success-light">Active</span></td>
+                            <td>{{obj.created}}</td>
+                            <td><span class="text-success">{{ obj.job }}</span></td>
+                            <td><span class="badge badge-pill bg-success-light">{{ obj.city }}</span></td>
                             <td class="text-end">
 
                               {% if   obj.vendor  in rel_sender %}

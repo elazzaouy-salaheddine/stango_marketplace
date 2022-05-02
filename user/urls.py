@@ -4,22 +4,18 @@ from django.contrib.auth.views import PasswordResetView
 from rest_framework.urlpatterns import format_suffix_patterns
 from .views import (ProfileView, RegisterUser, UserList, UserDetail, StoreView,
                     invite_profiles_list_view, remove_from_friends, send_invitations,
-                    reject_invatation, accept_invatation, MyshippersListViews,
+                    reject_invatation, accept_invatation, mysippersProfileListView, ShipperProfileView,
                     sippersProfileListView, ProfileViews, invites_received_view,
                     SotreDetail, BecomeVendor, AccountSetting, load_sub_categoires,
-                    StoreProducts, StoreProductCreate, StoreProductUpdate, StoreProductDelete, StoreOrders, SotreOrdersDetail)
+                    StoreProducts, StoreProductCreate, StoreProductUpdate, StoreProductDelete,
+                    StoreOrders, SotreOrdersDetail)
 urlpatterns = [
     path('api/', UserList.as_view()),
     path('api/<int:pk>/', UserDetail.as_view()),
-    # register
     # email verification
     # email verfivation token
-    # profile user
-    # update user
-    # update profile user
-
     path('profile/', ProfileViews, name='profile'),
-    path('myshippers/', MyshippersListViews, name='myshippers'),
+    path('myshippers/', mysippersProfileListView.as_view(), name='myshippers'),
     path('my-invites/', invites_received_view, name='my_invites_received_view'),
     path('all-profiles/', sippersProfileListView.as_view(),
          name='profilesListViews'),
@@ -30,6 +26,7 @@ urlpatterns = [
 
     path('reject-invatation/', reject_invatation, name='reject-invatation-view'),
     path('accept-invatation/', accept_invatation, name='accept-invatation-view'),
+    path('<int:pk>/', ShipperProfileView, name='shipper_profile_detail'),
 
 
     path('', StoreView, name='store_list'),

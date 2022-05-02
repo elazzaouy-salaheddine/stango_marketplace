@@ -62,6 +62,8 @@ class ProfileUser(models.Model):
     watsapp_link = models.IntegerField(null=True, blank=True)
     shippers = models.ManyToManyField(
         'auth.User', blank=True, related_name='shippers')
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
     objects = ProfileManager()
 
     class Meta:
