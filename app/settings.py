@@ -124,9 +124,9 @@ POSTGRES_READY = (
     and POSTGRES_PORT is not None
 )
 cloudinary.config(
-    cloud_name=os.environ.get("CLOUDINARY_NAME"),
-    api_key=os.environ.get("CLOUDINARY_API_KEY"),
-    api_secret=os.environ.get("CLOUDINARY_SECRET_KEY")
+    cloud_name='salaheddine',
+    api_key="764272537345453",
+    api_secret='cBkypjqw1XXsZ3X4Y5-iKuQ3pMw',
 )
 
 if POSTGRES_READY:

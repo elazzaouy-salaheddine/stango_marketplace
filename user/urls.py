@@ -2,7 +2,8 @@ from django.urls import path
 from django.contrib.auth import views
 from django.contrib.auth.views import PasswordResetView
 from rest_framework.urlpatterns import format_suffix_patterns
-from .views import (ProfileView, RegisterUser, UserList, UserDetail, StoreView,
+from .views import (PaidOrders, ShippedOrders, OrderUpdate,
+                    RegisterUser, UserList, UserDetail, StoreView,
                     invite_profiles_list_view, remove_from_friends, send_invitations,
                     reject_invatation, accept_invatation, mysippersProfileListView, ShipperProfileView,
                     sippersProfileListView, ProfileViews, invites_received_view,
@@ -65,7 +66,12 @@ urlpatterns = [
          StoreProductDelete, name="store_product_delete"),
 
     path("orders/$/", StoreOrders, name="store_orders"),
+    path("paid-order/$/", PaidOrders, name="paid_orders"),
+    path("shipped-order/$/", ShippedOrders, name="shipped_orders"),
     path('orders/<int:pk>/$/', SotreOrdersDetail, name='store_order_detail'),
+    path("orders/<int:pk>/update-order/$/",
+         OrderUpdate, name="store_order_update"),
+
 
 
 ]

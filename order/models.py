@@ -1,7 +1,11 @@
+from pyexpat import model
 from django.contrib.auth.models import User
 from django.db import models
 from product.models import Product
 # Create your models here.
+from django.db.models.signals import post_save
+
+from user.models import ProfileUser
 
 
 class Custemer(models.Model):
@@ -12,21 +16,21 @@ class Custemer(models.Model):
     phone_number = models.CharField(max_length=255)
 
     def __str__(self):
-        if self.name==None:
+        if self.name == None:
             return "ERROR-CUSTOMER NAME IS NULL"
         return self.name
-
-
 
 
 class Order(models.Model):
     Delivered = 'Delivered'
     Return = 'Return'
     Unknown = 'Unknown'
+    Shipped = 'Shipped'
     SHIPPING_CHOICES = [
+        (Shipped, 'Shipped'),
         (Delivered, 'Delivered'),
         (Return, 'Return'),
-        (Unknown,'Unknown'),
+        (Unknown, 'Unknown'),
     ]
     Unpaid = 'Unpaid'
     Paid = 'Paid'
@@ -34,16 +38,17 @@ class Order(models.Model):
         (Unpaid, 'Unpaid'),
         (Paid, 'Paid'),
     ]
-    No_Reply= 'No Reply'
-    Confirmed='Confirmed'
-    Canceled='Canceled'
-    Call_Center_CHOICES =[
+    No_Reply = 'No Reply'
+    Confirmed = 'Confirmed'
+    Canceled = 'Canceled'
+    Call_Center_CHOICES = [
         (No_Reply, 'No Reply'),
         (Confirmed, 'Confirmed'),
         (Canceled, 'Canceled'),
-        (Unknown,'Unknown'),
+        (Unknown, 'Unknown'),
     ]
-    custemer = models.ForeignKey(Custemer, on_delete=models.SET_NULL, null=True, blank=True)
+    custemer = models.ForeignKey(
+        Custemer, on_delete=models.SET_NULL, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False)
     Payment_status = models.CharField(
@@ -61,19 +66,21 @@ class Order(models.Model):
         choices=Call_Center_CHOICES,
         default=Unknown,
     )
+    myshipper = models.ManyToManyField(
+        ProfileUser, blank=True, related_name='myshipperuser')
 
     def __str__(self):
         return str(self.id)
-    
+
     @property
     def shipping(self):
         shipping = False
         orderitems = self.orderitem_set.all()
         for i in orderitems:
             if i.product.digital == False:
-                shipping=True
+                shipping = True
         return shipping
-    
+
     @property
     def get_cart_total(self):
         orderitems = self.orderitem_set.all()
@@ -93,10 +100,10 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     date_add = models.DateTimeField(auto_now_add=True)
-    
+
     class Meta:
-            ordering = ('date_add',)
-            
+        ordering = ('date_add',)
+
     @property
     def get_total(self):
         total = self.product.price * self.quantity
@@ -104,7 +111,8 @@ class OrderItem(models.Model):
 
 
 class ShippingAddress(models.Model):
-    custemer = models.ForeignKey(Custemer, on_delete=models.SET_NULL, null=True)
+    custemer = models.ForeignKey(
+        Custemer, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
     address = models.CharField(max_length=255, null=False)
     city = models.CharField(max_length=255, null=False)

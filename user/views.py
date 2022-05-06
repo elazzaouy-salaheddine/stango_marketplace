@@ -18,7 +18,7 @@ from product.models import Product, ProductImages
 from .models import ProfileUser, Relationship
 from django.shortcuts import get_object_or_404, redirect, render
 from rest_framework import generics
-from .froms import ProductForm, ProductImagesForm, ProfileForm, RegisterForm, ProductImagesFormSet
+from .froms import ProductForm, ProductImagesForm, ProfileForm, RegisterForm, ProductImagesFormSet, OrderForm
 from user import serializers
 from app import settings
 from .serializers import ProfileSerializer
@@ -315,7 +315,6 @@ def StoreProductCreate(request):
     return render(request, template_name, context)
 
 
-# importing formset_factory
 def StoreProductUpdate(request, pk, *args, **kwargs):
     obj = get_object_or_404(Product, id=pk)
     product_images = ProductImages.objects.filter(product_image=obj.pk)
@@ -338,8 +337,6 @@ def StoreProductUpdate(request, pk, *args, **kwargs):
         #u_form = UserUpdateForm(instance=request.user)
         product_form = ProductForm(instance=obj)
         formset = ProductImagesFormSe(queryset=qs)
-    print('-------------*******************')
-    print(qs)
     context = {
         'product_form': product_form,
         'ProductImagesFormSet': formset,
@@ -363,26 +360,75 @@ def StoreProductDelete(request, pk):
         # delete object
         obj.delete()
         # after deleting redirect to
-        # home page
         return redirect("store_products")
 
     return render(request, "user/account_layout/product-delete.html", context)
 
 
 def StoreOrders(request):
-    #orders = Order.objects.all().order_by('-date')
     orderItems = OrderItem.objects.filter(
         product__vendor=request.user).order_by('-date_add')
     orders = []
     for orderItem in orderItems:
         orders.append(orderItem.order)
     order = list(dict.fromkeys(orders))
-
+    total_orders_value = 0
+    total_orders_paid = 0
+    total_orders_unpaid = 0
+    total_orders_return = 0
+    for item in order:
+        total_orders_value += item.get_cart_total
+        if item.Payment_status == 'Paid':
+            total_orders_paid += item.get_cart_total
+        if item.Payment_status == 'Unpaid':
+            total_orders_unpaid += item.get_cart_total
+        if item.Shipping_status == 'Return':
+            total_orders_return += item.get_cart_total
     template_name = 'user/account_layout/orders_list.html'
     context = {
         'orders': order,
-        'orderItems': orderItems
+        'orderItems': orderItems,
+        'total_orders_value': total_orders_value,
+        'total_orders_paid': total_orders_paid,
+        'total_orders_unpaid': total_orders_unpaid,
+        'total_orders_return': total_orders_return
     }
+    return render(request, template_name, context)
+
+
+def PaidOrders(request):
+    orderItems = OrderItem.objects.filter(
+        product__vendor=request.user).order_by('-date_add')
+    orders = []
+    for orderItem in orderItems:
+        orders.append(orderItem.order)
+    order = list(dict.fromkeys(orders))
+    paid_orders = []
+    for item in order:
+        if item.Payment_status == 'Paid':
+            paid_orders.append(item)
+    template_name = 'user/account_layout/paid_order.html'
+    context = {
+        'orders': paid_orders,
+        'orderItems': orderItems}
+    return render(request, template_name, context)
+
+
+def ShippedOrders(request):
+    orderItems = OrderItem.objects.filter(
+        product__vendor=request.user).order_by('-date_add')
+    orders = []
+    for orderItem in orderItems:
+        orders.append(orderItem.order)
+    order = list(dict.fromkeys(orders))
+    shipped_orders = []
+    for item in order:
+        if item.Shipping_status == 'Shipped':
+            shipped_orders.append(item)
+    template_name = 'user/account_layout/shipped_orders.html'
+    context = {
+        'orders': shipped_orders,
+        'orderItems': orderItems}
     return render(request, template_name, context)
 
 
@@ -402,3 +448,17 @@ def SotreOrdersDetail(request, pk):
     }
     template_name = 'user/account_layout/store_order_detail.html'
     return render(request, template_name, context)
+
+
+def OrderUpdate(request, pk):
+    obj = get_object_or_404(Order, id=pk)
+    orderForm = OrderForm(request.POST or None, instance=obj)
+    if request.method == 'POST':
+        if orderForm.is_valid():
+            orderForm.save()
+            return redirect("store_orders")
+    context = {
+        'orderForm': orderForm,
+        'obj': obj
+    }
+    return render(request, "user/account_layout/order-update.html", context)

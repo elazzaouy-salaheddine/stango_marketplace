@@ -1,0 +1,72 @@
+{% extends "base/adminlayout.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{% block content %}
+
+
+<!-- Start of Page Header -->
+
+
+
+<!-- Start of PageContent -->
+<div class='content container-fluid'>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="card-body">
+                        <h5>update order </h5>
+
+
+
+                        <div class="row form-group ">
+                            <label for="{{field.Payment_status}}" class='col-sm-3 col-form-label input-label'>Payment
+                                status</label>
+                            <div class="mb-1 col-sm-9">
+                                {{ orderForm.Payment_status|add_class:"form-control"}}
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label for="{{field.Shipping_status}}" class='col-sm-3 col-form-label input-label'>Shipping
+                                status</label>
+                            <div class="mb-1 col-sm-9">
+                                {{ orderForm.Shipping_status|add_class:"form-control"}}
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label for="{{field.Call_Center_status}}" class='col-sm-3 col-form-label input-label'>Call
+                                Center status</label>
+                            <div class="mb-1 col-sm-9">
+                                {{ orderForm.Call_Center_status|add_class:"form-control"}}
+                            </div>
+                        </div>
+                        <div class="row form-group ">
+                            <label for="{{field.myshipper}}"
+                                class='col-sm-3 col-form-label input-label'>myshipper</label>
+                            <div class="mb-1 col-sm-9">
+                                {{ orderForm.myshipper|add_class:"form-control"}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <button class="btn btn-primary" type="submit">update order
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+{%endblock content%}
