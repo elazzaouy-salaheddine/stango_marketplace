@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 
-from order.models import Order
+from order.models import Order, OrderShipper
 from .models import ProfileUser
 from product.models import Product, ProductImages
 from category.models import Category, SubCategories
@@ -46,6 +46,16 @@ class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         exclude = ['custemer']
+
+
+class OrderShipperForm(forms.ModelForm):
+    class Meta:
+        model = OrderShipper
+        exclude = ['order']
+    order_shipper = forms.ModelMultipleChoiceField(
+        queryset=ProfileUser.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
 
 
 class ProductForm(forms.ModelForm):

@@ -2,7 +2,7 @@ from django.db.models.signals import post_save, pre_delete
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from .models import ProfileUser, Relationship
-from order.models import Custemer
+from order.models import Custemer, OrderShipper, Order
 
 
 @receiver(post_save, sender=User)
@@ -10,6 +10,12 @@ def create_profile(sender, instance, created, **kwargs):
     if created:
         ProfileUser.objects.create(vendor=instance)
         Custemer.objects.create(user=instance)
+
+
+@receiver(post_save, sender=Order)
+def save_profile(sender, created, instance, **kwargs):
+    if created:
+        OrderShipper.objects.create(order=instance)
 
 
 @receiver(post_save, sender=User)

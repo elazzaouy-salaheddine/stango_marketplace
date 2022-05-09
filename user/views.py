@@ -1,3 +1,4 @@
+from ast import Or
 from pyclbr import Class
 from django.dispatch import receiver
 from django.forms import formset_factory
@@ -18,14 +19,14 @@ from product.models import Product, ProductImages
 from .models import ProfileUser, Relationship
 from django.shortcuts import get_object_or_404, redirect, render
 from rest_framework import generics
-from .froms import ProductForm, ProductImagesForm, ProfileForm, RegisterForm, ProductImagesFormSet, OrderForm
+from .froms import ProductForm, ProductImagesForm, ProfileForm, RegisterForm, ProductImagesFormSet, OrderForm, OrderShipperForm
 from user import serializers
 from app import settings
 from .serializers import ProfileSerializer
 from django.views.generic import ListView
 from user.models import ProfileUser
 from comment.models import Comment
-from order.models import Order, ShippingAddress
+from order.models import Order, ShippingAddress, OrderShipper
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -385,6 +386,7 @@ def StoreOrders(request):
         if item.Shipping_status == 'Return':
             total_orders_return += item.get_cart_total
     template_name = 'user/account_layout/orders_list.html'
+
     context = {
         'orders': order,
         'orderItems': orderItems,
@@ -462,3 +464,20 @@ def OrderUpdate(request, pk):
         'obj': obj
     }
     return render(request, "user/account_layout/order-update.html", context)
+
+
+def OrderUpdateShipper(request, pk):
+    ordershipper = get_object_or_404(OrderShipper, id=pk)
+
+    if request.method == 'POST':
+        OrderShipperFormvies = OrderShipperForm(
+            request.POST or None, instance=ordershipper)
+        if OrderShipperFormvies.is_valid():
+            OrderShipperFormvies.save()
+            return redirect("store_orders")
+    else:
+        OrderShipperFormvies = OrderShipperForm(instance=ordershipper)
+    context = {
+        'OrderShipperFormvies': OrderShipperFormvies
+    }
+    return render(request, "user/account_layout/order-update-shipper.html", context)

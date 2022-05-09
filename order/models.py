@@ -66,8 +66,6 @@ class Order(models.Model):
         choices=Call_Center_CHOICES,
         default=Unknown,
     )
-    myshipper = models.ManyToManyField(
-        ProfileUser, blank=True, related_name='myshipperuser')
 
     def __str__(self):
         return str(self.id)
@@ -92,6 +90,18 @@ class Order(models.Model):
         orderitems = self.orderitem_set.all()
         cart_total_items = sum([item.quantity for item in orderitems])
         return cart_total_items
+
+    @property
+    def get_order_shipper(self):
+        orderShiper = self.ordershipper_set.first()
+        return orderShiper
+
+
+class OrderShipper(models.Model):
+    order = models.ForeignKey(
+        Order, null=True, blank=True, on_delete=models.SET_NULL)
+    order_shipper = models.ManyToManyField(
+        ProfileUser)
 
 
 class OrderItem(models.Model):
