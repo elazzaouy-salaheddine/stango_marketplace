@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ENV_ALLOWED_HOST = os.environ.get('DJANGO_ALLOWED_HOST') or None
 ALLOWED_HOSTS = []
@@ -124,9 +124,9 @@ POSTGRES_READY = (
     and POSTGRES_PORT is not None
 )
 cloudinary.config(
-    cloud_name='salaheddine',
-    api_key="764272537345453",
-    api_secret='cBkypjqw1XXsZ3X4Y5-iKuQ3pMw',
+    cloud_name=os.environ.get("CLOUDINARY_NAME"),
+    api_key=os.environ.get("CLOUDINARY_API_KEY"),
+    api_secret=os.environ.get("CLOUDINARY_API_SECRET"),
 )
 
 if POSTGRES_READY:
