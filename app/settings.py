@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
-from tkinter import TRUE
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
