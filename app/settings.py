@@ -60,8 +60,7 @@ INSTALLED_APPS = [
     'customer',
     'comment',
     'category',
-    'mptt',
-    'django_seed'
+    'mptt'
 ]
 
 MIDDLEWARE = [
