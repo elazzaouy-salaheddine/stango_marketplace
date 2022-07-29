@@ -101,11 +101,15 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 if DEBUG == True:
     DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'stangoshop2',
+            'USER': 'postgres',
+            'PASSWORD': 'ROOT',
+            'HOST': 'localhost',
         }
     }
+
 else:
     DATABASES = {
         'default': {
@@ -198,11 +202,11 @@ LOGOUT_REDIRECT_URL = '/'
 CORS_ALLOW_ALL_ORIGINS = True
 
 
-EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
-EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = 'stangoshop@gmail.com'
+EMAIL_HOST_PASSWORD = 'hnrypolizowfwnzz'
 
 MPTT_ADMIN_LEVEL_INDENT = 20
