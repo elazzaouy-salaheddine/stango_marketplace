@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='profileuser',
             name='job',
-            field=models.CharField(choices=[('vendor', 'vendro'), ('shipper', 'shipper')], default=django.utils.timezone.now, max_length=8),
+            field=models.CharField(choices=[('vendor', 'vendro'), ('shipper', 'shipper')], default=django.utils.timezone.now, max_length=255),
             preserve_default=False,
         ),
     ]

@@ -37,7 +37,7 @@ class ProfileUser(models.Model):
         ('vendor', 'vendror'),
         ('shipper', 'shipper')
     )
-    job = models.CharField(max_length=8, choices=JOB_CHOICES)
+    job = models.CharField(max_length=255, choices=JOB_CHOICES)
     store_name = models.CharField(max_length=100, blank=True, null=False, unique=True, default=uuid.uuid1, error_messages={
         "unique": "The store must be unique "
     })
