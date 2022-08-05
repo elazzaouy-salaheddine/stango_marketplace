@@ -1,0 +1,43 @@
+{% extends "base/adminlayout.html" %} {% load widget_tweaks %} {% load static %}
+{% block content %}
+
+<div class="content container-fluid">
+  <div class="row pb-5">
+    <div class="col-sm-12">
+      <div class="chat-window">
+        <div class="chat-cont-left">
+          <div class="chat-header">
+            <span>Chats</span>
+          </div>
+
+          <div class="chat-users-list">
+            <div class="pb-5">
+
+
+                             {% for room in rooms %} 
+               <a href="{% url 'room' room.slug %}" >
+                               {% if profile == room.user_01 or profile == room.user_02  %}
+                      {% if profile == room.user_01 %}
+                        {{ room.user_02 }}
+                      {% else %}
+                        {{ room.user_01 }}
+                      {% endif %}
+                      <br>
+
+                {% endif %} 
+               </a>
+
+              {% endfor %}
+         
+
+            </div>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

@@ -61,11 +61,6 @@
 
 
                     
-                      <form action=" {% url 'send-invitations-view' %} " method="POST" class='d-flex justify-content-end'>
-                          {% csrf_token %}
-                          <input type="hidden" name="profile_pk" value={{shipper.pk}}>
-                          <button type="submit" class="btn btn-sm btn-white text-success me-2"><i class="plus square icon"></i>send message</button>
-                      </form>
                    
 
                    

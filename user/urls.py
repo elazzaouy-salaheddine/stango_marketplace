@@ -18,7 +18,7 @@ urlpatterns = [
     path('profile/', ProfileViews, name='profile'),
     path('myshippers/', mysippersProfileListView.as_view(), name='myshippers'),
     path('my-invites/', invites_received_view, name='my_invites_received_view'),
-    path('all-profiles/', sippersProfileListView.as_view(),
+    path('all-shippers/', sippersProfileListView.as_view(),
          name='profilesListViews'),
     path('to-invite-profiles/', invite_profiles_list_view,
          name='invite-profile-list-view'),

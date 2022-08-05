@@ -23,9 +23,28 @@
                  product info
              </div>
             <div class='col-md-8'>
-                {% for message in messages %}
-                  {{message}}
-                {% endfor %}
+
+
+
+
+
+
+                <ul class="messages" id="messages-list">
+                    {% if messages %}
+                        {% for message in messages %}
+                        <li>
+                            {% if message.tags %}
+                                 <div class="alert alert-{{ message.tags }} msg fade show" role="alert">{{ message }}</div>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    {% endif %}
+                    </ul>
+
+
+
+
+
                 <form action="." class="" id="productform" method="post" enctype="multipart/form-data" data-cities-url="{% url 'load_sub_categoires' %}">
                     {% csrf_token %}
                     {% for error in field.errors  %}

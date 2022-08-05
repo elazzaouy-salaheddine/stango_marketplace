@@ -1,7 +1,33 @@
+
+
+{% for item in shipperslist  %}
+{{item}}
+{% endfor %}
+
+
+
+
 <form action="." method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
-    {{OrderShipperFormvies}}
+       {% for it in OrderShipperFormvies %}
+           
+          {{ it.label }}
+    {{ it }}
+       {% endfor %}
+
+
+{% comment %} <select id="order_shipper" name="id_order_shipper">
+{% for x, y in OrderShipperFormvies.fields.order_shipper.choices %}
+    <option value="{{ x }}"{% if OrderShipperFormvies.fields.order_shipper.value == x %} selected{% endif %}>{{ y }}</option>
+{% endfor %}
+</select>
+ {% endcomment %}
+
+
+
+
+
     <button class="btn btn-primary" style="width: max-content;border-radius: 10px;margin-left: auto;"
         type="submit">update order</button>
 

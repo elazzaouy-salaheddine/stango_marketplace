@@ -1,10 +1,10 @@
-from pyexpat import model
+
 from django.contrib.auth.models import User
 from django.db import models
 from product.models import Product
 # Create your models here.
 from django.db.models.signals import post_save
-
+from taggit.managers import TaggableManager
 from user.models import ProfileUser
 
 
@@ -100,8 +100,9 @@ class Order(models.Model):
 class OrderShipper(models.Model):
     order = models.ForeignKey(
         Order, null=True, blank=True, on_delete=models.SET_NULL)
-    order_shipper = models.ManyToManyField(
-        ProfileUser)
+    order_shipper = models.ForeignKey(
+        ProfileUser, on_delete=models.CASCADE)
+    #order_shipper = TaggableManager()
 
 
 class OrderItem(models.Model):

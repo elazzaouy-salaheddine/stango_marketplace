@@ -132,56 +132,61 @@ class mysippersProfileListView(ListView):
         return qs
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        user = User.objects.get(username__iexact=self.request.user)
-        profile = ProfileUser.objects.get(vendor=user)
-        rel_r = Relationship.objects.filter(sender=profile)
-        rel_s = Relationship.objects.filter(receiver=profile)
-        rel_receiver = []
-        rel_sender = []
-        for item in rel_r:
-            rel_receiver.append(item.receiver.vendor)
-        for item in rel_s:
-            rel_sender.append(item.sender.vendor)
+        if self.request.user.is_authenticated:
+            context = super().get_context_data(**kwargs)
+            user = User.objects.get(
+                username__iexact=self.request.user.username)
+            profile = ProfileUser.objects.get(vendor=user)
+            rel_r = Relationship.objects.filter(sender=profile)
+            rel_s = Relationship.objects.filter(receiver=profile)
+            rel_receiver = []
+            rel_sender = []
+            for item in rel_r:
+                rel_receiver.append(item.receiver.vendor)
+            for item in rel_s:
+                rel_sender.append(item.sender.vendor)
 
-        context["rel_receiver"] = rel_receiver
-        context["rel_sender"] = rel_sender
-        context['is_empty'] = False
-        if len(self.get_queryset()) == 0:
-            context['is_empty'] = True
+            context["rel_receiver"] = rel_receiver
+            context["rel_sender"] = rel_sender
+            context['is_empty'] = False
+            if len(self.get_queryset()) == 0:
+                context['is_empty'] = True
 
-        return context
+            return context
 
 
 class sippersProfileListView(ListView):
     model = ProfileUser
     template_name = 'user/profile_list.html'
-    # context_object_name = 'qs'
+    #context_object_name = 'qs'
 
     def get_queryset(self):
+
         qs = ProfileUser.objects.get_all_profiles(self.request.user)
         return qs
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        user = User.objects.get(username__iexact=self.request.user)
-        profile = ProfileUser.objects.get(vendor=user)
-        rel_r = Relationship.objects.filter(sender=profile)
-        rel_s = Relationship.objects.filter(receiver=profile)
-        rel_receiver = []
-        rel_sender = []
-        for item in rel_r:
-            rel_receiver.append(item.receiver.vendor)
-        for item in rel_s:
-            rel_sender.append(item.sender.vendor)
+        if self.request.user.is_authenticated:
+            context = super().get_context_data(**kwargs)
+            user = User.objects.get(
+                username__iexact=self.request.user.username)
+            profile = ProfileUser.objects.get(vendor=user)
+            rel_r = Relationship.objects.filter(sender=profile)
+            rel_s = Relationship.objects.filter(receiver=profile)
+            rel_receiver = []
+            rel_sender = []
+            for item in rel_r:
+                rel_receiver.append(item.receiver.vendor)
+            for item in rel_s:
+                rel_sender.append(item.sender.vendor)
 
-        context["rel_receiver"] = rel_receiver
-        context["rel_sender"] = rel_sender
-        context['is_empty'] = False
-        if len(self.get_queryset()) == 0:
-            context['is_empty'] = True
+            context["rel_receiver"] = rel_receiver
+            context["rel_sender"] = rel_sender
+            context['is_empty'] = False
+            if len(self.get_queryset()) == 0:
+                context['is_empty'] = True
 
-        return context
+            return context
 
 
 def send_invitations(request):
@@ -454,6 +459,7 @@ def SotreOrdersDetail(request, pk):
 
 def OrderUpdate(request, pk):
     obj = get_object_or_404(Order, id=pk)
+    profile = ProfileUser.objects.get(vendor=request.user)
     orderForm = OrderForm(request.POST or None, instance=obj)
     if request.method == 'POST':
         if orderForm.is_valid():
@@ -461,14 +467,16 @@ def OrderUpdate(request, pk):
             return redirect("store_orders")
     context = {
         'orderForm': orderForm,
-        'obj': obj
+        'obj': obj,
+        'profile': profile
     }
     return render(request, "user/account_layout/order-update.html", context)
 
 
 def OrderUpdateShipper(request, pk):
     ordershipper = get_object_or_404(OrderShipper, id=pk)
-
+    profile = ProfileUser.objects.get(vendor=request.user)
+    shipperslist = profile.shippers.all()
     if request.method == 'POST':
         OrderShipperFormvies = OrderShipperForm(
             request.POST or None, instance=ordershipper)
@@ -476,8 +484,11 @@ def OrderUpdateShipper(request, pk):
             OrderShipperFormvies.save()
             return redirect("store_orders")
     else:
-        OrderShipperFormvies = OrderShipperForm(instance=ordershipper)
+        OrderShipperFormvies = OrderShipperForm(
+            instance=ordershipper, shippers=shipperslist)
     context = {
-        'OrderShipperFormvies': OrderShipperFormvies
+        'OrderShipperFormvies': OrderShipperFormvies,
+        'profile': profile,
+        'shipperslist': shipperslist
     }
     return render(request, "user/account_layout/order-update-shipper.html", context)

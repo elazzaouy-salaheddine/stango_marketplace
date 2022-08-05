@@ -1,4 +1,5 @@
 from pyexpat import model
+from urllib import request
 from django.core.exceptions import ValidationError
 from django.forms import Form, CharField, EmailField, PasswordInput, inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
@@ -9,6 +10,8 @@ from order.models import Order, OrderShipper
 from .models import ProfileUser
 from product.models import Product, ProductImages
 from category.models import Category, SubCategories
+from django import forms
+from django.forms import ModelChoiceField
 
 
 class RegisterForm(UserCreationForm):
@@ -49,13 +52,21 @@ class OrderForm(forms.ModelForm):
 
 
 class OrderShipperForm(forms.ModelForm):
+    user_choice = ModelChoiceField(
+        widget=forms.RadioSelect,
+        queryset=None,
+        empty_label=None,
+        label='Please select'
+    )
+
+    def __init__(self, shippers, *args, **kwargs):
+        super(OrderShipperForm, self).__init__(*args, **kwargs)
+        self.fields['user_choice'].queryset = ProfileUser.objects.all().filter(
+            shippers=ProfileUser.shippers)
+
     class Meta:
         model = OrderShipper
-        exclude = ['order']
-    order_shipper = forms.ModelMultipleChoiceField(
-        queryset=ProfileUser.objects.all(),
-        widget=forms.CheckboxSelectMultiple
-    )
+        fields = ['order_shipper']
 
 
 class ProductForm(forms.ModelForm):
